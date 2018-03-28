@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>全选</title>
+</head>
+
+<body>
+    全选
+    <input type="checkbox" name="all">
+    <br />
+    <input type="checkbox" name="item">
+    <input type="checkbox" name="item">
+    <input type="checkbox" name="item">
+    <input type="checkbox" name="item">
+    <script>
+    /**
+     * selectAll(a, b);
+     * a:全选复选框name值
+     * b:单个复选框name值
+     */
+    selectAll("all", "item");
+
+    function selectAll(all, item) {
+        var cbAll = document.querySelector("input[name=" + all + "]");
+        var items = document.querySelectorAll("input[name=" + item + "]");
+        var falseCount = items.length; //没有被选中的个数，这里等于4
+        cbAll.onchange = function() { //监听全选框
+            for (let i = 0; i < items.length; i++) {
+                items[i].checked = cbAll.checked;
+            }
+            if (falseCount = cbAll.checked) {
+                falseCount = 0; //如果全部被选中,则falseCount=0
+            } else {
+                falseCount = items.length; //否则falseCount=4
+            }
+            falseCount = cbAll.checked ? 0 : items.length;
+        }
+
+        //监听其他框
+        for (let i = 0; i < items.length; i++) {
+            items[i].onchange = function() {
+                !items[i].checked ? falseCount++ : falseCount--;
+                cbAll.checked = falseCount == 0 ? true : false;
+            }
+        }
+    }
+    </script>
+</body>
+
+</html>

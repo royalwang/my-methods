@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>弹窗遮罩</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <style type="text/css">
+    #loading {
+        background-color: rgba(55, 65, 64, .6);
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        z-index: 99999;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /*display: none;*/
+    }
+
+    #loading-center {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    #loading-center-absolute {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100px;
+        width: 100px;
+        margin-top: -50px;
+        margin-left: -50px;
+    }
+
+    #object {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto;
+        background-color: #FFF;
+        -webkit-animation: animate 1s infinite ease-in-out;
+        animation: animate 1s infinite ease-in-out;
+    }
+
+    @-webkit-keyframes animate {
+        0% {
+            -webkit-transform: perspective(160px);
+        }
+        50% {
+            -webkit-transform: perspective(160px) rotateY(-180deg);
+        }
+        100% {
+            -webkit-transform: perspective(160px) rotateY(-180deg) rotateX(-180deg);
+        }
+    }
+
+    @keyframes animate {
+        0% {
+            transform: perspective(160px) rotateX(0deg) rotateY(0deg);
+            -webkit-transform: perspective(160px) rotateX(0deg) rotateY(0deg);
+        }
+        50% {
+            transform: perspective(160px) rotateX(-180deg) rotateY(0deg);
+            -webkit-transform: perspective(160px) rotateX(-180deg) rotateY(0deg);
+        }
+        100% {
+            transform: perspective(160px) rotateX(-180deg) rotateY(-180deg);
+            -webkit-transform: perspective(160px) rotateX(-180deg) rotateY(-180deg);
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div id="loading">
+        <div id="loading-center">
+            <div id="loading-center-absolute">
+                <div id="object"></div>
+                <div style="text-align: center;color: #fff;margin-top: 30px;">加载中...</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

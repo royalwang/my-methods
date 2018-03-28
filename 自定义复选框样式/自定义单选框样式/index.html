@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+    .magic-radio-item {
+        margin-right: 10px;
+    }
+
+    .magic-radio {
+        display: none;
+    }
+
+    .magic-radio+label {
+        position: relative;
+        color: #333333;
+        font-size: 14px;
+        padding-left: 26px;
+    }
+
+    .magic-radio+label:before {
+        content: "";
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #dedede;
+        display: inline-block;
+        position: absolute;
+        top: -2px;
+        left: 0;
+    }
+
+    .magic-radio+label:after {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: white;
+        display: inline-block;
+        position: absolute;
+        top: 4px;
+        left: 6px;
+    }
+
+    .magic-radio:checked+label:before {
+        content: "";
+        background-color: #88cd45;
+    }
+
+    .magic-radio:checked+label:after {
+        content: "";
+        background-color: white;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="magic-radio-item-chejiayi">
+        <input id="0" class="magic-radio" name="isRegister" type="radio" value="0" checked>
+        <label for="0">正式牌照</label>
+    </div>
+    <div class="magic-radio-item-chejiayi">
+        <input id="1" class="magic-radio" name="isRegister" type="radio" value="1">
+        <label for="1"> 其他</label>
+    </div>
+    <script src="../../jquery-3.2.1.min.js"></script>
+    <script>
+    $("input[name='isRegister']").on("change", function() {
+        if ($(this).val() == 0) {
+            alert('你选中了0')
+        } else {
+            alert('你选中了1')
+        }
+    })
+    </script>
+</body>
+
+</html>

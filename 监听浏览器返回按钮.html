@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>监听浏览器返回按钮</title>
+</head>
+
+<body>
+    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+    /**
+     * window.history.pushState(a, b, c)方法
+     * a:@状态对象：记录历史记录点的额外对象，可以为空,即null
+     * b:@页面标题：目前所有浏览器都不支持
+     * c:@可选的url：浏览器不会检查url是否存在，只改变url，url必须同域，不能跨域
+     */
+
+    //依赖jquery(不能返回上一步操作,有Bug);
+    // if (window.history && window.history.pushState) {
+    //     $(window).on('popstate', function() {
+    //         var hashLocation = location.hash;
+    //         var hashSplit = hashLocation.split("#!/");
+    //         var hashName = hashSplit[1];
+    //         if (hashName !== '') {
+    //             var hash = window.location.hash;
+    //             if (hash === '') {
+    //                 // alert('后退按钮点击');
+    //                 //指定跳转地址
+    //                 window.location.href = "iframe自动加载高度.html";
+    //             }
+    //         }
+    //     });
+    //     window.history.pushState('forward', null, './#forward');
+    // }
+    // 
+    // 
+    // 
+    // 
+    // 
+    // 
+    // 原生方式(能返回上一步操作)
+    (function(window, location) {
+        history.replaceState(null, document.title, location.pathname + "#!/stealingyourhistory");
+        history.pushState(null, document.title, location.pathname);
+        window.addEventListener("popstate", function() {
+            if (location.hash === "#!/stealingyourhistory") {
+                history.replaceState(null, document.title, location.pathname);
+                setTimeout(function() {
+                    //指定跳转地址
+                    location.replace("解决js浮点运算精度.html");
+                }, 0);
+            }
+        }, false);
+    }(window, location));
+    </script>
+</body>
+
+</html>

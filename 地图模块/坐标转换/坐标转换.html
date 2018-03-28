@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>坐标转换</title>
+</head>
+
+<body>
+    <script src="gcoord.js"></script>
+    <script>
+    // function B2T($lng, $lat) {
+    //     $x_pi = 3.14159265358979324 * 3000.0 / 180.0;
+    //     $x = $lng - 0.0065;
+    //     $y = $lat - 0.006;
+    //     $z = Math.sqrt($x * $x + $y * $y) - 0.00002 * Math.sin($y * $x_pi);
+    //     $theta = Math.atan2($y, $x) - 0.000003 * Math.cos($x * $x_pi);
+    //     $lng = $z * Math.cos($theta);
+    //     $lat = $z * Math.sin($theta);
+    //     return [$lat, $lng];
+    // }
+    // console.log(Convert_BD09_To_GCJ02(117.178184, 39.148499));
+    // 
+    // 
+    // 
+    // 
+    // 使用方法：transform( input, from, to )
+    // 
+    // gcoord.WGS84---->WGS-84坐标系，GPS设备获取的经纬度坐标
+    // gcoord.GCJ02---->GCJ-02坐标系，google中国地图、soso地图、aliyun地图、mapabc地图和高德地图所用的经纬度坐标
+    // gcoord.BD09---->BD-O9坐标系，百度地图采用的经纬度坐标
+    // gcoord.WGS1984---->WGS-84坐标系别名，同WGS-84
+    // gcoord.EPSG4326---->WGS-84坐标系别名，同WGS-84
+    // 
+    // 
+    // 
+    // 说明：
+    // 高德地图、腾讯地图以及谷歌中国区地图使用的是GCJ-02坐标系
+    // 百度地图使用的是BD-09坐标系
+    // 底层接口(HTML5 Geolocation或ios、安卓API)通过GPS设备获取的坐标使用的是WGS-84坐标系
+    // 
+    // 例1.
+    // 将WGS84坐标转换为BD09坐标
+    // var result = gcoord.transform(
+    // [ 116.403988, 39.914266 ],    // 经纬度坐标
+    // gcoord.WGS84,                 // 当前坐标系
+    // gcoord.BD09                   // 目标坐标系
+    // );
+    // 
+    // 
+    // 例2.
+    // 转换GeoJSON坐标
+    // var geojson = {
+    // "type": "Point",
+    // "coordinates": [ 123, 45 ]
+    // }
+    // gcoord.transform( geojson, gcoord.GCJ02, gcoord.WGS84 );
+    // console.log( geojson.coordinates ); // [ 122.99395597, 44.99804071 ]
+    // 
+    // 
+    var result = gcoord.transform([117.178184, 39.148499], gcoord.BD09, gcoord.GCJ02);
+    console.log(result); // [ 122.99395597, 44.99804071 ]
+    </script>
+</body>
+
+</html>

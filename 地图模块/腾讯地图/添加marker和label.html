@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>添加marker和label</title>
+    <style type="text/css">
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    body,
+    button,
+    input,
+    select,
+    textarea {
+        font: 12px/16px Verdana, Helvetica, Arial, sans-serif;
+    }
+
+    p {
+        width: 603px;
+        padding-top: 3px;
+        overflow: hidden;
+    }
+
+    #container {
+        min-width: 600px;
+        min-height: 767px;
+    }
+    </style>
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+    <script>
+    function init() {
+        var map = new qq.maps.Map(document.getElementById('container'), {
+            disableDefaultUI: true,
+            zoom: 12
+        });
+        var infoWin = new qq.maps.InfoWindow({
+            map: map
+        });
+        var markerList = [
+            { LatLng: [39.959228, 116.367874], name: 'aaa' },
+            { LatLng: [39.984486, 116.427612], name: 'bbb' },
+            { LatLng: [39.988169, 116.279984], name: 'ccc' },
+            { LatLng: [39.847558, 116.402893], name: 'ddd' },
+            { LatLng: [39.941857, 116.383667], name: 'eee' },
+            { LatLng: [40.022882, 116.551208], name: 'fff' },
+            { LatLng: [40.022882, 116.551208], name: 'ggg' },
+            { LatLng: [40.022882, 116.551208], name: 'hhh' },
+            { LatLng: [39.819085, 116.581421], name: 'iii' },
+            { LatLng: [39.924482, 116.205826], name: 'jjj' },
+        ];
+        var LatLng = qq.maps.LatLng;
+        var markerArr = [];
+        var labelArr = [];
+        for (var i in markerList) {
+            (function(n) {
+                //设置服务请求成功的回调函数
+                var latLng = new qq.maps.LatLng(markerList[n].LatLng[0], markerList[n].LatLng[1]);
+                map.setCenter(latLng)
+
+                var marker = new qq.maps.Marker({
+                    position: latLng,
+                    animation: qq.maps.MarkerAnimation.DOWN,
+                    icon: new qq.maps.MarkerImage(
+                        "../icon9.png"),
+                    map: map,
+                });
+                var label = new qq.maps.Label({
+                    position: latLng,
+                    offset: new qq.maps.Size(13, -38),
+                    // style: { padding: "1px 5px", borderRadius: "5px", border: "1px solid #D7290F", zIndex: 99 },
+                    map: map,
+                    content: markerList[n].name,
+                    zIndex: 1000
+                });
+                markerArr.push(marker);
+                labelArr.push(label);
+                label.setVisible(false);
+                qq.maps.event.addListener(marker, 'click', markerClick);
+                // qq.maps.event.addListener(label, 'click', labelClick);
+            })(i);
+        }
+
+        function markerClick(e) {
+            // console.log(e.target)
+            var index = '';
+            for (var i = 0; i < markerArr.length; i++) {
+                markerArr[i].setIcon(new qq.maps.MarkerImage("../icon9.png", new qq.maps.Size(40, 49)));
+                markerArr[i].setZIndex(100);
+                if (markerArr[i] == e.target) {
+                    index = i;
+                }
+            }
+
+            for (var j = 0; j < labelArr.length; j++) {
+                labelArr[j].setVisible(false);
+            }
+            e.target.setIcon(new qq.maps.MarkerImage(
+                "../icon8.png", new qq.maps.Size(40, 49)));
+            labelArr[index].setVisible(true);
+            console.log(labelArr[index].getVisible())
+        }
+
+        function labelClick(e) {
+            console.log(e.latLng)
+        }
+    }
+    window.onload = init;
+    </script>
+</head>
+
+<body>
+    <div id="container"></div>
+</body>
+
+</html>

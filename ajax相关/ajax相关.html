@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title></title>
+</head>
+
+<body>
+    <div>
+        <span><!-- ajax解决浏览器缓存问题 --></span>
+        <div>
+            <!-- 1、在ajax发送请求前加上 anyAjaxObj.setRequestHeader("If-Modified-Since","0")。
+
+			2、在ajax发送请求前加上 anyAjaxObj.setRequestHeader("Cache-Control","no-cache")。
+
+			3、在URL后面加上一个随机数： "fresh=" + Math.random();。
+
+			4、在URL后面加上时间戳："nowtime=" + new Date().getTime();。
+
+			5、如果是使用jQuery，直接这样就可以了 $.ajaxSetup({cache:false})。这样页面的所有ajax都会执行这条语句就是不需要保存缓存记录。 -->
+        </div>
+    </div>
+    <div>
+        <span><!-- Http POST 提交数据的四种方式解析 --></span>
+        <div>
+            <!-- 1.表单不设置 enctype 属性，application/x-www-form-urlencoded （默认常用的），因此Content-Type:application/x-www-form-urlencoded
+
+        	2.使用表单上传文件时必须让表单的 enctyped 等于 multipart/form-data
+
+        	3.application/json 这种方案，可以方便的提交复杂的结构化数据，主体是序列化后的JSON字符串( JSON.stringify)
+
+        	4.text/xml 现在几乎不用,默认情况下，标准的跨域请求是不会发送cookie等用户认证凭据的 -->
+        </div>
+    </div>
+</body>
+
+</html>

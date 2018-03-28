@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>bootstrap文件上传</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="Font-Awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/fileinput.min.css" />
+    <link rel="stylesheet" href="css/theme.min.css" />
+    <script type="text/javascript" src="../../jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- 拖放排序插件 sortable.min.js -->
+    <script type="text/javascript" src="js/sortable.min.js"></script>
+    <!-- 文件上传插件 fileinput.min.js-->
+    <script type="text/javascript" src="js/fileinput.min.js"></script>
+    <script type="text/javascript" src="js/theme.min.js"></script>
+    <!-- 提示信息插件 popper.min.js-->
+    <script type="text/javascript" src="js/popper.min.js"></script>
+</head>
+
+<body>
+    <!-- <div class="container kv-main"> -->
+    <form enctype="multipart/form-data" id="form">
+        <div class="form-group">
+            <div class="file-loading">
+                <input id="file" type="file" class="file" name="file" data-upload-url="#">
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary submit" type="button">Submit</button>
+            <button class="btn btn-default" type="reset">Reset</button>
+        </div>
+    </form>
+    <!-- </div> -->
+    <script>
+    var imgsrc = "img/下载.jpg";
+    $("#file").fileinput({
+        theme: 'fa',
+        //是否显示选择文件按钮
+        showBrowse: false,
+        //是否拖拽
+        showDrag: true,
+        //点击拖拽框选择文件
+        browseOnZoneClick: true,
+        showCancel: true,
+        //显示右上角关闭按钮
+        showClose: false,
+        //是否显示上传按钮
+        showUpload: false,
+        //是否显示移除按钮
+        showRemove: true,
+        //是否显示文件名称
+        showCaption: true,
+        removeFromPreviewOnError: false, //当选择的文件不符合规则时，例如不是指定后缀文件、大小超出配置等，选择的文件不会出现在预览框中，只会显示错误信息  
+        //browse按钮样式
+        browseClass: "btn btn-primary btn-md",
+        fileType: "any",
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+        //重写初始化预览图
+        overwriteInitial: true,
+        //是否显示初始化预览图
+        initialPreviewAsData: true,
+        maxFilesNum: 1,
+        //图片地址
+        initialPreview: [
+            imgsrc
+        ],
+        //配置预览图片信息
+        initialPreviewConfig: [
+            { caption: "transport-1.jpg", size: 329892, width: "120px", key: 1 },
+        ],
+        //隐藏单个文件上传、删除按钮
+        layoutTemplates: {
+            actionDelete: '',
+            actionUpload: '',
+        },
+        msgZoomModalHeading: '详情',
+        dropZoneTitle: '将文件拖拽到此处',
+        dropZoneClickTitle: '<br>(或点击此处选择文件)',
+        removeLabel: '清除',
+        removeTitle: '清除所选文件',
+        browseLabel: '选择文件',
+        fileActionSettings: {
+            zoomTitle: '预览',
+            showDrag: true,
+        }
+    });
+    // $(".btn-disable").on('click', function() {
+    //     var $el = $("#file");
+    //     if ($el.attr('disabled')) {
+    //         $el.fileinput('enable');
+    //     } else {
+    //         $el.fileinput('disable');
+    //     }
+    // });
+    // $(".btn-info").on('click', function() {
+    //     $("#file").fileinput('refresh', { previewClass: 'bg-info' });
+    // });
+    $('.submit').on('click', function() {
+        var formData = new FormData($("#form")[0]);
+        console.log(formData.getAll("file"));
+    })
+    </script>
+</body>
+
+</html>

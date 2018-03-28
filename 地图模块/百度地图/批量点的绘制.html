@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>批量点的添加</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script type="text/javascript" src="../../jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Q3azqy4r9nwxsxvlZ7aOeeE3ewHKv1cu"></script>
+    <style type="text/css">
+    body,
+    html {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    #map {
+        width: 100%;
+        height: 100%;
+    }
+    /*去掉百度地图的logo*/
+
+    .anchorBL img {
+        display: none;
+    }
+
+    #locationBtn {
+        position: absolute;
+        z-index: 9999;
+        bottom: 1.0rem;
+        right: 0.4rem;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <!-- <div id="locationBtn" onClick="geolocation.getCurrentPosition();"><img src="../icon7.png" alt="" /></div> -->
+    <!-- <script type="text/javascript" src="../points.js"></script> -->
+    <script type="text/javascript">
+    var map = new BMap.Map('map', {
+        enableHighResolution: true //是否开启高清
+    });
+    var poi = new BMap.Point(116.307852, 40.057031);
+    map.centerAndZoom(poi, 18);
+    map.enableScrollWheelZoom();
+    map.addControl(new BMap.NavigationControl({ // 靠左上角位置
+        anchor: BMAP_ANCHOR_TOP_RIGHT,
+        // LARGE类型
+        type: BMAP_NAVIGATION_CONTROL_LARGE,
+        // 启用显示定位
+        enableGeolocation: true
+    }));
+    map.addControl(new BMap.ScaleControl());
+    // 添加定位控件
+    var geolocationControl = new BMap.GeolocationControl({
+        showAddressBar: false, //是否显示定位信息面板。默认显示定位信息面板
+        enableAutoLocation: false, //首次是否进行自动定位
+        offset: new BMap.Size(10, 25),
+        locationIcon: new BMap.Icon("../icon9.png", new BMap.Size(40, 49)), //定位结果的icon图标
+    });
+
+    //监听定位成功事件    
+    geolocationControl.addEventListener("locationSuccess", function(e) {
+        alert(e);
+    });
+    //监听定位失败事件    
+    geolocationControl.addEventListener("locationError", function(e) {
+        alert(e);
+    });
+    map.addControl(geolocationControl);
+
+    //浏览器定位
+    // var geolocation = new BMap.Geolocation();
+    // geolocation.getCurrentPosition(function(r) {
+    //     if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+    //         //关于状态码
+    //         //BMAP_STATUS_SUCCESS   检索成功。对应数值“0”。
+    //         //BMAP_STATUS_CITY_LIST 城市列表。对应数值“1”。
+    //         //BMAP_STATUS_UNKNOWN_LOCATION  位置结果未知。对应数值“2”。
+    //         //BMAP_STATUS_UNKNOWN_ROUTE 导航结果未知。对应数值“3”。
+    //         //BMAP_STATUS_INVALID_KEY   非法密钥。对应数值“4”。
+    //         //BMAP_STATUS_INVALID_REQUEST   非法请求。对应数值“5”。
+    //         //BMAP_STATUS_PERMISSION_DENIED 没有权限。对应数值“6”。(自 1.1 新增)
+    //         //BMAP_STATUS_SERVICE_UNAVAILABLE   服务不可用。对应数值“7”。(自 1.1 新增)
+    //         //BMAP_STATUS_TIMEOUT   超时。对应数值“8”。(自 1.1 新增)
+    //         var mk = new BMap.Marker(r.point);
+    //         map.addOverlay(mk);
+    //         map.panTo(r.point);
+    //         alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+    //     } else {
+    //         alert('failed' + this.getStatus());
+    //     }
+    // }, { enableHighAccuracy: true });
+
+
+    var markerArr = [];
+    var points = [{
+        "lng": 116.191031,
+        "lat": 39.988585,
+        "count": 10
+    }, {
+        "lng": 116.389275,
+        "lat": 39.925818,
+        "count": 11
+    }, {
+        "lng": 116.287444,
+        "lat": 39.810742,
+        "count": 12
+    }, ]
+    for (var i = 0; i < points.length; i++) {
+        var p0 = points[i].lng;
+        var p1 = points[i].lat;
+        var markerPoint = addMarker(new BMap.Point(p0, p1), i);
+        markerArr.push(markerPoint);
+    }
+
+    // function createIcon(data, url) {
+    //     var icon = new BMap.Icon(url, new BMap.Size(data.w, data.h), {
+    //         imageOffset: new BMap.Size(-data.l, -data.t),
+    //         offset: new BMap.Size(data.w, data.h)
+    //     })
+    //     return icon;
+    // }
+
+    function addMarker(point, index) {
+        var myIcon = new BMap.Icon("../icon8.png",
+            new BMap.Size(40, 49), {
+                offset: new BMap.Size(10, 25),
+            });
+        var marker = new BMap.Marker(point, {
+            icon: myIcon
+        });
+        map.addOverlay(marker);
+        marker.addEventListener("click", markerClick);
+        return marker;
+    }
+
+    function markerClick(e) {
+        var p = e.target.getPosition(); //获取marker的位置
+        for (var k = 0; k < markerArr.length; k++) {
+            // var p0 = markerArr[k].getPosition().lng;
+            // var p1 = markerArr[k].getPosition().lat;
+            markerArr[k].setIcon(new BMap.Icon("../icon8.png", new BMap.Size(40, 49)));
+            markerArr[k].setZIndex(100);
+            // markerArr[k].setLabel('');
+        }
+        e.target.setIcon(new BMap.Icon("../icon9.png", new BMap.Size(40, 49)));
+        e.target.setZIndex(999);
+        // e.target.setLabel();
+        // console.log("marker的位置是" + p.lng + "," + p.lat);
+    }
+    $(function() {
+        // $('.BMap_geolocationIcon').css('background-image','url(../icon7.png)');
+        // $('.BMap_geolocationContainer').html('<img src="../icon7.png" alt="" />');
+
+    })
+    </script>
+</body>
+
+</html>

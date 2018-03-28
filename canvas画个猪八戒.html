@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>猪八戒</title>
+    <style type="text/css">
+    #canvas {
+        border: 1px solid #ADACBD;
+        display: block;
+        margin: 20px auto;
+    }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+    <script type="text/javascript">
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+
+    function coordinate() {
+        ctx.moveTo(0, 300);
+        ctx.lineTo(600, 300);
+        ctx.moveTo(300, 0);
+        ctx.lineTo(300, 600);
+    }
+
+    function drawBelly(x0, y0) { //画肚子
+        ctx.beginPath();
+        ctx.fillStyle = "#F8B4AB";
+        ctx.moveTo(x0, y0 - 150);
+        ctx.bezierCurveTo(x0 - 100, y0 - 150, x0 - 150, y0 + 100, x0, y0 + 100);
+        ctx.moveTo(x0, y0 - 150);
+        ctx.bezierCurveTo(x0 + 100, y0 - 150, x0 + 150, y0 + 100, x0, y0 + 100);
+        ctx.fill();
+        ctx.moveTo(x0 - 60, y0 - 90);
+        ctx.bezierCurveTo(x0 - 50, y0 - 70, x0 - 40, y0 - 70, x0 - 20, y0 - 90);
+        ctx.moveTo(x0 + 60, y0 - 90);
+        ctx.bezierCurveTo(x0 + 50, y0 - 70, x0 + 40, y0 - 70, x0 + 20, y0 - 90);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(x0, y0 + 40, 5, 0, Math.PI * 2);
+        ctx.stroke();
+    }
+
+    function drawHead(x0, y0) { //画头
+        //耳朵
+        ctx.beginPath();
+        ctx.fillStyle = "#F8B4AB";
+        ctx.moveTo(x0 - 35, y0 - 220)
+        ctx.bezierCurveTo(x0 - 60, y0 - 220, x0 - 93, y0 - 180, x0 - 42, y0 - 160);
+        ctx.moveTo(x0 + 35, y0 - 220)
+        ctx.bezierCurveTo(x0 + 60, y0 - 220, x0 + 93, y0 - 180, x0 + 42, y0 - 160);
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x0 - 36, y0 - 195);
+        ctx.quadraticCurveTo(x0 - 60, y0 - 195, x0 - 69, y0 - 185);
+        ctx.moveTo(x0 + 36, y0 - 195);
+        ctx.quadraticCurveTo(x0 + 60, y0 - 195, x0 + 69, y0 - 185)
+        ctx.stroke();
+        //头
+        ctx.beginPath();
+        ctx.fillStyle = "#F8B4AB";
+        ctx.moveTo(x0, y0 - 240);
+        ctx.bezierCurveTo(x0 - 60, y0 - 240, x0 - 60, y0 - 120, x0, y0 - 120);
+        ctx.moveTo(x0, y0 - 240);
+        ctx.bezierCurveTo(x0 + 60, y0 - 240, x0 + 60, y0 - 120, x0, y0 - 120);
+        ctx.fill();
+        ctx.stroke();
+        //眉毛
+        ctx.moveTo(x0 - 30, y0 - 220);
+        ctx.lineTo(x0 - 15, y0 - 210);
+        ctx.moveTo(x0 + 30, y0 - 220);
+        ctx.lineTo(x0 + 15, y0 - 210);
+
+        ctx.moveTo(x0 - 40, y0 - 190);
+        ctx.quadraticCurveTo(x0 - 30, y0 - 200, x0 - 10, y0 - 190);
+        ctx.moveTo(x0 + 40, y0 - 190);
+        ctx.quadraticCurveTo(x0 + 30, y0 - 200, x0 + 10, y0 - 190);
+
+        ctx.moveTo(x0 - 10, y0 - 170);
+        ctx.quadraticCurveTo(x0 - 25, y0 - 175, x0 - 40, y0 - 150);
+        ctx.moveTo(x0 + 10, y0 - 170);
+        ctx.quadraticCurveTo(x0 + 25, y0 - 175, x0 + 40, y0 - 150);
+
+        ctx.stroke();
+        //鼻子
+        ctx.beginPath();
+        ctx.arc(x0, y0 - 145, 16, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x0 - 6, y0 - 145, 3, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x0 + 6, y0 - 145, 3, 0, Math.PI * 2);
+        ctx.stroke();
+
+    }
+
+    function drawClothes(x0, y0) {
+        ctx.beginPath();
+        ctx.fillStyle = "#363B34";
+        ctx.moveTo(x0 - 48, y0 - 130);
+        ctx.bezierCurveTo(x0 - 100, y0 - 130, x0 - 180, y0, x0 - 70, y0 + 70);
+        ctx.moveTo(x0 + 48, y0 - 130);
+        ctx.bezierCurveTo(x0 + 100, y0 - 130, x0 + 180, y0, x0 + 70, y0 + 70);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.fillStyle = "#363B34";
+        ctx.moveTo(x0 - 75, y0 + 66);
+        ctx.bezierCurveTo(x0 - 88, y0 + 140, x0 + 88, y0 + 140, x0 + 75, y0 + 66)
+        ctx.fill();
+        ctx.stroke();
+    }
+
+    function drawLeg(x0, y0) { //画腿
+        ctx.beginPath();
+        ctx.fillStyle = "#F8B4AB";
+        ctx.arc(x0 - 36, y0 + 129, 16, -Math.PI * 0.2, Math.PI * 0.2, false);
+        ctx.arc(x0 - 39, y0 + 128, 18, Math.PI * 0.8, Math.PI * 1.4, false);
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(x0 + 36, y0 + 129, 16, Math.PI * 0.8, Math.PI * 1.2);
+        ctx.arc(x0 + 39, y0 + 128, 18, -Math.PI * 0.4, Math.PI * 0.19);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.fillStyle = "#363B34";
+        ctx.strokeStyle = "#363B34";
+        ctx.arc(x0 - 60, y0 + 153, 14, Math.PI * 0.5, Math.PI * 1.5);
+        ctx.rect(x0 - 60, y0 + 139, 40, 28);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(x0 + 60, y0 + 153, 14, -Math.PI * 0.5, Math.PI * 0.5);
+        ctx.rect(x0 + 20, y0 + 139, 40, 28);
+
+        ctx.fill();
+        ctx.stroke();
+    }
+
+    function drawHat(x0, y0) { //帽子
+        ctx.beginPath();
+        ctx.fillStyle = "#363B34";
+        ctx.strokeStyle = "#363B34";
+        ctx.moveTo(x0 - 35, y0 - 221);
+        ctx.lineTo(x0 - 35, y0 - 256);
+        ctx.lineTo(x0 + 25, y0 - 256);
+        ctx.arcTo(x0 + 35, y0 - 256, x0 + 35, y0 - 246, 10);
+        ctx.lineTo(x0 + 35, y0 - 221);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(x0 - 25, y0 - 253, 10, 0, Math.PI, true);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.font = "12px Arial red";
+        ctx.fillStyle = "#F6F367";
+        ctx.fillText("佛", x0 - 5, y0 - 243);
+    }
+
+    function init(x0, y0) {
+        coordinate();
+        drawLeg(x0, y0)
+        drawClothes(x0, y0);
+        drawBelly(x0, y0);
+        drawHat(x0, y0);
+        drawHead(x0, y0);
+    }
+    init(300, 300);
+    </script>
+</body>
+
+</html>

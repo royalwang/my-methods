@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+    }
+
+    #Form {
+        margin: 20px auto;
+        width: 600px;
+        height: 300px;
+    }
+
+    select {
+        width: 180px;
+        height: 30px;
+    }
+
+    select>option {
+        line-height: 30px;
+        text-align: center;
+    }
+    </style>
+    <script src="data.js"></script>
+</head>
+
+<body>
+    <form action="" id="Form">
+        <select id="province"></select>省
+        <select id="city"></select>市
+        <select id="county"></select>县
+    </form>
+    <script>
+    var province = document.querySelector("#province");
+    var city = document.querySelector("#city");
+    var county = document.querySelector("#county");
+
+    //初始化
+    init();
+
+    function init() {
+        fillProvince();
+        fillCity(1);
+        fillCounty(1);
+    }
+
+    //当省份选择了值的时候,它后面的市和县被跟着替换
+    province.onchange = function() {
+        var proId = this.value; //把省份值拿到
+        fillCity(proId); //把它值跟市挂钩
+        var cityId = city.value;
+        fillCounty(cityId);
+    }
+
+    //当市区选择了值的时候,只需改后面的县
+    city.onchange = function() {
+        var cityId = city.value;
+        fillCounty(cityId);
+    }
+
+    //封装一个函数createOption用来在select里面自动生成option
+    function createOption(textName, valueId) {
+        var option = document.createElement("option");
+        //将内容和相应的id值匹配进去
+        option.innerHTML = textName;
+        option.value = valueId;
+        return option;
+    }
+
+    //填充省份
+    function fillProvince() {
+        province.innerHTML = '';
+        //引进data对象里的省份,填充省份内容和value的ID
+        for (var provinces of data.provinceList) {
+            var option = createOption(provinces.ProName, provinces.ProID);
+            province.appendChild(option);
+        }
+    }
+    //填充市区
+    function fillCity(proId) {
+        city.innerHTML = '';
+        for (var citys of data.cityList) {
+            if (citys.CityID == proId) {
+                var option = createOption(citys.CityName, citys.CityID);
+                city.appendChild(option);
+            }
+        }
+    }
+    //填充县级
+    function fillCounty(cityId) {
+        county.innerHTML = '';
+        for (var countys of data.countyList) {
+            if (countys.CityID == cityId) {
+                var option = createOption(countys.DisName, countys.Id);
+                county.appendChild(option);
+            }
+        }
+    }
+    </script>
+</body>
+
+</html>

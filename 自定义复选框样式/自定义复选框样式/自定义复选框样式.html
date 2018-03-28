@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <style type="text/css">
+    #choose+label {
+        background-color: white;
+        border: 0.04rem solid #d3d3d3;
+        width: 0.6rem;
+        height: 0.6rem;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 0.6rem;
+        margin: 0.2rem auto;
+        margin-right: 0.4rem
+    }
+
+    #choose:checked+label {
+        background-color: #eee;
+    }
+
+    #choose:checked+label:after {
+        content: "\2713";
+    }
+    </style>
+</head>
+
+<body>
+    <input type="checkbox" name="" id="choose" style="clip:rect(0,0,0,0);position: absolute;">
+    <label for="choose"></label>
+</body>
+
+</html>

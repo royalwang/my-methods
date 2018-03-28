@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    /*需要将span设置为float: left。:after为inline-block*/
+
+    html {
+        font-size: calc(100vw/375);
+        /*750的设计稿把font-size: calc(100vw/3.75)中的3.75改成7.5即可，100vw是设备的宽度，除以3.75可以让1rem的大小在iPhone6下等于100px*/
+    }
+    /*方式一*/
+
+    span {
+        width: 100px;
+        text-align: justify;
+        float: left;
+    }
+
+    span:after {
+        content: '.';
+        width: 100%;
+        display: inline-block;
+        overflow: hidden;
+        height: 0;
+    }
+
+    input {
+        width: 100px;
+    }
+    /*方式二，苹果浏览器不支持*/
+
+    .a {
+        margin: 10px 0;
+        width: 100px;
+        /*border: 1px solid;*/
+        text-align-last: justify;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="demo">
+        <span>昵称</span>：
+        <input type="text" style='width: 100px'>
+        <br>
+        <br>
+        <span>电子邮箱</span>：
+        <input type="email" style='width: 100px;'>
+    </div>
+    <div class="demo1">
+        <div class="a">姓名</div>
+        <div class="a">手机号码</div>
+        <!-- <div class="a">验证码</div>
+        <div class="a">账号</div>
+        <div class="a">密码</div> -->
+    </div>
+</body>
+
+</html>

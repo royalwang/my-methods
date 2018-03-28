@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>h5\css3新特性</title>
+    <style>
+    /*使用grid-template-row和grid-template-column属性,创建行和列*/
+    /*为grid-template-columns写入了 3 个值，就会得到 3 列*/
+    /*为 grid-template-rows指定了2个值，得到 2 行*/
+
+    .wrapper {
+        /*创建一个 3×3 的 grid(网格)*/
+        display: grid;
+        /*兼容性较高 ！！*/
+        grid-template-columns: 100px 100px 100px;
+        grid-template-rows: 100px 100px 100px;
+    }
+
+    .item1 {
+        /*item1 占据从第一条网格线开始，到第四条网格线结束。换句话说，它将独立占据整行*/
+        grid-column-start: 1;
+        grid-column-end: 4;
+        /*或者grid-column: 1 / 4;*/
+    }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="item1">1</div>
+        <div class="item2">2</div>
+        <div class="item3">3</div>
+        <div class="item4">4</div>
+        <div class="item5">5</div>
+        <div class="item6">6</div>
+    </div>
+</body>
+
+</html>

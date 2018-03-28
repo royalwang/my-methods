@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>水平垂直居中的方式</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <style type="text/css">
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .main1,
+    .main2,
+    .main3,
+    {
+        /* 必须加 */`
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .content1 {
+        /*必须设置宽高*/
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 200px;
+        height: 200px;
+        border: 1px solid;
+    }
+
+    .content2 {
+        /*需设置宽高*/
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -75px;
+        margin-top: -75px;
+        border: 1px solid;
+    }
+
+    .content3 {
+        /*无需设置宽高*/
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        /*偏移自身的宽和高的-50%*/
+        transform: translate(-50%, -50%);
+        border: 1px solid;
+    }
+
+    .main4 {
+        /*flex布局，对父元素设置*/
+        /*需对父元素设置宽高*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        height: 200px;
+        border: 1px solid;
+    }
+
+    .main5 {
+        display: table;
+        border: 1px solid;
+        width: 100px;
+        height: 100px;
+    }
+
+    .content5 {
+        /*需额外增加一层包裹content5，table-cell层来实现垂直居中*/
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .content5-box5 {
+        margin: auto;
+        border: 1px solid;
+        height: 50px;
+        width: 50px;
+    }
+
+
+    .main6 {
+        /*水平居中*/
+        text-align: center;
+        width: 200px;
+        height: 200px;
+        border: 1px solid;
+    }
+
+    .content6 {
+        display: inline-block;
+        /*垂直居中*/
+        vertical-align: middle;
+        width: 50px;
+        height: 50px;
+        border: 1px solid;
+    }
+
+    .main6:after {
+        /*利用inline-block的vertical-align:middle去对齐after伪元素，after伪元素的高度与父对象一样，就实现了高度方向的对齐*/
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+    }
+
+    .main7 {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        border: 1px solid;
+        width: 100px;
+        height: 100px;
+    }
+
+    .content7 {
+        /*让一个不定宽高的 DIV，垂直水平居中*/
+        display: inline-block;
+        vertical-align: middle;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="main1">
+        <div class="content1">方式1</div>
+    </div>
+    <div class="main2">
+        <div class="content2">方式2</div>
+    </div>
+    <div class="main3">
+        <div class="content3">方式3</div>
+    </div>
+    <div class="main4">
+        <div class="content4">方式4</div>
+    </div>
+    <div class="main5">
+        <!-- 需额外增加一层包裹content5 -->
+        <div class="content5">
+            <div class="content5-box5">方式5</div>
+        </div>
+    </div>
+    <div class="main6">
+        <div class="content6">方式6</div>
+    </div>
+    <div class="main7">
+        <div class="content7">方式7</div>
+    </div>
+</body>
+
+</html>

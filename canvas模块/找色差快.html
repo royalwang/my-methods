@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,shrink-to-fit=no" />
+    <title> 找色差块 </title>
+    <style>
+    .game-show {
+        text-align: center;
+    }
+
+    .game-core {
+        margin-right: 2em;
+    }
+
+    .stage {
+        display: block;
+        max-width: 100%;
+        margin: 1em auto;
+        cursor: pointer;
+        border: 1px solid #CCC;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="game-show">分数：<span class="game-core">0</span>计时：<span>0</span></div>
+    <canvas class="stage" width="600" height="600"></canvas>
+    <div class="game-show">
+        <input type="button" value="不服来试试" />
+    </div>
+    <script>
+    "use strict";
+
+    function Game(query, callback) {
+        var countdown, //计时，秒
+            cvs = document.querySelector(query),
+            cvs2 = cvs.cloneNode(false),
+            width = cvs.width,
+            height = cvs.height,
+            ctx = cvs.getContext("2d"),
+            rows = 2,
+            cols = 2,
+            isGameOver = true,
+            changeValue = 2,
+            diff = {},
+            core = 0,
+            _timer,
+            cp;
+        //颜色填充
+        function fillColor(w, h, color) {
+            cvs2.width = w;
+            cvs2.height = h;
+            var ctx2 = cvs2.getContext("2d"),
+                PI2 = Math.PI * 2;
+            ctx2.strokeStyle = "#FFF";
+            ctx2.fillStyle = color;
+            ctx2.beginPath();
+            ctx2.fillRect(0, 0, w, h);
+            ctx2.beginPath();
+            ctx2.strokeRect(0, 0, w, h);
+            ctx2.fillStyle = "#FFF";
+            ctx2.beginPath();
+            ctx2.arc(0, 0, 2, 0, PI2);
+            ctx2.arc(w, 0, 2, 0, PI2);
+            ctx2.fill();
+            ctx2.beginPath();
+            ctx2.arc(0, h, 2, 0, PI2);
+            ctx2.arc(w, h, 2, 0, PI2);
+            ctx2.fill();
+        }
+        //继续下一步
+        function goAndPlay() {
+            var colors = getColors(),
+                dx, dy;
+            diff.x = rows * Math.random() | 0;
+            diff.y = cols * Math.random() | 0;
+            diff.w = (width / rows++) + 0.5 | 0;
+            diff.h = (height / cols++) + 0.5 | 0;
+
+            fillColor(diff.w, diff.h, colors.color);
+
+            ctx.beginPath();
+            cp = ctx.createPattern(cvs2, "repeat");
+            ctx.fillStyle = cp;
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.beginPath();
+            ctx.fillStyle = colors.color2;
+            ctx.fillRect(diff.w * diff.x + 3, diff.h * diff.y + 3, diff.w - 6, diff.h - 6);
+        }
+        //选择颜色
+        function getColors() {
+            var result = {},
+                color = [],
+                color2;
+            color[0] = Math.random() * 360 | 0;
+            color[1] = Math.random() * 50 | 0 + 50;
+            color[2] = Math.random() * 90 | 0;
+            color2 = color.slice();
+            color[1] += "%";
+            color[2] += "%)";
+
+            color2[2] += color2[2] - changeValue < 0 ? changeValue : -changeValue;
+            color2[1] += "%";
+            color2[2] += "%)";
+
+            result.color = "hsl(" + color.join(",");
+            result.color2 = "hsl(" + color2.join(",");
+            changeValue = Math.max(0.001, changeValue - 0.02);
+            return result;
+        }
+
+        cvs.addEventListener("click", function(e) {
+            if (!isGameOver) {
+                var bound = this.getBoundingClientRect(),
+                    scale = width / bound.width,
+                    sx = (e.clientX - bound.left) * scale,
+                    sy = (e.clientY - bound.top) * scale;
+                if (sx > diff.w * diff.x && sy > diff.h * diff.y && sx < diff.w * (diff.x + 1) && sy < diff.h * (diff.y + 1)) {
+                    callback && callback(++core, countdown);
+                    goAndPlay();
+                }
+            }
+        }, false);
+
+        this.start = function(second) {
+            //设定开始时间
+            if (!isGameOver) return; //判断是否结束
+            isGameOver = false;
+            countdown = second;
+            rows = 2;
+            cols = 2;
+            changeValue = 2;
+            core = 0;
+
+            _timer = setInterval(function() {
+                if (countdown < 1) {
+                    isGameOver = true;
+                    clearInterval(_timer);
+                    callback && callback(core, 0);
+                } else {
+                    callback && callback(core, countdown--);
+                }
+            }, 1000);
+
+            goAndPlay();
+        };
+    }
+
+    var span = document.querySelectorAll("span"),
+        game = new Game(".stage", function(core, countdown) {
+            span[0].innerHTML = core;
+            span[1].innerHTML = countdown;
+            if (!countdown) {
+                alert(core > 30 ? "厉害了我的哥" : core > 20 ? "还有两刷子" : core > 10 ? "一般啦" : "跪了吧？哈哈！！！");
+            }
+        });
+    document.querySelector("input").addEventListener("click", function() {
+        game.start(30);
+    }, false);
+    </script>
+</body>
+
+</html>

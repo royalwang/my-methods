@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+    var date = '2018-01-08';
+    console.log(getAddTime(date, 1, 1, 21));
+
+    function getAddTime(date, y, m, d) {
+        if (date == "" || date == null) {
+            return "";
+        } else {
+            var s = date.split("-");
+            var yy = parseInt(s[0]);
+            var mm = parseInt(s[1] - 1);
+            var dd = parseInt(s[2]);
+            var dt = new Date(yy, mm, dd);
+            dt.setFullYear(dt.getFullYear() + y); //增加n个月
+            dt.setMonth(dt.getMonth() + m); //增加n个月
+            dt.setDate(dt.getDate() + d); //减少1天
+            if ((dt.getYear() * 12 + dt.getMonth()) > (yy * 12 + mm + m)) {
+                dt = new Date(dt.getFullYear(), dt.getMonth(), 0);
+            }
+            var year = dt.getFullYear();
+            var month = dt.getMonth() + 1;
+            var days = dt.getDate();
+            var dd = year + "-" + getzf(month) + "-" + getzf(days);
+            return dd;
+        }
+    }
+    //补零操作
+    function getzf(num) {
+        return parseInt(num) < 10 ? (num = '0' + num) : num;
+    }
+    </script>
+</body>
+
+</html>

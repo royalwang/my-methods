@@ -1,0 +1,307 @@
+@charset "UTF-8";
+body {
+    font-family: "Helvetica Neue", 'Helvetica', 'STHeiTi', 'sans-serif';
+}
+
+@-ms-viewport {
+    width: device-width
+}
+
+
+
+/*移动端页面支持弹性滚动*/
+
+
+/* body {
+    -webkit-overflow-scrolling: touch;
+}
+
+.ele {
+    overflow: auto;
+}
+ */
+
+
+/*让页面里的字体变清晰，变细*/
+
+-webkit-font-smoothing: antialiased;
+
+html,
+body,
+div,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+em,
+img,
+strong,
+sub,
+sup,
+tt,
+dd,
+dl,
+dt,
+form,
+label,
+table,
+caption,
+iframe,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+ul,
+li,
+p,
+a {
+    margin: 0;
+    padding: 0;
+}
+
+input,
+select,
+textarea {
+    vertical-align: middle;
+}
+
+input,
+select,
+button {
+    outline: none;
+}
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer
+}
+
+img {
+    border: 0;
+    vertical-align: middle;
+    max-width: 100%;
+}
+
+ul,
+li {
+    list-style-type: none;
+}
+
+a:link,
+a:visited {
+    text-decoration: none;
+    color: #000 !important;
+}
+
+a:hover {
+    outline: 0
+}
+
+b,
+strong {
+    font-weight: 700
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.clear {
+    clear: both;
+}
+
+.clearfix:after {
+    /*IE8以上和非IE浏览器才支持:after，原理和方法2有点类似，zoom(IE转有属性)可解决ie6,ie7浮动问题*/
+    clear: both;
+    content: ' ';
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.clearfix1:after {
+    content: "\200B";
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+.clearfix2:after {
+    content: '';
+    display: table;
+}
+
+
+
+
+
+/*解决ie问题 利用zoom 保持原始大小*/
+
+.clearfix {
+    *zoom: 1
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+
+
+
+
+/*页面滚动条*/
+
+html::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background: #CCC;
+}
+
+html::-webkit-scrollbar-button {
+    display: none;
+}
+
+html::-webkit-scrollbar-track-piece {
+    display: none;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: #999;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: #3399CC;
+}
+
+
+
+
+
+/*placeholder样式*/
+
+::-webkit-input-placeholder {
+    color: #999;
+    line-height: inherit;
+}
+
+:-moz-placeholder {
+    color: #999;
+    line-height: inherit;
+}
+
+::-moz-placeholder {
+    color: #999;
+    line-height: inherit;
+}
+
+
+
+
+
+/*禁止文字选中*/
+
+.user-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+
+
+
+
+
+/*鼠标选中内容样式*/
+
+::selection {
+    background: #444;
+    color: #FFF;
+}
+
+::-moz-selection {
+    background: #444;
+    color: #FFF;
+}
+
+::-webkit-selection {
+    background: #444;
+    color: #FFF;
+}
+
+
+
+
+
+
+/*文本域滚动条*/
+
+textarea::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+    border-radius: 20px;
+}
+
+textarea::-webkit-scrollbar-button {
+    display: none;
+}
+
+textarea::-webkit-scrollbar-track-piece {
+    display: none;
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background: #999;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*修改chrome记住密码后自动填充表单的黄色背景*/
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: rgb(250, 255, 189);
+    /* #FAFFBD; */
+    background-image: none;
+    color: rgb(0, 0, 0);
+}
+
+
+.limitRow1 {
+    /*限制一行*/
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-height: 30px;
+}

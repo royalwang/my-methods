@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <link rel="stylesheet" href="calender.css" />
+    <style>
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background: #fff;
+    }
+
+    input {
+        margin: 30px;
+        padding: 8px 12px;
+    }
+
+    .containter {
+        width: 320px;
+        margin: auto
+    }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="inp" placeholder="选择日期">
+    <input type="text" id="inp2" placeholder="选择日期">
+    <script src="calender.js"></script>
+    <script>
+    ;
+    (function() {
+        calender('#inp').init({
+            format: 'yyyy-MM-dd hh:mm:ss',
+            button: true
+        }, function(date) {
+            this.value = date
+        });
+        calender('#inp2').init({
+            format: 'yyyy-MM-dd hh:mm:ss',
+            date: [2020, 5, 12],
+            button: true
+        }, function(date) {
+            this.value = date
+        });
+    })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>关键字输入提示</title>
+    <style type="text/css">
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    body,
+    button,
+    input,
+    select,
+    textarea {
+        font: 12px/16px Verdana, Helvetica, Arial, sans-serif;
+    }
+
+    p {
+        width: 603px;
+        padding-top: 3px;
+        overflow: hidden;
+    }
+
+    #container {
+        min-width: 600px;
+        min-height: 767px;
+    }
+    </style>
+    <!-- 只能在服务器端运行 -->
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&libraries=place"></script>
+</head>
+
+<body>
+    <div id="container"></div>
+    <button id="clear">clear</button>
+    <p>
+        <input style="position: fixed;top: 20px;left: 100px; width:200px;padding:3px 4px;" type="text" id="place" />
+    </p>
+    <script>
+    var map, searchService, markerList = [];
+    var init = function() {
+        map = new qq.maps.Map(document.getElementById("container"), {
+            center: new qq.maps.LatLng(39.916527, 116.397128),
+            zoom: 13
+        });
+
+        //调用Poi检索类。用于进行本地检索、周边检索等服务。
+        var ap = new qq.maps.place.Autocomplete(document.getElementById('place'), {
+            location: '天津' //下拉框显示本地搜索结果
+        });
+        var latlngBounds = new qq.maps.LatLngBounds();
+        searchService = new qq.maps.SearchService({
+            // map: map,
+            location: '天津',
+            complete: function(res) {
+                var pois = res.detail.pois;
+                var poi = pois[0];
+                console.log(poi.latLng);
+                latlngBounds.extend(poi.latLng);
+                var marker = new qq.maps.Marker({
+                    map: map,
+                    position: poi.latLng
+                });
+                marker.setTitle(1);
+                markerList.push(marker);
+                map.fitBounds(latlngBounds);
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+        //添加监听事件
+        qq.maps.event.addListener(ap, "confirm", function(res) {
+            console.log(res);
+            var position = res.value;
+            searchService.search(position);
+        });
+        //添加监听事件   获取鼠标单击事件
+        qq.maps.event.addListener(map, 'click', function(event) {
+            var marker = new qq.maps.Marker({
+                position: event.latLng,
+                map: map
+            });
+            qq.maps.event.addListener(map, 'click', function(event) {
+                marker.setMap(null);
+            });
+            console.log(event.latLng)
+        });
+    }
+    window.onload = init;
+    </script>
+</body>
+
+</html>

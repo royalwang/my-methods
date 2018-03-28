@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+    <style type="text/css">
+    label {
+        display: block;
+        margin: 10px 0;
+        padding: 0 10px 0 0;
+    }
+
+    body {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    /*复选框*/
+
+    .mcc {
+        position: relative;
+        width: 16px;
+        height: 16px;
+        background-clip: border-box;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: -.15px .6px 0 0;
+        vertical-align: text-bottom;
+        border-radius: 3px;
+        -webkit-transition: background-color .25s;
+        transition: background-color .25s;
+        background-color: #fff;
+        border: 1px solid #d7d7d7;
+    }
+
+    .mcc:checked:after {
+        content: '';
+        display: block;
+        height: 4px;
+        width: 7px;
+        border: 0 solid #333;
+        border-width: 0 0 2px 2px;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        position: absolute;
+        top: 3px;
+        left: 3px
+    }
+
+    .mcc:disabled {
+        opacity: .65
+    }
+
+    .mcc:focus {
+        outline: none;
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.075), 0 0 2px #38a7ff
+    }
+
+    .mcc:checked {
+        background-color: #fff;
+        border-color: #d7d7d7;
+    }
+
+    .mcc:checked:after {
+        border-color: #414141
+    }
+    /*单选框*/
+
+    .mcr {
+        position: relative;
+        width: 16px;
+        height: 16px;
+        background-clip: border-box;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: -.15px .6px 0 0;
+        vertical-align: text-bottom;
+        border-radius: 50%;
+        background-color: #fff;
+        border: 1px solid #d7d7d7;
+    }
+
+    .mcr:disabled {
+        opacity: .65
+    }
+
+    .mcr:before {
+        content: '';
+        display: block;
+        height: 0;
+        width: 0;
+        -webkit-transition: all .25s;
+        transition: all .25s
+    }
+
+    .mcr:checked:before {
+        height: 8px;
+        width: 8px;
+        border-radius: 50%;
+        margin: 3px 0 0 3px
+    }
+
+    .mcr:focus {
+        outline: none;
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.075), 0 0 2px #38a7ff
+    }
+
+    .mcr:checked {
+        border: 1px solid #555;
+    }
+
+    .mcr:checked:before {
+        background-color: #555
+    }
+
+
+
+
+    .radio-beauty-container {
+        font-size: 0;
+        /*$bgc: green;
+        %common {
+            padding: 2px;
+            background-color: green;
+            background-clip: content-box;
+        }*/
+    }
+
+    .radio-beauty-container .radio-name {
+        vertical-align: middle;
+        font-size: 16px;
+    }
+
+    .radio-beauty-container .radio-beauty {
+        width: 18px;
+        height: 18px;
+        box-sizing: border-box;
+        display: inline-block;
+        border: 1px solid green;
+        vertical-align: middle;
+        margin: 0 15px 0 3px;
+        border-radius: 50%;
+    }
+
+    .radio-beauty-container .radio-beauty:hover {
+        box-shadow: 0 0 7px green;
+        padding: 2px;
+        background-color: green;
+        background-clip: content-box;
+    }
+
+    .radio-beauty-container input[type="radio"]:checked+.radio-beauty {
+        padding: 2px;
+        background-color: green;
+        background-clip: content-box;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="checkbox" class="mcc" checked=""> Default
+    </div>
+    <div>
+        <input type="radio" name="radio1" class="mcr"> Default
+    </div>
+    <div class="radio-beauty-container">
+        <label> <span class="radio-name">前端工程师</span>
+            <input type="radio" name="radioName" id="radioName1" hidden/>
+            <label for="radioName1" class="radio-beauty"></label>
+        </label>
+        <label> <span class="radio-name">后端工程师</span>
+            <input type="radio" name="radioName" id="radioName2" hidden/>
+            <label for="radioName2" class="radio-beauty"></label>
+        </label>
+        <label> <span class="radio-name">全栈工程师</span>
+            <input type="radio" name="radioName" id="radioName3" hidden/>
+            <label for="radioName3" class="radio-beauty"></label>
+        </label>
+    </div>
+</body>
+
+</html>

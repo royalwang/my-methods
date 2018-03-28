@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>显示时分秒</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="datatimepicker/bootstrap-datetimepicker.min.css">
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-xs-3 form-group">
+            <div class='input-group date datetimepicker'>
+                <input type='text' class="form-control reviewTime" />
+                <span class="input-group-addon">  
+                        <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+        <div class="col-xs-3 form-group">
+            <div class='input-group date datetimepicker'>
+                <input type='text' class="form-control reviewTime" />
+                <span class="input-group-addon">  
+                        <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="datatimepicker/bootstrap-datetimepicker-fixed.js"></script>
+    <!-- <script type="text/javascript" src="datatimepicker/bootstrap-datetimepicker.min.js"></script> -->
+    <script type="text/javascript" src="datatimepicker/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('.datetimepicker').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii:ss',
+            todayBtn: true,
+            bootcssVer: 3,
+            language: 'zh-CN',
+            autoclose: true,
+            // sideBySide: true, //可以同时选择日期和时间
+            pickerPosition: "bottom-left",
+            clearBtn: true,
+        })
+    })
+    </script>
+</body>
+
+</html>

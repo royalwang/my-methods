@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>计算距离</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script type="text/javascript" src="../../jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Q3azqy4r9nwxsxvlZ7aOeeE3ewHKv1cu"></script>
+    <style type="text/css">
+    body,
+    html {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    #map {
+        width: 100%;
+        height: 100%;
+    }
+    /*去掉百度地图的logo*/
+
+    .anchorBL img {
+        display: none;
+    }
+
+    #locationBtn {
+        position: absolute;
+        z-index: 9999;
+        bottom: 1.0rem;
+        right: 0.4rem;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script type="text/javascript">
+    var map = new BMap.Map("map"); //创建地图实例 
+    //创建起点 
+    var pt_start = new BMap.Point(117.270591, 23.812975);
+    var startIcon = new BMap.Icon("../icon8.png", new BMap.Size(100, 160));
+    var markerStrat = new BMap.Marker(pt_start, { icon: startIcon }); // 创建标注 
+    map.addOverlay(markerStrat); // 将标注添加到地图中 
+    //创建终点 
+    var pt_end = new BMap.Point(116.885031, 23.689196) //new BMap.Point(115.559445,22.859811); 
+    var endIcon = new BMap.Icon("../icon9.png", new BMap.Size(100, 160));
+    var markerEnd = new BMap.Marker(pt_end, { icon: endIcon }); // 创建标注 
+    map.addOverlay(markerEnd); // 将标注添加到地图中 
+
+    map.centerAndZoom(pt_start, 15);
+    map.enableScrollWheelZoom();
+
+    //创建司机 
+    var pt;
+    var marker2;
+    var index = 0;
+    var points = [
+        new BMap.Point(117.270591, 23.812975),
+        new BMap.Point(117.227819, 23.814327),
+        new BMap.Point(117.171452, 23.800036),
+    ]; //设置坐标数组 
+    var oTime = setInterval(function() {
+        createp(index, points);
+        //计算距离
+        distance = Math.ceil(map.getDistance(pt, pt_end));
+        if (index + 1 < points.length) {
+            index++;
+        } else {
+            index = points.length - 1;
+        }
+        var label = new BMap.Label("还距您" + distance + '米', { offset: new BMap.Size(0, -30) });
+        label.setStyle({
+            "fontSize": "0.6em",
+            "border": 0,
+            "fontFamily": "微软雅黑",
+            "border-radius": "20px",
+            "padding": "0.3em 0.4em"
+        });
+        marker2.setLabel(label);
+        map.centerAndZoom(pt, 13);
+        console.log(distance)
+        if (distance == 0) {
+            var polyline = new BMap.Polyline(points); //创建折线 
+            map.addOverlay(polyline); //覆盖折线到地图上 
+            clearInterval(oTime);
+            map.centerAndZoom(pt_end, 13);
+        }
+    }, 1000);
+
+    function createp(index, points) {
+        map.removeOverlay(marker2)
+        pt = points[index];
+        var myIcon = new BMap.Icon("../icon9.png", new BMap.Size(100, 160), { //小车图片 
+            //offset: new BMap.Size(0, -5),    //相当于CSS精灵 
+            //imageOffset: new BMap.Size(-20, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。 
+        });
+        marker2 = new BMap.Marker(pt, { icon: myIcon }); // 创建标注 
+        map.addOverlay(marker2); // 将标注添加到地图中*/ 
+    }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>不显示时分秒</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="datapicker/bootstrap-datepicker.min.css">
+</head>
+
+<body>
+    <div class="">
+        <div class="row">
+            <div class="col-xs-3 form-group">
+                <div class='input-group date datepicker'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">  
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="datapicker/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="datapicker/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        //只能到年月日
+        $('.datepicker').datepicker({
+            minView: 'month', //选择日期后，不会再跳转去选择时分秒 
+            language: "zh-CN",
+            // weekStart: 1,
+            // changeMonth: true,
+            // changeYear: true,
+            format: 'yyyy-mm-dd',
+            startView: 2, //表示起始选择范围，0为日，1为月，2为年 
+            // maxViewMode: 1,//表示最大选择范围，0为日，1为月，2为年
+            minViewMode: 0, //最小选择范围，0为日，1为月，2为年
+            autoclose: true,
+            todayHighlight: true,
+            todayBtn: "linked",
+            clearBtn: true,
+        });
+
+
+        //只到年月
+        // $('.datepicker').datepicker({
+        //     minView: 'month', //选择日期后，不会再跳转去选择时分秒 
+        //     language: "zh-CN",
+        //     weekStart: 1,
+        //     changeMonth: true,
+        //     changeYear: true,
+        //     format: 'yyyy-mm',
+        //     startView: 2, //表示起始选择范围，0为日，1为月，2为年 
+        //     // maxViewMode: 1,//表示最大选择范围
+        //     minViewMode: 1, //最小选择范围
+        //     autoclose: true,
+        //     todayBtn: true,
+        //     clearBtn: true,
+        // });
+    })
+    </script>
+</body>
+
+</html>

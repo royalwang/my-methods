@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>选点</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <style type="text/css">
+    body,
+    html {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        box-sizing: border-box;
+    }
+
+    .topBar {
+        width: 100%;
+        height: 2.4rem;
+        line-height: 2.4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        background: #39383D;
+        color: #fff;
+        padding: 0 0.5rem;
+        box-sizing: border-box;
+    }
+
+    .search {
+        width: 100%;
+        position: fixed;
+        top: 2.4rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(255, 255, 255, .9);
+        z-index: 9999;
+        box-shadow: 0 0.12rem 0.12rem #ccc;
+    }
+
+    .positionBtn {
+        position: absolute;
+        z-index: 99999;
+        width: 3.2rem;
+        height: 3.2rem;
+        border-radius: 100%;
+        top: 6.0rem;
+        right: 0.8rem;
+    }
+
+    .positionBtn img {
+        width: 100%;
+    }
+
+    .searchArea {
+        background: #E3E2E0;
+        width: 100%;
+        margin: 0.4rem 0.8rem;
+        border-radius: 0.2rem;
+        display: flex;
+        justify-content: center;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .searchArea input {
+        background: transparent;
+        width: 100%;
+        margin-right: 0.2rem;
+        border: 0;
+        outline: none;
+        text-align: center;
+    }
+
+    .searchArea span img {
+        width: 1.0rem;
+    }
+
+    .submit {
+        width: 90%;
+        position: fixed;
+        bottom: 2.0rem;
+        left: 0;
+        right: 0;
+        margin: auto;
+        display: block;
+        height: 3.0rem;
+        line-height: 3.0rem;
+        text-align: center;
+        color: #fff !important;
+        background: #FF9D00;
+        border-radius: 0.2rem;
+        letter-spacing: 0.12rem;
+        font-size: 0.64rem;
+        border: none;
+    }
+
+    #map {
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 2.0rem;
+    }
+
+    .amap-sug-result {
+        top: 5rem !important;
+        box-shadow: 0 0 0.2rem #ccc !important;
+    }
+
+    .auto-item {
+        padding: 0.32rem !important;
+    }
+
+    .auto-item-span {
+        display: block !important;
+    }
+    </style>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.1&key=04bde903737e80d87b6d8b9d8612743b"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="topBar">
+        </div>
+        <div class="search">
+            <div class="searchArea">
+                <input type="text" id="tipinput" name="" placeholder="关键词搜索/大悦城" style="font-size: 0.64rem;" />
+            </div>
+        </div>
+        <div id="map" style="overflow:hidden;zoom:1;"></div>
+        <div onClick="geolocation.getCurrentPosition()" class="positionBtn"><img src="../icon7.png"></div>
+        <div class="submit">选好了</div>
+    </div>
+    <script type="text/javascript" src="../../jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+    var map, geolocation;
+    map = new AMap.Map('map', {
+        resizeEnable: true,
+        zoom: 14,
+        // center: [116.40, 39.91],//地图中心点
+    });
+    map.plugin('AMap.Geolocation', function() {
+        geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true, //是否使用高精度定位，默认:true
+            timeout: 10000, //超过10秒后停止定位，默认：无穷大
+            buttonOffset: new AMap.Pixel(20, 80), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true, //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+            buttonPosition: 'RT',
+            buttonDom: '<input hidden="true" >',
+            　
+        });
+        map.addControl(geolocation);
+        geolocation.getCurrentPosition();
+        AMap.event.addListener(geolocation, 'complete', onComplete); //返回定位信息
+        // AMap.event.addListener(geolocation, 'error', onError); //返回定位出错信息
+    });
+    //解析定位结果
+    function onComplete(data) {
+        // 添加点标记， 并使用自己的icon
+        console.log(data);
+        new AMap.Marker({
+            map: map,
+            position: [data.position.getLng(), data.position.getLat()],
+            icon: new AMap.Icon({
+                size: new AMap.Size(40, 49), //图标大小
+                image: "../icon9.png",
+                // imageOffset: new AMap.Pixel(0, -60)
+            })
+        });
+    }
+
+    //加载PlaceSearch和Autocomplete插件
+    AMap.service(["AMap.PlaceSearch", "AMap.Autocomplete"], function() {
+        try {
+            ready();
+
+        } catch (e) {
+            console.error(e);
+        }
+    });
+
+    function ready() {
+        //输入提示
+        //实例化Autocomplete
+        var autoOptions = {
+            input: "tipinput"
+        };
+        auto = new AMap.Autocomplete(autoOptions);
+        var placeSearch = new AMap.PlaceSearch({
+            map: map,
+        }); //构造地点查询类
+        AMap.event.addListener(auto, "select", select); //注册监听，当选中某条记录时会触发
+        function select(e) {
+            console.log(e);
+            placeSearch.setCity(e.poi.adcode);
+            placeSearch.search(e.poi.name); //关键字查询查询
+        }
+    };
+    </script>
+</body>
+
+</html>

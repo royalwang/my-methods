@@ -1,0 +1,27 @@
+body,
+input,
+button,
+textarea,
+select {
+    font-family: "Microsoft YaHei", "微软雅黑", "Lantinghei SC", "Open Sans", Arial, "Hiragino Sans GB", "STHeiti", "WenQuanYi Micro Hei", SimSun, sans-serif;
+}
+
+
+
+/*定义字体*/
+
+@font-face {
+    font-family: 'TaurusNormal';
+    src: url('../fonts/TaurusNormal.woff') format('woff'),
+    url('../fonts/TaurusNormal.ttf') format('truetype'),
+    url('../fonts/TaurusNormal.svg') format('svg');
+}
+
+.main {
+    /*调用引入的字体*/
+    font-family: TaurusNormal;
+    font-size: 26px;
+    line-height: 26px;
+    color: #777;
+    margin-left: 0 !important;
+}
