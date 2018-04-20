@@ -3,11 +3,7 @@ body {
     font-family: "Helvetica Neue", 'Helvetica', 'STHeiTi', 'sans-serif';
 }
 
-@-ms-viewport {
-    width: device-width
-}
-
-
+@-ms-viewport {width: device-width }
 
 /*移动端页面支持弹性滚动*/
 
@@ -150,6 +146,7 @@ strong {
 
 
 
+
 /*解决ie问题 利用zoom 保持原始大小*/
 
 .clearfix {
@@ -160,6 +157,7 @@ strong {
     width: 0;
     height: 0;
 }
+
 
 
 
@@ -193,6 +191,7 @@ html::-webkit-scrollbar-thumb:hover {
 
 
 
+
 /*placeholder样式*/
 
 ::-webkit-input-placeholder {
@@ -214,6 +213,7 @@ html::-webkit-scrollbar-thumb:hover {
 
 
 
+
 /*禁止文字选中*/
 
 .user-select {
@@ -223,6 +223,7 @@ html::-webkit-scrollbar-thumb:hover {
     -khtml-user-select: none;
     user-select: none;
 }
+
 
 
 
@@ -250,6 +251,7 @@ html::-webkit-scrollbar-thumb:hover {
 
 
 
+
 /*文本域滚动条*/
 
 textarea::-webkit-scrollbar {
@@ -269,6 +271,7 @@ textarea::-webkit-scrollbar-track-piece {
 textarea::-webkit-scrollbar-thumb {
     background: #999;
 }
+
 
 
 

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+    #form {
+        margin: 12.0rem auto;
+        width: 70%;
+    }
+
+    .docName {
+        width: 16.0rem;
+        height: 2.0rem;
+        line-height: 2.0rem;
+        display: block;
+        margin: 2.0rem auto;
+        border: 0.04rem solid;
+        text-align: center;
+        border-radius: 0.2rem;
+        font-size: 0.56rem;
+        color: #b1b1b1;
+        cursor: pointer;
+    }
+
+    button {
+        display: block;
+        margin: 0.8rem auto;
+    }
+    </style>
+</head>
+
+<body>
+    <form id="form" method="post" action="http://60.205.218.13:8081/tox_hoster/excel/readExcel" enctype="multipart/form-data">
+        <input type="file" name="myfile" id="source_file" style="display: none;" />
+        <div class="docName" onclick="var o=document.getElementById('source_file');o.click();">请选择文件＋</div>
+        <button type="submit">点击上传</button>
+    </form>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="jquery.form.js"></script>
+    <script src="layer/layer.js"></script>
+    <script>
+    $('#source_file').on('change', function() {
+        $('.docName').text($(this)[0].files[0].name);
+    });
+    // $(document).ready(function() {
+    //     $("#form").ajaxForm(function(data) {
+    //         console.log(data);
+    //     });
+    // });
+    </script>
+</body>
+
+</html>

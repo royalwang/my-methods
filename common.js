@@ -39,6 +39,7 @@ window.location.href = /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.us
 var ajaxUrl = "http://elec.toxchina.com/ToxElec_2";
 
 //时间戳(毫秒值)格式化
+//方法一
 Date.prototype.format = function(fmt) {
     var o = {
         "M+": this.getMonth() + 1, //月份 
@@ -76,6 +77,7 @@ function dateFormat(str, type) {
 }
 
 //时间戳转化
+//方法二
 function formatTime(date, type) {
     var year = date.getFullYear()
     var month = date.getMonth() + 1
@@ -103,6 +105,29 @@ function formatNumber(n) {
     n = n.toString()
     return n[1] ? n : '0' + n
 }
+
+//时间戳转化
+//方法三
+//formatDate(date,'yyyy-MM-dd hh:mm');
+function formatDate(date, fmt) {
+    if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+    }
+    let o = {
+        'M+': date.getMonth() + 1,
+        'd+': date.getDate(),
+        'h+': date.getHours(),
+        'm+': date.getMinutes(),
+        's+': date.getSeconds()
+    };
+    for (let k in o) {
+        if (new RegExp(`(${k})`).test(fmt)) {
+            let str = o[k] + '';
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : (('00' + str).substr(str.length)));
+        }
+    }
+    return fmt;
+};
 /*弹出层*/
 function layer_show(title, url, w, h, fullScreen) {
     if (title == null || title == '') {
@@ -140,8 +165,14 @@ function layer_close() {
 }
 //
 //
-function errTips(content, duringTime) {
+function layer_msg(content, duringTime) {
     layer.msg(content, { time: duringTime, shift: 6 }, function() {});
+}
+
+function layer_alert(content) {
+    layer.alert(content, {
+        shift: 6 //shake
+    }, function() {});
 }
 
 function layer_loading(callback) {
@@ -157,7 +188,7 @@ function layer_loading(callback) {
 function GetUrlpara(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]);
+    if (r != null) return unescape(r[2]); //返回字符串
     return null;
 }
 
@@ -430,8 +461,6 @@ function BubbleSort(arr) {
             }
         }
     }
-
-
     for (var i = 0; i < arr.length - 1; i++) {
         for (var j = i + 1; j < arr.length; j++) {
             //获取第一个值和后一个值比较
@@ -626,7 +655,7 @@ function exchangeData() {
     var temp = foo;
     foo = bar;
     bar = temp;
-    //第二种，利用了数组
+    // 第二种，利用了数组
     foo = [bar, bar = foo][0]
 }
 

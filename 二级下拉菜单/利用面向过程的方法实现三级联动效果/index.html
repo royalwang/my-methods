@@ -31,6 +31,7 @@
 </head>
 
 <body>
+    <!-- 数据对应不上 -->
     <form action="" id="Form">
         <select id="province"></select>省
         <select id="city"></select>市
@@ -84,6 +85,7 @@
     }
     //填充市区
     function fillCity(proId) {
+        console.log(proId);
         city.innerHTML = '';
         for (var citys of data.cityList) {
             if (citys.CityID == proId) {

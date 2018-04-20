@@ -112,10 +112,18 @@
         "lat": 39.810742,
         "count": 12
     }, ]
+
+    var opts = {
+        width: 250, // 信息窗口宽度
+        height: 80, // 信息窗口高度
+        title: "信息窗口", // 信息窗口标题
+        enableMessage: true //设置允许信息窗发送短息
+    };
     for (var i = 0; i < points.length; i++) {
         var p0 = points[i].lng;
         var p1 = points[i].lat;
-        var markerPoint = addMarker(new BMap.Point(p0, p1), i);
+        var content = points[i].count;
+        var markerPoint = addMarker(new BMap.Point(p0, p1), content);
         markerArr.push(markerPoint);
     }
 
@@ -127,7 +135,7 @@
     //     return icon;
     // }
 
-    function addMarker(point, index) {
+    function addMarker(point, content) {
         var myIcon = new BMap.Icon("../icon8.png",
             new BMap.Size(40, 49), {
                 offset: new BMap.Size(10, 25),
@@ -153,6 +161,11 @@
         e.target.setZIndex(999);
         // e.target.setLabel();
         // console.log("marker的位置是" + p.lng + "," + p.lat);
+        // 
+        console.log(content);
+        // var point = new BMap.Point(p.lng, p.lat);
+        // var infoWindow = new BMap.InfoWindow(content, opts); // 创建信息窗口对象 
+        // map.openInfoWindow(infoWindow, point); //开启信息窗口
     }
     $(function() {
         // $('.BMap_geolocationIcon').css('background-image','url(../icon7.png)');
