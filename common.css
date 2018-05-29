@@ -3,7 +3,10 @@ body {
     font-family: "Helvetica Neue", 'Helvetica', 'STHeiTi', 'sans-serif';
 }
 
-@-ms-viewport {width: device-width }
+@-ms-viewport {
+    width: device-width
+}
+
 
 /*移动端页面支持弹性滚动*/
 
@@ -142,11 +145,6 @@ strong {
     display: table;
 }
 
-
-
-
-
-
 /*解决ie问题 利用zoom 保持原始大小*/
 
 .clearfix {
@@ -157,11 +155,6 @@ strong {
     width: 0;
     height: 0;
 }
-
-
-
-
-
 
 /*页面滚动条*/
 
@@ -187,11 +180,6 @@ html::-webkit-scrollbar-thumb:hover {
     background: #3399CC;
 }
 
-
-
-
-
-
 /*placeholder样式*/
 
 ::-webkit-input-placeholder {
@@ -210,10 +198,6 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 
-
-
-
-
 /*禁止文字选中*/
 
 .user-select {
@@ -223,11 +207,6 @@ html::-webkit-scrollbar-thumb:hover {
     -khtml-user-select: none;
     user-select: none;
 }
-
-
-
-
-
 
 /*鼠标选中内容样式*/
 
@@ -245,12 +224,6 @@ html::-webkit-scrollbar-thumb:hover {
     background: #444;
     color: #FFF;
 }
-
-
-
-
-
-
 
 /*文本域滚动条*/
 
@@ -271,20 +244,6 @@ textarea::-webkit-scrollbar-track-piece {
 textarea::-webkit-scrollbar-thumb {
     background: #999;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*修改chrome记住密码后自动填充表单的黄色背景*/
 
@@ -307,4 +266,22 @@ select:-webkit-autofill {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     line-height: 30px;
+}
+
+/*只有在PC下才执行的样式*/
+
+@media screen and (min-width: 992px) {
+    
+}
+
+/*只有在PAD下才执行的样式*/
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+    
+}
+
+/*只有在PHONE下才执行的样式*/
+
+@media screen and (max-width: 767px) {
+    
 }

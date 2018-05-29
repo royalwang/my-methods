@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <link rel="stylesheet" href="pullToRefresh.css" />
     <style>
-        body{
-            padding-top: 20px;
-        }
+    body {
+        padding-top: 20px;
+    }
     </style>
 </head>
 
@@ -29,7 +29,6 @@
             <p>11111</p>
             <p>11111</p>
             <p>11111</p>
-            
             <!-- <div class="content-item">
                     <p>提现金额</p>
                     <p>提现时间</p>
@@ -94,7 +93,8 @@
     function Refresh() {
         setTimeout(function() {
             // $('.refreshContainer').html('');
-            getInfo(0);
+            // getInfo(0);
+            console.log(0);
             myScroll.refresh();
         }, 1000);
     }
@@ -104,8 +104,10 @@
     function Load() {
         pageNum++;
         // setTimeout(function() {
-            getInfo(pageNum);
-            myScroll.refresh();
+        // getInfo(pageNum);
+        console.log(pageNum);
+        $('.refreshContainer').append('<p>11111</p>');
+        myScroll.refresh();
         // }, 1000);
     }
     </script>

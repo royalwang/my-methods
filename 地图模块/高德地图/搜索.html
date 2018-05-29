@@ -35,7 +35,9 @@
     AMap.plugin('AMap.Autocomplete', function() { //回调函数
         //输入提示
         var autoOptions = {
-            input: "tipinput"
+            input: "tipinput",
+            city: '天津',
+            citylimit: true, //强制限定在特定区域范围内搜索
         };
         var auto = new AMap.Autocomplete(autoOptions);
         var placeSearch = new AMap.PlaceSearch({

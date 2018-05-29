@@ -4,9 +4,19 @@
 <head>
     <meta charset="UTF-8" />
     <title>防止微信浏览器缓存的方法</title>
+    <style>
+        div{
+            width: 200px;
+            height: 200px;
+            border: 20px solid orange;
+            border-radius: 50%;
+            border-bottom-color: transparent; 
+        }
+    </style>
 </head>
 
 <body>
+    <div></div>
     <!-- 方法一、在调试阶段或者频繁更新的页面加入以下头信息 -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
@@ -18,8 +28,22 @@
 
 	<!-- 方法三、在URL后面添加随机参数，这样每次访问的都是不同的连接 -->
 	<script type="text/javascript">
-		window.location='xxx.html?_r='+Math.random();
+		// window.location='xxx.html?_r='+Math.random();
 	</script>
+    <div>
+        <span><!-- ajax解决浏览器缓存问题 --></span>
+        <div>
+            <!-- 1、在ajax发送请求前加上 anyAjaxObj.setRequestHeader("If-Modified-Since","0")。
+
+            2、在ajax发送请求前加上 anyAjaxObj.setRequestHeader("Cache-Control","no-cache")。
+
+            3、在URL后面加上一个随机数： "fresh=" + Math.random();。
+
+            4、在URL后面加上时间戳："nowtime=" + new Date().getTime();。
+
+            5、如果是使用jQuery，直接这样就可以了 $.ajaxSetup({cache:false})。这样页面的所有ajax都会执行这条语句就是不需要保存缓存记录。 -->
+        </div>
+    </div>
 </body>
 
 </html>
