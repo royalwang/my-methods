@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    div {
+        text-align: center;
+        margin-top: 200px;
+    }
+    </style>
+</head>
+
+<body>
+    <div>
+        <canvas id="clock" width="300px" height="300px"></canvas>
+    </div>
+    <script type="text/javascript">
+    /*
+     *1、画出静态背景：圆盘边，时刻数字，刻度点（时点特殊处理）
+     *2、画出静态的时分秒针
+     *3、时分秒针的时间关联
+     *4、动态时分秒针,清除画布,每秒重新画
+     *5、放大或缩小的效果：参数等比例缩放
+     *******/
+
+
+    var dom = document.getElementById('clock');
+    var ctx = dom.getContext('2d');
+
+    var width = ctx.canvas.width; //获取canvas宽度
+    var height = ctx.canvas.height; //获取canvas高度
+    var r = width / 2; //圆盘半径
+
+    //定义整体缩放比例
+    var rem = width / 300;
+
+    //定义方法画背景圆盘
+    function drawBackground() {
+        ctx.save(); // 保存环境， restore() 在 draw()中
+        ctx.translate(r, r); //定义原点到正方形画布中心
+
+        //时钟外圈
+        ctx.beginPath(); //每画一条路径调用一次
+        ctx.lineWidth = 10 * rem;
+        ctx.arc(0, 0, r - 5 * rem, 0, 2 * Math.PI, false);
+        ctx.stroke();
+        ctx.closePath();
+
+        //画小时数和刻度点
+        var hourNumbers = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2];
+        ctx.font = 18 * rem + 'px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        hourNumbers.forEach(function(number, i) { //求每个刻度的坐标，将数字写入
+            var rad = 2 * Math.PI / 12 * i;
+            // console.log(2 * Math.PI / 12);
+            var x = Math.cos(rad) * (r - 30 * rem);
+            var y = Math.sin(rad) * (r - 30 * rem);
+            ctx.fillText(number, x, y);
+        });
+
+        //分钟/秒钟刻度点
+        for (var i = 0; i < 60; i++) {
+            var rad = 2 * Math.PI / 60 * i;
+            var x = Math.cos(rad) * (r - 18 * rem);
+            var y = Math.sin(rad) * (r - 18 * rem);
+            ctx.beginPath();
+            //小时点特殊处理
+            if (i % 5 == 0) {
+                ctx.fillStyle = "#000";
+                ctx.arc(x, y, 2 * rem, 0, 2 * Math.PI, false);
+            } else {
+                ctx.fillStyle = '#ccc';
+                ctx.arc(x, y, 2 * rem, 0, 2 * Math.PI, false);
+            }
+
+            ctx.fill();
+            ctx.closePath();
+        }
+
+    }
+
+    //时针
+    function drawHour(hour, minute) {
+        ctx.save();
+        ctx.beginPath();
+        var rad = 2 * Math.PI / 12 * hour;
+        //分针与时针的关联
+        var mrad = 2 * Math.PI / 12 / 60 * minute;
+        ctx.rotate(rad + mrad);
+        ctx.lineWidth = 6 * rem;
+        ctx.lineCap = 'round'; //时针两端圆形
+        ctx.moveTo(0, 10);
+        ctx.lineTo(0, -r / 2); //往上是负，往下是正
+        ctx.stroke();
+        ctx.closePath();
+        ctx.restore();
+    }
+
+
+    //分针
+    function drawMinute(minute) {
+        ctx.save();
+        ctx.beginPath();
+        var rad = 2 * Math.PI / 60 * minute;
+        ctx.rotate(rad);
+        ctx.lineWidth = 3 * rem;
+        ctx.lineCap = 'round';
+        ctx.moveTo(0, 10);
+        ctx.lineTo(0, -r + 30 * rem); //往上是负，往下是正
+        ctx.stroke();
+        ctx.closePath();
+        ctx.restore();
+    }
+
+    //秒针
+    function drawSecond(second) { //秒针后粗前细,呈多边形梯形
+        ctx.save();
+        ctx.beginPath();
+        ctx.fillStyle = '#c14543';
+        var rad = 2 * Math.PI / 60 * second;
+        ctx.rotate(rad);
+        ctx.moveTo(-2, 20 * rem);
+        ctx.lineTo(2, 20 * rem);
+        ctx.lineTo(1, -r + 18 * rem); //往上是负，往下是正
+        ctx.lineTo(-1, -r + 18 * rem);
+        ctx.fill();
+        ctx.closePath();
+        ctx.restore();
+    }
+
+    // 表盘中心圆点
+    function drawDot() {
+        ctx.beginPath();
+        ctx.fillStyle = '#fff';
+        ctx.arc(0, 0, 3, 0, 2 * Math.PI, false);
+        ctx.fill();
+        ctx.closePath();
+    }
+
+
+    //动态时分秒针
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+        var now = new Date();
+        var hour = now.getHours();
+        var minute = now.getMinutes();
+        var second = now.getSeconds();
+        // 顺序不可乱，canvas按从上到下的顺序叠加排列
+        drawBackground();
+        drawHour(hour, minute);
+        drawMinute(minute);
+        drawSecond(second);
+        drawDot();
+        ctx.restore();
+    }
+
+    draw(); //先执行一次，再执行setInterval()
+    setInterval(draw, 1000);
+    </script>
+</body>
+
+</html>

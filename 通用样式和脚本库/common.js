@@ -164,11 +164,11 @@ function layer_close() {
     parent.layer.close(index);
 }
 //
-//
+// 提示特效
 function layer_msg(content, duringTime) {
     layer.msg(content, { time: duringTime, shift: 6 }, function() {});
 }
-
+// 弹窗特效
 function layer_alert(content) {
     layer.alert(content, {
         shift: 6 //shake
@@ -185,7 +185,7 @@ function layer_loading(callback) {
     });
 }
 ////获取url参数
-function GetUrlpara(name) {
+function getUrlparameter(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); //返回字符串
@@ -200,24 +200,21 @@ function checkDate(val) {
     return val == '' ? '' : new Date(val);
 }
 
-function getJson(key, num) {
-    if (num == null || num == '') {
-        return '';
-    } else {
-        var jsonObj = {
-            "chargeStatus": ['充电完成', '正在充电', '开启充电桩失败'], //充电状态
-            "pileStatus": ['空闲', '占用', '空闲'], //电桩状态
-            "publishStatus": ['下线', '上线'], //发布状态
-            "qtStatus": ['停用', '启用'], //启停状态
-        };
-        for (var item in jsonObj) {
-            if (item == key) { //item 表示Json串中的属性，如'name'  
-                var jValue = jsonObj[item]; //key所对应的value  
-                return jValue[num];
-            }
+function typeParse(key, num) {
+    if (num == null || num == '') return;
+    var jsonObj = {
+        "chargeStatus": ['充电完成', '正在充电', '开启充电桩失败'], //充电状态
+        "pileStatus": ['空闲', '占用', '空闲'], //电桩状态
+        "publishStatus": ['下线', '上线'], //发布状态
+        "qtStatus": ['停用', '启用'], //启停状态
+    };
+    for (var item in jsonObj) {
+        if (item == key) { //item 表示Json串中的属性，如'name'  
+            var jValue = jsonObj[item]; //key所对应的value  
+            return jValue[num];
         }
-        // return jsonObj[key][num];
     }
+    // return jsonObj[key][num];
 }
 //
 //

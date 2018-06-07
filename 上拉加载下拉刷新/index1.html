@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>文档标题</title>
+    <!-- 360 使用Google Chrome Frame -->
+    <meta name="renderer" content="webkit">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!-- 开启响应式 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <!-- SEO页面关键词 -->
+    <meta name="keywords" content="your keywords">
+    <!-- SEO页面描述 -->
+    <meta name="description" content="your description">
+    <style>
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    header {
+        width: 100%;
+        height: 10%;
+        text-align: center;
+        line-height: 50px;
+        background: black;
+        color: white;
+        font-size: 12px;
+    }
+
+    footer {
+        width: 100%;
+        height: 10%;
+        text-align: center;
+        line-height: 50px;
+        background: black;
+        color: white;
+        font-size: 12px;
+    }
+
+    #box {
+        width: 100%;
+        height: 80%;
+        overflow: hidden;
+    }
+
+    #wrap {
+        width: 100%;
+        height: auto;
+    }
+
+    .shuaxin {
+        width: 100%;
+        height: 20px;
+        text-align: center;
+        background: #ccc;
+        color: black;
+        display: none;
+    }
+
+    #wrap li {
+        width: 100%;
+        line-height: 150px;
+        color: yellow;
+        background: blue;
+        text-align: center;
+        border-bottom: 1px dashed yellow;
+    }
+
+    .jiazai {
+        width: 100%;
+        height: 20px;
+        text-align: center;
+        background: #ccc;
+        color: black;
+        display: none;
+    }
+    </style>
+</head>
+
+<body>
+    <header>这个就是测试上拉加载和下拉刷新</header>
+    <div class="shuaxin">你在下拉刷新</div>
+    <div id="box">
+        <ul id="wrap">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+        </ul>
+    </div>
+    <div class="jiazai">你是在上拉加载</div>
+    <footer>这个就是底部</footer>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script src="iscroll.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var myscroll = new iScroll('box');
+        $(document).on("touchend", function() {
+            console.log(myscroll.maxScrollY);
+            if (myscroll.y ==  0) {
+                $(".shuaxin").hide();
+            }
+            if (myscroll.y == myscroll.maxScrollY) {
+                $(".jiazai").hide();
+            }
+            myscroll.refresh();
+        });
+        $(document).on("touchmove", function() {
+            console.log(myscroll.y);
+            if (myscroll.y > 20) {
+                $(".shuaxin").show();
+            }
+            if (myscroll.y < myscroll.maxScrollY - 20) {
+                $(".jiazai").show();
+            }
+        })
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>canvas语法</title>
+</head>
+
+<body>
+    <!-- 默认宽度300px，默认高度 150px -->
+    <canvas width="500" height="500" id="demo">
+        您的浏览器版本太低，不支持HTML5新增的canvas标签！
+    </canvas>
+    <script>
+    // 1、使用js获取画布，并指定对象 
+    var demo = document.getElementById('demo');
+    var cxt = demo.getContext('2d'); //开启2d绘图环境
+
+
+
+
+    // a、画圆
+    // arc(x,y,r,0,360,false)
+    //  	x,y  圆心坐标位置
+    //  	r 圆半径
+    //  	0,360 从0度到360度 绘制一个圆形  2 * Math.PI
+    //  	true/false  顺时针/逆时针绘图
+    function drawArc(id) {
+        cxt.beginPath(); //开启绘画路径
+
+        cxt.lineWidth = 5; //设置线的宽度
+        cxt.fillStyle = "#00f"; //设置或返回用于填充绘画的颜色、渐变或模式
+        cxt.strokeStyle = '#0f0'; //设置或返回用于笔触的颜色、见面或模式
+        cxt.arc(100, 100, 50, 0, 2 * Math.PI, false); // cxt.arc() 圆心，坐标，开始角，结束角，顺/逆时针
+        cxt.fill(); //填充
+        cxt.stroke(); //画边框
+
+        cxt.closePath(); //关闭绘画路径
+    }
+    drawArc('demo');
+
+
+    // b、画线
+    function drawLine(id) {
+        cxt.save(); //保存当前画布环境
+
+        cxt.translate(250, 100); //从起始点为基准，移动到当前位置
+        cxt.lineWidth = 10; //设置线的宽度
+        cxt.strokeStyle = '#999'; //触笔颜色
+        cxt.lineCap = 'round';//设置或返回线条的结束端点样式
+
+        cxt.beginPath(); //开启绘画路径
+        cxt.moveTo(0, 0); //画线开始的位置
+        cxt.lineTo(100, 0); //画线结束的位置
+        cxt.closePath(); //关闭绘画路径
+
+        cxt.stroke();
+
+        cxt.restore(); //返回之前保存的画布的路径状态，与save()成对用
+
+        // cxt.clearRect();//清空画布     起始坐标和画布的宽高 
+    }
+
+    drawLine('demo');
+
+
+    // c、画多边形，如三角形
+    function drawTrigon(id) {
+        cxt.save();
+
+        cxt.translate(250, 40);
+        cxt.lineWidth = 3;
+        cxt.strokeStyle = '#0f0';
+
+        cxt.beginPath();
+        cxt.moveTo(0, 0);
+        cxt.lineTo(0, 120);
+        cxt.lineTo(100, 60);
+        cxt.lineTo(0, 0);
+        cxt.stroke();
+        cxt.closePath();
+
+        cxt.restore();
+    }
+
+    drawTrigon('demo');
+
+
+    // d、画文字 
+    function drawText(id) {
+        cxt.save();
+
+        cxt.translate(100, 300);
+        cxt.fillStyle = "#879";//填充绘画的颜色
+        cxt.strokeStyle = '#09';//触笔颜色
+        cxt.font = "normal 90px 微软雅黑";
+        // cxt.textAlign = "center";//start center end  left right
+        cxt.fillText('Canvas Text', 0, 0);//绘制实心文本
+        cxt.strokeText('Canvas Text', 0, 0);//绘制空心文本
+
+        cxt.restore();
+    }
+    drawText('demo');
+    </script>
+</body>
+
+</html>

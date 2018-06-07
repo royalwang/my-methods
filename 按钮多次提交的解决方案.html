@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>按钮多次提交的解决方案</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <style type="text/css">
+    .cover-layer {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        position: fixed;
+        z-index: 9999;
+    }
+    </style>
+</head>
+
+<body>
+    
+    <!-- 在点击按钮之后，使用绝对定位弹起了一个透明的弹层，将按钮给覆盖，等结果返回并显示以后，我在同时去掉弹层。这样就避免了用户的重复提交。 -->
+    <div node-type="cover_layer"></div>
+    <script type="text/javascript">
+    // $(node).on('clcik', '.reward-btn', function() {
+    //     //呼起弹层
+    //     $('[node-type=cover_layer]', node).addClass('cover-layer');
+    //     // .....
+
+    //     //返回结果以后去掉弹层
+    //     $('[node-type=cover_layer]', node).removeClass('cover-layer');
+    //     // .....
+    // });
+    </script>
+</body>
+
+</html>
