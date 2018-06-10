@@ -11,7 +11,7 @@ let utils = {
   dom: {
     // 显示
     show (obj) {
-      obj.style.display = ''
+      obj.style.display = 'block'
     },
 
     // 隐藏

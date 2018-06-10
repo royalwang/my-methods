@@ -8,6 +8,9 @@ body {
 }
 
 
+
+
+
 /*移动端页面支持弹性滚动*/
 
 
@@ -109,11 +112,17 @@ strong {
     font-weight: 700
 }
 
+
+
+
 /*流畅滚动*/
 
 body {
     -webkit-overflow-scrolling: touch;
 }
+
+
+
 
 /*去掉 a，input 在移动端浏览器中的默认样式*/
 
@@ -174,6 +183,9 @@ img {
 
 
 
+
+
+
 /*解决ie问题 利用zoom 保持原始大小*/
 
 .clearfix {
@@ -184,6 +196,9 @@ img {
     width: 0;
     height: 0;
 }
+
+
+
 
 
 
@@ -219,6 +234,9 @@ html::-webkit-scrollbar-thumb:hover {
 
 
 
+
+
+
 /*placeholder样式*/
 
 ::-webkit-input-placeholder {
@@ -242,6 +260,9 @@ html::-webkit-scrollbar-thumb:hover {
 
 
 
+
+
+
 /*禁止文字选中*/
 
 .user-select {
@@ -251,6 +272,9 @@ html::-webkit-scrollbar-thumb:hover {
     -khtml-user-select: none;
     user-select: none;
 }
+
+
+
 
 
 
@@ -279,6 +303,9 @@ html::-webkit-scrollbar-thumb:hover {
 
 
 
+
+
+
 /*文本域滚动条*/
 
 textarea::-webkit-scrollbar {
@@ -298,6 +325,9 @@ textarea::-webkit-scrollbar-track-piece {
 textarea::-webkit-scrollbar-thumb {
     background: #999;
 }
+
+
+
 
 
 
@@ -337,6 +367,21 @@ select:-webkit-autofill {
 }
 
 
+/*！！！！文字超出宽度后，显示省略号的解决办法，以及flex与超出显示省略号冲突问题*/
+
+.parent {
+    flex: 1;
+    /*width: 0;*/
+    min-width: 0;/*在父元素设置为flex布局之后，不加该属性，子元素的省略号不起作用*/
+}
+
+.parent .child {
+    width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 
 
 /*只有在PC下才执行的样式*/
@@ -348,9 +393,15 @@ select:-webkit-autofill {
 
 
 
+
+
+
 /*只有在PAD下才执行的样式*/
 
 @media screen and (min-width: 768px) and (max-width: 992px) {}
+
+
+
 
 
 
