@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>原生js轮播</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .Js_lunbo_cont {
+        width: 800px;
+        margin: 100px auto;
+        position: relative;
+    }
+
+    .Js_lunbo_cont:hover .Js_lunbo_btn a {
+        display: inline-block;
+    }
+
+    .Js_lunbo_pic img {
+        width: 100%;
+    }
+    /*分页器*/
+
+    .Js_lunbo_list {
+        position: absolute;
+        left: 0;
+        bottom: 15px;
+        width: 100%;
+    }
+
+    .Js_lunbo_list ul {
+        list-style-type: none;
+        border-radius: 15px;
+        width: 125px;
+        height: 15px;
+        margin: 0px auto;
+        padding: 0px 5px;
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .Js_lunbo_list li {
+        float: left;
+        background-color: white;
+        width: 15px;
+        height: 15px;
+        line-height: 15px;
+        margin: 0px 5px;
+        border-radius: 50%;
+    }
+
+    .Js_lunbo_list li:hover,
+    .Js_lunbo_list .active {
+        background-color: red;
+    }
+
+    .Js_lunbo_btn a {
+        display: inline-block;
+        display: none;
+        width: 30px;
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        color: white;
+        position: absolute;
+        text-decoration: none;
+        background-color: rgba(201, 201, 201, 0.6);
+    }
+    /*两边按钮*/
+
+    .Js_lunbo_btn a:hover {
+        background-color: #6E6568;
+    }
+
+    .Js_lunbo_btn .Js_prev {
+        left: 0px;
+        top: 50%;
+        margin-top: -30px;
+    }
+
+    .Js_lunbo_btn .Js_next {
+        right: 0px;
+        top: 50%;
+        margin-top: -30px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="Js_lunbo_cont">
+        <!--轮播图-->
+        <div class="Js_lunbo_pic">
+            <a href="1.html"><img src="img/lunbo (2).jpg" alt="1" /></a>
+        </div>
+        <!-- 分页器 -->
+        <div class="Js_lunbo_list">
+            <ul>
+                <li class="active" data-href="1.html" data-src="img/lunbo (2).jpg"></li>
+                <li data-href="2.html" data-src="img/lunbo (3).jpg"></li>
+                <li data-href="3.html" data-src="img/lunbo (4).jpg"></li>
+                <li data-href="4.html" data-src="img/lunbo (5).jpg"></li>
+                <li data-href="5.html" data-src="img/lunbo (6).jpg"></li>
+            </ul>
+        </div>
+        <!-- 前后页导航按钮 -->
+        <div class="Js_lunbo_btn">
+            <a href="javascript:;" class="Js_prev">&lt;</a>
+            <a href="javascript:;" class="Js_next">&gt;</a>
+        </div>
+    </div>
+    <script type="text/javascript">
+    //轮播图
+    window.onload = function() {
+        swiper();
+    }
+
+    function swiper() {
+        var timer = null;
+        var lunbo_cont = document.querySelector(".Js_lunbo_cont");
+        var lunbo_list = document.querySelector(".Js_lunbo_list");
+        var lis = lunbo_list.getElementsByTagName("li");
+        var aEl = document.querySelector(".Js_lunbo_pic").firstElementChild;
+        var per = document.querySelector(".Js_prev");
+        var next = document.querySelector(".Js_next");
+        lunbo_cont.onmouseover = function() {
+            clearInterval(timer);
+        }
+        lunbo_cont.onmouseout = function() {
+            autoPlay();
+        }
+
+        for (var i = 0; i < lis.length; i++) {
+            lis[i].setAttribute("data-index", i);
+            lis[i].onmouseover = function() {
+                clearInterval(timer);
+                lunbo_list.querySelector(".active").removeAttribute("class");
+                this.className = "active";
+                aEl.href = this.getAttribute("data-href");
+                aEl.firstElementChild.src = this.getAttribute("data-src");
+            }
+            lis[i].onmouseout = function() {
+                autoPlay();
+            }
+        }
+
+        per.onclick = function() {
+            var active = lunbo_list.querySelector(".active");
+            var index = parseInt(active.getAttribute("data-index"));
+            if (--index < 0) {
+                index = lis.length - 1;
+            }
+            aEl.href = lis[index].getAttribute("data-href");
+            aEl.firstElementChild.src = lis[index].getAttribute("data-src");
+            active.removeAttribute("class");
+            lis[index].className = "active";
+        }
+
+        next.onclick = function() {
+            var active = lunbo_list.querySelector(".active");
+            var index = parseInt(active.getAttribute("data-index"));
+            if (++index >= lis.length) {
+                index = 0;
+            }
+            aEl.href = lis[index].getAttribute("data-href");
+            aEl.firstElementChild.src = lis[index].getAttribute("data-src");
+            active.removeAttribute("class");
+            lis[index].className = "active";
+        }
+
+        /*	setInterval(function() {
+        		var active = lunbo_list.querySelector(".active");
+        		var index = parseInt(active.getAttribute("data-index"));
+        		if(++index > lis.length) {
+        			index = 0;
+        		}
+        		active.removeAttribute("class");
+        		lis[index].className = "active";
+        		aEl.href = lis[index].getAttribute("data-href");
+        		aEl.firstElementChild.src = lis[index].getAttribute("data-src");
+        	}, 1000);
+        	*/
+        var autoPlay = function() {
+            timer = setInterval(function() {
+                next.click();
+            }, 2000);
+        }
+        autoPlay();
+    }
+    </script>
+</body>
+
+</html>

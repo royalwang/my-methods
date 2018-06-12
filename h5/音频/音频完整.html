@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    body {
+        background-color: #232323;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+    #main {
+        margin: 0px auto;
+        width: 200px;
+        min-height: 200px;
+        color: white;
+        text-align: center;
+        line-height: 30px;
+    }
+
+    li {
+        color: black;
+    }
+
+    li:hover {
+        color: brown;
+        cursor: pointer;
+    }
+
+    #mvin {
+        padding-top: 20px;
+        margin: 0px auto;
+        width: 650px;
+        height: 310px;
+        margin-top: 100px;
+        position: relative;
+        background-color: white;
+        /*background-image: linear-gradient(to left, #ED5DD8, black, #ED5DD8);*/
+        /*background:url(../image/2017-05-11_204252.png) no-repeat;*/
+    }
+
+    .raudio {
+        position: absolute;
+        left: 325px;
+        top: 260px;
+    }
+
+    .before {
+        position: absolute;
+        left: 260px;
+        top: 260px;
+    }
+
+    .raudio:hover {
+        background-color: #FF5C4D;
+    }
+
+    .before:hover {
+        background-color: #FF5C4D;
+    }
+
+    .last:hover {
+        background-color: #FF5C4D;
+    }
+
+    .last {
+        position: absolute;
+        left: 390px;
+        top: 260px;
+    }
+
+    .msin {
+        position: absolute;
+        top: 230px;
+        left: 190px;
+        border: 1px solid #232323;
+        height: 10px;
+        width: 300px;
+        border-radius: 5px;
+    }
+
+    .msin_fi {
+        /*进度条*/
+        border-radius: 5px;
+        height: 10px;
+        background-color: #ED5DD8;
+    }
+
+    #now {
+        position: absolute;
+        left: 145px;
+        top: 225px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #000000;
+    }
+
+    #end {
+        position: absolute;
+        left: 495px;
+        top: 225px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #000000;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="mvin">
+        <audio id="yaudio" src="Music/Carly Rae Jepsen - I Really Like You.mp3" ondurationchange="endTime()" ontimeupdate="changeTime()"></audio>
+        <div class="msin">
+            <!-- 进度条 -->
+            <div class="msin_fi" style="width: 0px;"></div>
+        </div>
+        <span id="now">00:00</span><span id="end">00:00</span>
+        <!-- 上一首 -->
+        <div class="before" onclick="prev()"><img src="video—img/back.png" width="40px" height="40px"></div>
+        <!-- 播放 -->
+        <div class="raudio" onclick="playe(this)"><img src="video—img/play.png" width="40px" height="40px"></div>
+        <!-- 下一首 -->
+        <div class="last" onclick="next()"><img src="video—img/back.png" style="transform: rotate(180deg);" width="40px" height="40px"></div>
+        <div id="main">
+            <ul>
+                <li data-src="Music/Carly Rae Jepsen - I Really Like You.mp3">I Really Like You</li>
+                <li data-src="Music/薛之谦 - 一半.mp3">薛之谦 - 一半</li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript" charset="utf-8" src="../../jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+    var yaudio = document.getElementById("yaudio");
+
+    var lis = document.getElementById("main").children[0].children;
+    var raudio = document.getElementsByClassName("raudio");
+    var before = document.getElementsByClassName("before")
+
+    var index = 0;
+    var type = "sequence"
+    var list = [];
+    window.onload = function() {
+        for (var i = 0; i < lis.length; i++) {
+            list.push(lis[i].getAttribute("data-src"));
+            (function(index) {
+                lis[index].onclick = function(index) {
+                    index = index;
+                    yaudio.src = this.getAttribute("data-src")
+                    yaudio.play();
+
+                }
+            })(i)
+        }
+    }
+    //上一首
+    function prev() {
+        if (type == "sequence") {
+            index--;
+            if (index < 0) {
+                index = list.length;
+                yaudio.play();
+            } else {
+                yaudio.src = list[index];
+                yaudio.play();
+            }
+        } else if (type == "random") {
+            var x = getRandom(0, list.length, 1).toString();
+            index = x;
+            yaudio.src = list[index];
+            yaudio.play();
+        }
+    }
+    //下一首
+    function next() {
+        if (type == "sequence") {
+            index++;
+
+            if (index >= list.length) {
+                index = 0;
+            }
+            yaudio.src = list[index];
+            yaudio.play();
+        } else if (type == "random") {
+            var x = getRandom(0, list.length, 1).toString();
+            index = x;
+            yaudio.src = list[index];
+            yaudio.play();
+        }
+    }
+    //播放和暂停切换
+    function playe(t) {
+        if (yaudio.paused) {
+            // console.log(t.children[0])
+            t.children[0].setAttribute('src', './video—img/play.png');
+            yaudio.play();
+            //                  raudio.innerHTML=="暂停"
+        } else {
+            t.children[0].setAttribute('src', './video—img/next.png');
+            yaudio.pause();
+            //                  raudio.innerHTML=="播放"
+        }
+    }
+    //音频总时长
+    function endTime() {
+        var a = document.getElementById("yaudio");
+        var fen = parseInt(a.duration / 60) < 10 ? "0" + parseInt(a.duration / 60) : parseInt(a.duration / 60);
+        var miao = parseInt(a.duration % 60) < 10 ? "0" + parseInt(a.duration % 60) : parseInt(a.duration % 60);
+        var end = document.getElementById("end")
+        end.innerHTML = fen + ":" + miao;
+    }
+    //当前播放时间
+    function changeTime() {
+        var a = document.getElementById("yaudio");
+        var fen = parseInt(a.currentTime / 60) < 10 ? "0" + parseInt(a.currentTime / 60) : parseInt(a.currentTime / 60);
+        var miao = parseInt(a.currentTime % 60) < 10 ? "0" + parseInt(a.currentTime % 60) : parseInt(a.currentTime % 60);
+        var end = document.getElementById("now")
+        now.innerHTML = fen + ":" + miao
+        //播放时横条变化
+        document.getElementsByClassName("msin_fi")[0].style.width = "" + parseInt(a.currentTime / a.duration * 300) + "px";
+    }
+    </script>
+</body>
+
+</html>

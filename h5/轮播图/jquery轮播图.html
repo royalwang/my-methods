@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jquery轮播图</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    #flash {
+        width: 600px;
+        height: 240px;
+        background: #cc99cc;
+        margin: 200px auto;
+        position: relative;
+        overflow: hidden;
+    }
+
+    #flash .scroll {
+        /*width: 3600px;*/
+        height: 240px;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        box-sizing: border-box;
+    }
+
+    #flash .scroll:after {
+        content: "";
+        display: block;
+        height: 0;
+        clear: both;
+    }
+
+    #flash .scroll .img_cont {
+        float: left;
+        width: 600px;
+        height: 240px;
+        line-height: 240px;
+        text-align: center;
+    }
+
+    #flash .scroll .img_cont img {
+        width: 100%;
+        vertical-align: middle;
+    }
+
+    #flash ul.button {
+        height: 20px;
+        width: 144px;
+        position: absolute;
+        bottom: 20px;
+        right: 10px;
+    }
+
+    #flash ul.button li {
+        list-style-type: none;
+        width: 20px;
+        height: 20px;
+        background: #666;
+        float: left;
+        margin: 0px 2px;
+        color: #fff;
+        text-align: center;
+        font-size: 12px;
+        line-height: 20px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px #000;
+    }
+
+    #flash ul.button li.hover {
+        background: #cc3300;
+        cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="flash">
+        <!--图片滚动开始-->
+        <div class="scroll">
+            <div class="img_cont">1</div>
+            <div class="img_cont">2</div>
+            <div class="img_cont">3</div>
+            <div class="img_cont">4</div>
+        </div>
+        <!--图片滚动结束-->
+        <!--按扭-->
+        <ul class="button">
+        </ul>
+    </div>
+    <script type="text/javascript" src="../../jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+    var _index = 0;
+    var setTime = null;
+
+    var oLength = $('.scroll .img_cont').length;
+    //动态添加分页器
+    for (var i = 0; i < oLength; i++) {
+        $(".button").append("<li>" + (i + 1) + "</li>");
+    }
+    $(".button li").first().addClass("hover");
+
+    $("ul.button li").hover(function() {
+        clearInterval(setTime); //清处定时播放器
+        _index = $(this).index();
+        var oWidth = $('.img_cont').width();
+        $(this).addClass("hover").siblings("li").removeClass("hover");
+        $(".scroll").stop(true).animate({ left: -(_index * oWidth) });
+    }, function() {
+        //鼠标移开，调用自动播放
+        autoPlay();
+    });
+
+
+    //自动轮播封装
+    function autoPlay() {
+        var oWidth = $('.img_cont').width();
+        $('.scroll').width(oLength * oWidth);
+
+        setTime = setInterval(function() {
+            _index++;
+            if (_index == oLength) { _index = 0; } //当播到最后一张时，回到第一张
+            $("ul.button li").eq(_index).addClass("hover").siblings("li").removeClass("hover");
+            $(".scroll").animate({ left: -(_index * oWidth) }, 1000);
+        }, 2000);
+
+    }
+    autoPlay();
+
+
+
+
+    // stop() 相当于stop(false, false) 表示停止执行当前动画， 后续动画接着进行
+
+    // 　　 stop(true, false) 表示停止执行当前动画， 后续动画不再进行
+
+    // 　　 stop(false, true) 表示当前动画立即完成， 后续动画接着进行
+
+    // 　　 stop(true, true) 表示当前动画立即完成， 后续动画不再进行
+    </script>
+</body>
+
+</html>
