@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>localforage基本用法</title>
+</head>
+
+<body>
+    <!-- localForage在默认情况下会优先采用使用IDB、WebSQL、localStorage进行后台存储，但是可以通过setDriver()进行后台设置，如果设置的机制在当前浏览器并不支持，则还是按照默认选择 -->
+    <!-- setDriver(driverName)/setDriver([driverName, nextDriverName]):设置后台支持机制，参数是localforage.INDEXEDDB、localforage.WEBSQL、localforage.LOCALSTORAGE -->
+    <script type="text/javascript">
+    	//localforage.INDEXEDDB
+    	//localforage.WEBSQL
+    	//localforage.LOCALSTORAGE
+    localforage.setDriver(localforage.LOCALSTORAGE).then(function() {
+        var key = 'STORE_KEY';
+        // var value = 'What we save offline';
+        var value = new Uint8Array(8);
+        value[0] = 65
+        // var value = undefined;
+        var UNKNOWN_KEY = 'unknown_key';
+
+        localforage.setItem(key, value, function() {
+            console.log('Saved: ' + value);
+
+            localforage.getItem(key, function(err, readValue) {
+                console.log('Read===', readValue);
+            });
+
+            // 未通过setItem设置的，取的时候会得到空值
+            localforage.getItem(UNKNOWN_KEY, function(err, readValue) {
+                console.log('Result of reading====' + readValue);
+            });
+        });
+    });
+
+
+    /**
+     * 1、setItem(key, value, successCallback)
+     */
+    localforage.setItem('my array', [1, 2, 'three']).then(function(value) {
+        // This will output `1`.
+        console.log(value[0]);
+    }).catch(function(err) {
+        // This code runs if there were any errors
+        console.log(err);
+    });
+
+    /**
+     * 2、getItem(key, successCallback)
+     */
+
+    localforage.getItem('somekey', function(err, value) {
+        console.log(value);
+    });
+
+    /**
+     * 3、removeItem(key, successCallback); 移除对应的键
+     */
+
+    localforage.removeItem('somekey').then(function() {
+        console.log('Key is cleared!');
+    }).catch(function(err) {
+        console.log(err);
+    });
+
+    /**
+     * 4、clear(successCallback); 清除所有键
+     */
+
+    localforage.clear().then(function() {
+        console.log('Database is now empty.');
+    }).catch(function(err) {
+        console.log(err);
+    });
+
+    /**
+     * 5、length(successCallback); 获得离线存储的总的键数
+     */
+
+    localforage.length().then(function(numberOfKeys) {
+        console.log(numberOfKeys);
+    }).catch(function(err) {
+        console.log(err);
+    });
+
+    /**
+     * 6、key(keyIndex, successCallback); 根据键索引得到键值
+     */
+
+    /**
+     * 7、keys(successCallback); 得到所有的键索引
+     */
+
+    /**
+     * 8、iterate(iteratorCallback, successCallback); 
+     *   对数据库中的每一个键值对调用回调函数，回调函数的参数分别是键值、键索引、迭代次数（基于1）
+     */
+
+    localforage.iterate(function(value, key, iterationNumber) {
+        console.log([key, value]);
+    }).then(function() {
+        console.log('Iteration has completed');
+    }).catch(function(err) {
+        console.log(err);
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>使用隐藏域的图片上传</title>
+    <style type="text/css">
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    label {
+        display: inline-block;
+        padding: 10px;
+        text-align: center;
+        margin: 50px 20px 0;
+        background-color: #aaa;
+        border-radius: 3px;
+        color: #fff;
+        cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+    <label for="fileImg">上传图片</label>
+    <input type="file" id="fileImg" accept="image/*" hidden>
+    <p id="result"></p>
+    <script type="text/javascript">
+    var eleResult = document.getElementById('result');
+    var eleImg = document.getElementById('fileImg');
+    //1、filereader方式
+    //
+    // eleImg.onchange = function(e) {
+    //     var ele = e.target.files[0];
+
+    //     var fr = new FileReader();
+    //     fr.onload = function(ele) {
+    //         var pvImg = new Image();
+    //         pvImg.src = ele.target.result;
+    //         pvImg.setAttribute('id', 'previewImg');
+
+    //         eleResult.appendChild(pvImg);
+    //     }
+    //     fr.readAsDataURL(ele);
+    // }
+
+
+
+    // 2、window.URL.createObjectURL 方式
+    // 
+    // 
+    eleImg.onchange = function(e) {
+        var ele = e.target.files[0];
+
+        var createObjectURL = function(blob) {
+            // return window[window.webkitURL ? 'webkitURL' : 'URL']['createObjectURL'](blob);//两者皆可
+            return window[window.webkitURL ? 'webkitURL' : 'URL']['createObjectURL'](new Blob([blob]));
+        };
+        var newimgdata = createObjectURL(ele);
+
+        var pvImg = new Image();
+        pvImg.src = newimgdata;
+        pvImg.setAttribute('id', 'previewImg');
+
+        eleResult.appendChild(pvImg);
+    }
+    </script>
+</body>
+
+</html>

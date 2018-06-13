@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>使用localforage存储二进制文件，图片</title>
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body>
+    <label for="fileImg">上传图片</label>
+    <input type="file" id="fileImg" accept="image/*" hidden>
+    <p id="result"></p>
+    <script type="text/javascript" src="./lib/localforage.min.js"></script>
+    <script type="text/javascript">
+    var eleResult = document.getElementById('result');
+    // 图片资源
+    var eleImg = document.createElement('img');
+    // localforage.removeItem('Img');//删除
+    /**
+     * 获取本地存储数据
+     */
+    localforage.getItem('Img', function(err, value) {
+        if (err == null && value) {
+            // 如果值不为空，则显示
+            eleImg.src = value;
+            eleResult.appendChild(eleImg);
+        }
+    });
+
+    /**
+     * 选择的本地文件以Blob形式呈现及存储
+     */
+    var reader = new FileReader();
+    reader.onload = function(event) {
+    	// event.target.result就是文件文本内容
+        // console.log(event.target.result); //ArrayBuffer
+
+        if (!eleImg.src) {
+            eleResult.appendChild(eleImg);
+        }
+        var blob = window[window.webkitURL ? 'webkitURL' : 'URL'].createObjectURL(new Blob([event.target.result]));
+        eleImg.src = blob;
+        // blob本地存储
+        localforage.setItem('Img', blob);
+    };
+    /**
+     * 选择的文件对象
+     */
+    var file = null;
+    document.getElementById('fileImg').addEventListener('change', function(event) {
+        file = event.target.files[0];
+        // 选择的文件是图片
+        if (file.type.indexOf("image") == 0) {
+        	// reader.abort();可以终止读操作
+        	// reader.readAsText();//转文本
+            // reader.readAsDataURL(file);//转base64//
+            reader.readAsArrayBuffer(file);//把Blob或者file对象以ArrayBuffer形式读出来
+        }
+    });
+    </script>
+</body>
+
+</html>
