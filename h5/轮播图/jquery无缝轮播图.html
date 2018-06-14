@@ -119,7 +119,7 @@
         /*添加对应数目的分页按钮*/
         var img_length = $(".banner .img li").length; //返回匹配元素的数量
 
-        for (var j = 0; j < img_length - 1; j++) {
+        for (var j = 0; j < img_length; j++) {
             $(".banner .num").append("<li></li>");
         }
         $(".banner .num li").first().addClass("on");
@@ -162,7 +162,6 @@
 
         /*轮播事件封装*/
         function move() {
-            console.log('i====' + i)
             if (i == img_length) {
                 //当播到最后一张时，回到第一张
                 $(".banner .img").css({ left: 0 });

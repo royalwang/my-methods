@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>b页面</title>
+</head>
+
+<body>
+    <a href="a.html">这里是b页面=====>进入页面a</a>
+    <script type="text/javascript" src="replaceState.js"></script>
+    <script type="text/javascript">
+    document.getElementsByTagName('a')[0].onclick = function(event) {
+        if (event && event.preventDefault) {
+            event.preventDefault();
+        }
+        fnUrlReplace(this);
+        return false;
+    };
+    </script>
+</body>
+
+</html>
