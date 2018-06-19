@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>文档标题</title>
+    <!-- 360 使用Google Chrome Frame -->
+    <meta name="renderer" content="webkit">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!-- 开启响应式 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <!-- SEO页面关键词 -->
+    <meta name="keywords" content="your keywords">
+    <!-- SEO页面描述 -->
+    <meta name="description" content="your description">
+    <!-- favicon，可更改图片类型 -->
+    <link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+    <!-- 外联样式表 -->
+    <link rel="stylesheet" href="./css/mui.min.css" />
+</head>
+
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">hello</h1>
+    </header>
+    <div class="mui-content">
+        <button type="button" onclick="mshow()">测试onclick</button>
+        <button type="button" id="btn1">测试id 点击事件</button>
+        <br />
+        <ul id="lists" class="mui-table-view">
+            <li class="mui-table-view-cell">Item 1</li>
+            <li class="mui-table-view-cell">Item 2</li>
+            <li class="mui-table-view-cell">Item 3</li>
+        </ul>
+        <br />
+        <button type="button" id="btn2">点击这里</button>
+        <br>
+        <ul class="mui-table-view" id="list1">
+            <li class="mui-table-view-cell" id="1">新闻 1</li>
+            <li class="mui-table-view-cell" id="2">新闻 2</li>
+            <li class="mui-table-view-cell" id="3">新闻 3</li>
+        </ul>
+    </div>
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script type="text/javascript" src="./js/mui.min.js"></script>
+    <script type="text/javascript">
+    /*提前预加载其他页面，这样再打开已加载好的页面就会有很好的效果了*/
+    mui.init();
+    </script>
+    <script type="text/javascript">
+    /*用此方法的话，万一页面没有加载完，用户就点击了某个按钮就怕出问题*/
+    function mshow() {
+        mui.toast('ok');
+    }
+    /*plusReady()  此mui方法值能在真机上运行，用此方法的目的是能证明加载完所有的控件了*/
+    mui.plusReady(function() {});
+    document.getElementById('btn1').addEventListener('tap', function() {
+        mui.toast('ok');
+    })
+
+    mui('#lists').on('tap', 'li', function() {
+        mui.toast(this.innerHTML);
+        //mui('#lists').off('tap','li');//取消点击事件
+    })
+
+    document.getElementById('btn2').addEventListener('tap', function() {
+        mui.toast('ok');
+    })
+
+    //点击跳转并传值
+    //mui.plusReady(function(){});
+    var detailPage = mui.preload({ url: 'sub.html', id: 'sub.html' });
+    mui('#list1').on('tap', 'li', function(e) {
+        mui.fire(detailPage, 'newsId', { 'title': this.innerHTML, 'id': this.getAttribute('id') });
+        mui.openWindow({ url: 'sub.html', id: 'sub.html' });
+    });
+    </script>
+</body>
+
+</html>

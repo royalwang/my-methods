@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+    * {
+        padding: 0px;
+        margin: 0px;
+        list-style: none;
+    }
+    /*包裹轮播的容器*/
+
+    .banner {
+        width: 400px;
+        height: 200px;
+        margin: 100px auto;
+        border: 1px solid #808080;
+        position: relative;
+        overflow: hidden;
+    }
+    /*轮播容器*/
+
+    .banner .img {
+        position: absolute;
+        height: 100%;
+        left: 0px;
+        top: 0px;
+    }
+
+    .banner .img li {
+        float: left;
+    }
+
+    .banner .img li img {
+        width: 100%;
+        vertical-align: middle;
+    }
+
+
+    .banner .num {
+        position: absolute;
+        width: 100%;
+        bottom: 10px;
+        left: 0px;
+        text-align: center;
+        font-size: 0px;
+    }
+
+    .banner .num li {
+        width: 10px;
+        height: 10px;
+        background-color: #888;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 0px 3px;
+        cursor: pointer;
+    }
+
+    .banner .num li.on {
+        background-color: #ff6a00;
+    }
+
+    .banner .btn {
+        width: 30px;
+        height: 50px;
+        background-color: #808080;
+        opacity: 0.5;
+        filter: alpha(opacity:0.5);
+        position: absolute;
+        top: 50%;
+        margin-top: -25px;
+        cursor: pointer;
+        text-align: center;
+        line-height: 50px;
+        font-size: 40px;
+        color: #fff;
+        font-family: "宋体";
+        display: none;
+    }
+
+    .banner .btn_l {
+        left: 0px;
+    }
+
+    .banner .btn_r {
+        right: 0px;
+    }
+
+    .banner:hover .btn {
+        display: block;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <ul class="img" id="slide">
+            <li><img src="" alt="1" /></li>
+            <li><img src="" alt="2" /></li>
+            <li><img src="" alt="3" /></li>
+            <li><img src="" alt="4" /></li>
+        </ul>
+        <!-- 分页器 -->
+        <ul class="num">
+        </ul>
+        <!-- 上/下一页 -->
+        <div class="btn btn_l">&lt;</div>
+        <div class="btn btn_r">&gt;</div>
+    </div>
+    <script type="text/javascript" src="../../jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var _index = 0;
+        var timer = null;
+        var autoLb = false; //autoLb=true为开启自动轮播
+        var touch = true; //touch=true为开启触摸滑动
+
+
+        var clone = $(".banner .img li").first().clone(); //克隆第一张图片
+        $(".banner .img").append(clone); //复制到列表最后
+
+        var imgs = $(".banner .img li").length; //返回匹配元素的数量
+
+        var liWidth = $('.banner').width(); //动态获取最外层容器的宽度
+        $('.banner .img').css('width', liWidth * imgs); //动态设置轮播容器的宽度
+        $('.banner .img li').css('width', liWidth); //动态获取轮播图片容器的宽度
+
+        addPagination();
+        if (autoLb) {
+            autoPlay();
+        }
+        if (touch) {
+            k_touch();
+        }
+
+        /*鼠标悬停图片事件*/
+        $(".banner").hover(function() {
+            clearInterval(timer); //鼠标悬停时清除定时器
+        }, function() {
+            autoPlay(); //鼠标移出时开始定时器
+        });
+
+        /*鼠标悬停原点事件*/
+
+        $(".banner .num li").hover(function() {
+            var index = $(this).index(); //获取当前索引值
+            _index = index; //将当前索引赋值给当前轮播序号
+            $(".banner .img").stop(true).animate({ 'left': -index * liWidth + 'px' }, 500);
+            $(this).addClass("on").siblings().removeClass("on");
+        });
+
+        /*向左按钮*/
+        $(".banner .btn_l").click(function() {
+            _index--;
+            move();
+        })
+        /*向右按钮*/
+        $(".banner .btn_r").click(function() {
+            _index++;
+            move();
+        });
+
+        /*添加对应数目的分页按钮*/
+        function addPagination() {
+            for (var j = 0; j < imgs - 1; j++) {
+                $(".banner .num").append("<li class=" + (j == 0 ? 'on' : '') + "></li>");
+            }
+        }
+
+        /*自动轮播封装*/
+        function autoPlay() {
+            timer = setInterval(function() {
+                _index++;
+                move();
+            }, 2000);
+        }
+
+        /*轮播事件封装*/
+        function move() {
+            if (_index == imgs) {
+                //当播到最后一张时，回到第一张
+                $(".banner .img").css({ 'left': 0 + 'px' });
+                _index = 1;
+            }
+            if (_index < 0) {
+                // 当到第一张之前那张时，移动到最后一张
+                $(".banner .img").css({ 'left': -(imgs - 1) * liWidth + 'px' });
+                _index = imgs - 2;
+            }
+            $(".banner .img").stop(true).animate({ 'left': -_index * liWidth + 'px' }, 500);
+            // 分页器添加样式
+            if (_index == imgs - 1) {
+                $(".banner .num li").eq(0).addClass("on").siblings().removeClass("on");
+            } else {
+                $(".banner .num li").eq(_index).addClass("on").siblings().removeClass("on");
+            }
+        }
+
+        //触摸滑动模块
+        function k_touch() {
+            var _start = 0,
+                _end = 0,
+                _content = document.getElementById("slide");
+            _content.addEventListener("touchstart", touchStart, false);
+            _content.addEventListener("touchmove", touchMove, false);
+            _content.addEventListener("touchend", touchEnd, false);
+
+            function touchStart(event) {
+                clearInterval(timer);
+                var touch = event.targetTouches[0];
+                _start = touch.pageX;
+            }
+
+            function touchMove(event) {
+                var touch = event.targetTouches[0];
+                _end = (_start - touch.pageX);
+            }
+
+            function touchEnd(event) {
+                if (_end < -10) {
+                    _index--;
+                    _end = 0;
+                    move();
+                } else if (_end > 10) {
+                    _index++;
+                    _end = 0;
+                    move();
+                }
+                autoPlay();
+            }
+        }
+    });
+    </script>
+</body>
+
+</html>

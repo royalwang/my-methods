@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>加载更多</title>
+</head>
+
+<body>
+	<script type="text/javascript" src="../jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+    var num = 0;
+    $(window).on('scroll', function() {
+        if ($(document).height() - $(this).scrollTop() - $(this).height() < 5) {
+            num += 10;
+            findInfo(String(num), null);
+        }
+    });
+    </script>
+</body>
+
+</html>

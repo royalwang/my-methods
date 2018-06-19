@@ -2,17 +2,20 @@
 body {
     font-family: "Helvetica Neue", 'Helvetica', 'STHeiTi', 'sans-serif';
 }
+/*媒体宽度*/
+
+.viewport {
+    max-width: 640px;
+    min-width: 320px;
+    margin: 0 auto;
+}
 
 @-ms-viewport {
     width: device-width
 }
 
 
-
-
-
 /*移动端页面支持弹性滚动*/
-
 
 /* body {
     -webkit-overflow-scrolling: touch;
@@ -179,13 +182,6 @@ img {
 }
 
 
-
-
-
-
-
-
-
 /*解决ie问题 利用zoom 保持原始大小*/
 
 .clearfix {
@@ -196,13 +192,6 @@ img {
     width: 0;
     height: 0;
 }
-
-
-
-
-
-
-
 
 
 /*页面滚动条*/
@@ -254,15 +243,6 @@ html::-webkit-scrollbar-thumb:hover {
     line-height: inherit;
 }
 
-
-
-
-
-
-
-
-
-
 /*禁止文字选中*/
 
 .user-select {
@@ -272,14 +252,6 @@ html::-webkit-scrollbar-thumb:hover {
     -khtml-user-select: none;
     user-select: none;
 }
-
-
-
-
-
-
-
-
 
 /*鼠标选中内容样式*/
 

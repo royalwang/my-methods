@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>横向滚动</title>
+    <style type="text/css">
+    	#wrapper{
+    		width: 400px;
+    		height: 50px;
+    		border: 1px solid;
+    		
+    	}
+    	.category_nav{
+    		width: inherit;
+    		height: inherit;
+    		display: flex;
+    	}
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <ul class="category_nav">
+            <li class="title_active">
+                <a>综合</a>
+            </li>
+            <li>
+                <a>新闻资讯</a>
+            </li>
+            <li>
+                <a>讲师</a>
+            </li>
+            <li>
+                <a>课程</a>
+            </li>
+            <li>
+                <a>视频</a>
+            </li>
+            <li>
+                <a>试卷</a>
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript" src="../jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="iscroll.js"></script>
+    <script type="text/javascript">
+    // 对于iscroll 配置 一定要正确 最重要的一条是 滚动容器的宽度要明确设置 如果不设置滚动容器的宽度, 滚动容器宽度为屏幕宽度, 容器不会被滑动
+
+
+    //    首页导航条滚动
+    var all_width = document.getElementsByClassName('category_nav')[0].scrollWidth
+    $('.category_nav').css({
+        'width': all_width + 'px'
+    })
+    var myscroll = new iScroll("wrapper", {
+        scrollX: true,
+        scrollY: false,
+        hScrollbar: false,
+        vScrollbar: false,
+        vScroll: false
+    })
+    </script>
+</body>
+
+</html>

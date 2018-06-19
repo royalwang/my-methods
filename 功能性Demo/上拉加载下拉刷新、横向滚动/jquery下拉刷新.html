@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>下拉刷新</title>
+</head>
+
+<body>
+    <div style="height: 800px;border: 1px solid;"></div>
+    <script type="text/javascript" src="../jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+    /**
+     * Created by libtop on 17/3/14.
+     */
+
+    // 加载刷新。
+    function refresh(refresh, loadmore) {
+        $(window).scroll(function() {
+            // console.log('正在滑动f');
+            var scrollTop = $(this).scrollTop(); //滚动条距离顶部的高度
+            var scrollHeight = $(document).height(); //当前页面的总高度
+            var clientHeight = $(this).height(); //当前可视的页面高度
+            // console.log("top:"+scrollTop+",doc:"+scrollHeight+",client:"+clientHeight);
+            if (scrollTop + clientHeight >= scrollHeight) { //距离顶部+当前高度 >=文档总高度 即代表滑动到底部 count++;         //每次滑动count加1
+                // filterData(serviceTypeId,industryId,cityId,count); //调用筛选方法，count为当前分页数
+                // console.log('上滑加载更多');
+                if (loadmore) {
+                    loadmore();
+                }
+            } else if (scrollTop <= 0) {
+                //滚动条距离顶部的高度小于等于0 TODO
+                //alert("下拉刷新，要在这调用啥方法？");
+                // console.log('下拉刷新');
+                if (refresh) {
+                    refresh();
+                }
+            }
+
+        });
+
+    }
+
+
+    //调用
+    refresh(fn1, fn2);
+
+    function fn1() {
+        console.log('上拉');
+    }
+
+    function fn2() {
+        console.log('下拉');
+    }
+    </script>
+</body>
+
+</html>

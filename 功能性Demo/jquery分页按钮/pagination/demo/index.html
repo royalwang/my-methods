@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>jquery分页</title>
+    <!-- <link rel="stylesheet" href="pagination-style.css" /> -->
+</head>
+
+<body>
+    <!-- 分页按钮 -->
+    <div class="paging-box">
+        <div class="M-box"></div>
+        <div class="paging-toolbar">
+            <span>每页显示</span>
+            <input type="text" class="select-pagesize" />
+            <!-- <select >
+            <option value="-1">全部</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+        </select> -->
+            <span>条数据</span>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../../../jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../pagination/jquery.pagination.js"></script>
+    <script type="text/javascript">
+    //分页
+    function pages(box, total, fn, data) {
+        var pages = Math.ceil(total / 10);
+        $(box).pagination({
+            totalData: total,
+            pageCount: pages,
+            linkStyleByJs: true,
+            count: 4, //当前选中页的前后页数
+            jump: true,
+            coping: true, //开启第一页和最后一页的按钮,coping为false，homePage和endPage无效。
+            homePage: '首页',
+            endPage: '末页',
+            prevContent: '＜',
+            nextContent: '＞',
+            isHide: true, //pageCount为0或者1时开启隐藏
+            callback: function(api) {
+                data.pageNum = api.getCurrent() - 1;
+                if (typeof(fn) === 'function') {
+                    fn(data);
+                }
+            }
+        });
+    }
+
+    var total = '';
+
+    function getList(data) {
+        console.log(data)
+        total = 100;
+        // $.ajax({
+        //     type: "post",
+        //     async: false,
+        //     url: 'http://toxapp.toxchina.com/ToxApp/order/orderList',
+        //     data: JSON.stringify(data),
+        //     dataType: 'json',
+        //     contentType: 'application/json',
+        //     beforeSend: function(XMLHttpRequest) {
+        //         XMLHttpRequest.setRequestHeader("token", "C68B81B2BBD1C6BFEC57DE32437E5B84");
+        //     },
+        //     success: function(res) {
+        //         console.log(res.data.pageSize);
+        //         total = res.data.total;
+        //     },
+        //     error: function(err) {
+        //         console.log(err);
+        //     }
+        // })
+    }
+
+    var iData = {
+        pageNum: 0,
+        pageSize: 5,
+    };
+    //初始加载
+    getList(iData);
+    pages('.M-box', total, getList, iData);
+    </script>
+</body>
+
+</html>

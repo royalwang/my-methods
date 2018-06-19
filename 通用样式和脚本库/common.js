@@ -752,3 +752,6 @@ function fixedFloat(a, b, sign) {
         return operate(+c[0], +d[0], sign, k)
     }
 }
+
+
+
