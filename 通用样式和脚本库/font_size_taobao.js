@@ -1,3 +1,9 @@
+/**
+ * h5.m.taobao  响应式字体大小
+ * @param  {[type]} e [window]
+ * @param  {[type]} t [document]
+ * @return {[type]}   [description]
+ */
 ! function(e, t) {
     var n = t.documentElement,
         d = e.devicePixelRatio || 1;

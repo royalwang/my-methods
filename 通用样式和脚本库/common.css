@@ -1,7 +1,5 @@
 @charset "UTF-8";
-body {
-    font-family: "Helvetica Neue", 'Helvetica', 'STHeiTi', 'sans-serif';
-}
+
 /*媒体宽度*/
 
 .viewport {
@@ -14,18 +12,20 @@ body {
     width: device-width
 }
 
-
-/*移动端页面支持弹性滚动*/
-
-/* body {
+body {
+    /*移动端页面支持流畅滚动*/
     -webkit-overflow-scrolling: touch;
-}
 
-.ele {
-    overflow: auto;
+    font-family: "Helvetica Neue", 'Helvetica', 'STHeiTi', 'sans-serif';
+    font-size: 14px;
+    /*禁止页面复制*/
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
- */
-
 
 /*让页面里的字体变清晰，变细*/
 
@@ -115,18 +115,6 @@ strong {
     font-weight: 700
 }
 
-
-
-
-/*流畅滚动*/
-
-body {
-    -webkit-overflow-scrolling: touch;
-}
-
-
-
-
 /*去掉 a，input 在移动端浏览器中的默认样式*/
 
 a,
@@ -157,6 +145,10 @@ img {
     clear: both;
 }
 
+
+/*兼容性*/
+/*IE8+、Firefox、Chrome、Safari、Opera*/
+
 .clearfix:after {
     /*IE8以上和非IE浏览器才支持:after，原理和方法2有点类似，zoom(IE转有属性)可解决ie6,ie7浮动问题*/
     clear: both;
@@ -181,6 +173,11 @@ img {
     display: table;
 }
 
+.clearfix3 {
+    *display: inline-block;
+    _height: 1%;
+}
+
 
 /*解决ie问题 利用zoom 保持原始大小*/
 
@@ -192,7 +189,6 @@ img {
     width: 0;
     height: 0;
 }
-
 
 /*页面滚动条*/
 
@@ -219,13 +215,6 @@ html::-webkit-scrollbar-thumb:hover {
 }
 
 
-
-
-
-
-
-
-
 /*placeholder样式*/
 
 ::-webkit-input-placeholder {
@@ -243,6 +232,7 @@ html::-webkit-scrollbar-thumb:hover {
     line-height: inherit;
 }
 
+
 /*禁止文字选中*/
 
 .user-select {
@@ -252,6 +242,7 @@ html::-webkit-scrollbar-thumb:hover {
     -khtml-user-select: none;
     user-select: none;
 }
+
 
 /*鼠标选中内容样式*/
 
@@ -269,13 +260,6 @@ html::-webkit-scrollbar-thumb:hover {
     background: #444;
     color: #FFF;
 }
-
-
-
-
-
-
-
 
 
 /*文本域滚动条*/
@@ -300,12 +284,6 @@ textarea::-webkit-scrollbar-thumb {
 
 
 
-
-
-
-
-
-
 /*修改chrome记住密码后自动填充表单的黄色背景*/
 
 input:-webkit-autofill,
@@ -323,6 +301,7 @@ select:-webkit-autofill {
     width: 300px;
     overflow: hidden;
     /* 当字符串超过规定长度，显示省略符*/
+    -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -331,6 +310,7 @@ select:-webkit-autofill {
     /*限制一行*/
     display: -webkit-box;
     overflow: hidden;
+    -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -344,41 +324,25 @@ select:-webkit-autofill {
 .parent {
     flex: 1;
     /*width: 0;*/
-    min-width: 0;/*在父元素设置为flex布局之后，不加该属性，子元素的省略号不起作用*/
+    min-width: 0;
+    /*在父元素设置为flex布局之后，不加该属性，子元素的省略号不起作用*/
 }
 
 .parent .child {
     width: 100px;
     overflow: hidden;
     white-space: nowrap;
+    -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
 }
-
-
 
 /*只有在PC下才执行的样式*/
 
 @media screen and (min-width: 992px) {}
 
-
-
-
-
-
-
-
-
 /*只有在PAD下才执行的样式*/
 
 @media screen and (min-width: 768px) and (max-width: 992px) {}
-
-
-
-
-
-
-
-
 
 /*只有在PHONE下才执行的样式*/
 

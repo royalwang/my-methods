@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>css3常用选择器</title>
+    <script type="text/javascript">
+    /**
+     * 1、X + Y   相邻兄弟选择器
+     *     选择紧邻X的元素Y
+     *
+     *
+     * 2、X > Y   子选择器
+     *     选择匹配Y的元素，且该元素为所匹配X元素的子元素
+     *
+     * 3、X ~ Y   相邻选择器
+     *     选择X之后的所有后面的兄弟节点们
+     *
+     *
+     * 4、属性选择器
+     *     X[attribute]
+     *     X[attribute=value]
+     *     X[attribute~=value]  用于选取属性值中包含指定词汇的元素。
+     *     X[attribute|=value]  用于选取带有以指定值开头的属性值的元素，该值必须是整个单词。
+     *     X[attribute^=value]  匹配属性值以指定值开头的每个元素。
+     *     X[attribute$=value]  匹配属性值以指定值结尾的每个元素。
+     *     X[attribute*=value]  匹配属性值中包含指定值的每个元素。
+     *
+     * 5、:first-child  用来匹配父元素中第一个子元素。
+     *
+     *      .list li:first-child{
+     *          background-color:yellow;
+     *      }
+     *
+     *
+     * 
+     *    :last-child  用来匹配父元素中最后一个子元素。
+     *
+     *
+     *
+     * 
+     *    :nth-child(n)  选择器匹配父元素中的第n个子元素。从1开始
+     *        :nth-child(odd)   匹配下标是奇数的子元素
+     *        :nth-child(even)  匹配下标是偶数的子元素
+     *
+     *
+     *
+     * 
+     *    :nth-last-of-type(n)  选择器匹配同类型中的倒数第n个同级兄弟元素。
+     *
+     *      .list li:nth-last-child(6) {
+     *          background-color:#15d6af;
+     *      }
+     *
+     *
+     * 
+     *
+     *    :nth-of-type(n)  匹配同类型中的第n个同级兄弟元素。
+     *       .list li:nth-of-type(3) {
+     *           background: #635f5c;
+     *       }
+     *
+     *
+     * 
+     *
+     *    :only-child  匹配属于父元素中唯一子元素的元素。
+     *
+     *
+     *
+     * 
+     *    :not(selector) 选择器匹配每个元素是不是指定的元素/选择器。
+     *
+     *
+     * 
+     */
+    </script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <p class="test1">1</p>
+        <p class="test2">2</p>
+        <p class="test3">3</p>
+        <p class="test4">4</p>
+        <p class="test5">5</p>
+    </div>
+    <div class="demo">
+        <a href="" title="标题">1111111111</a>
+        <a href="" title="标题-1">222222222</a>
+        <a href="" title="标题-2">3333333333</a>
+        <a href="" title="标题-3">444444444</a>
+        <a href="" title="名字-1">5555555555</a>
+        <a href="" title="名字-2">6666666666</a>
+    </div>
+</body>
+
+</html>
