@@ -59,14 +59,19 @@
             complete: function(res) {
                 var pois = res.detail.pois;
                 var poi = pois[0];
-                console.log(poi.latLng);
+                // console.log(poi.latLng);
                 latlngBounds.extend(poi.latLng);
-                var marker = new qq.maps.Marker({
-                    map: map,
-                    position: poi.latLng
-                });
-                marker.setTitle(1);
-                markerList.push(marker);
+                // var marker = new qq.maps.Marker({
+                //     map: map,
+                //     position: poi.latLng
+                // });
+                // marker.setTitle(1);
+                // markerList.push(marker);
+                // 首先清除覆盖物
+                clearOverlays(markerList);
+                // 
+                // 戳点
+                doMarker(poi.latLng, poi.address + poi.latLng);
                 map.fitBounds(latlngBounds);
             },
             error: function(err) {
@@ -88,8 +93,34 @@
             qq.maps.event.addListener(map, 'click', function(event) {
                 marker.setMap(null);
             });
-            console.log(event.latLng)
+            // console.log(event.latLng)
         });
+        //戳点方法封装
+        function doMarker(center, title) {
+            //创建一个Marker
+            var marker = new qq.maps.Marker({
+                //设置Marker的位置坐标
+                position: center,
+                //设置显示Marker的地图
+                map: map,
+                title: title
+            });
+
+            //设置Marker的可见性，为true时可见,false时不可见，默认属性为true
+            marker.setVisible(true);
+            //设置Marker的动画属性为从落下
+            marker.setAnimation(qq.maps.MarkerAnimation.DOWN);
+            markerList.push(marker);
+            marker.setMap(map);
+        }
+        //清除覆盖物
+        function clearOverlays(overlaysArray) {
+            if (overlaysArray) {
+                for (i in overlaysArray) {
+                    overlaysArray[i].setMap(null);
+                }
+            }
+        }
     }
     window.onload = init;
     </script>

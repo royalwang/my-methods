@@ -3,9 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>关键字搜索&&选点</title>
+    <title>自定义绘图模式&&关键字搜索</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style type="text/css">
+    * {
+        margin: 0px;
+        padding: 0px
+    }
+
     html,
     body,
     button,
@@ -17,15 +22,15 @@
 
     html,
     body {
+        /*这里高必须设置，很重要！！！！*/
         height: 100%;
-        margin: 0px;
-        padding: 0px
     }
 
     #container {
         width: 100%;
         height: 100%
     }
+    /*检索框样式*/
 
     .search {
         position: fixed;
@@ -44,6 +49,7 @@
         outline: none;
         border: none;
     }
+    /*自定义绘图工具样式*/
 
     .controlStyle {
         width: 64px;
@@ -56,7 +62,7 @@
         cursor: pointer;
         background-image: url(http://api.map.baidu.com/library/DrawingManager/1.4/src/bg_drawing_tool.png);
     }
-    /*清除*/
+    /*清除所有*/
 
     .clearAll {
         height: 47px;
@@ -158,7 +164,7 @@
 
 
     /**
-     * 绘图工具
+     * 自定义绘图工具
      */
 
     //清除所有
@@ -201,7 +207,9 @@
     //清除所有
     qq.maps.event.addListener(clearAll, 'click', function(event) {
         // console.log('清除所有');
-        document.getElementById('place').value = '';
+        if (document.getElementById('place').value) {
+            document.getElementById('place').value = '';
+        }
         clearOverlays(overlaysArray);
     });
     //拖动
@@ -248,7 +256,7 @@
             }
         }
     }
-    //画圆中心点
+    //戳点方法封装
     function doMarker(center, title) {
         //创建一个Marker
         var marker = new qq.maps.Marker({
@@ -266,7 +274,7 @@
         overlaysArray.push(marker);
         marker.setMap(map);
     }
-    //画圆
+    //画圆方法封装
     function doCircle(center) {
         var circle = new qq.maps.Circle({
             map: map,
