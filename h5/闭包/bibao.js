@@ -74,8 +74,8 @@ function a() {
     function b() { console.log(++i); }
     return b;
 }
-var c = a();
-c(); //1
+// var c = a();
+// c(); //1
 
 /**
  * 上述这段代码有两个特点：
@@ -94,27 +94,4 @@ c(); //1
  */
 
 
-// <ul id="testUL">
-//      <li> index = 0</li>
-//      <li> index = 1</li>
-//      <li> index = 2</li>
-//      <li> index = 3</li>
-// </ul>
 
-var newUL = document.createElement("ul");
-//循环数组，创建节点
-for (var i = 0; i < 4; i++) {
-    var newLi = document.createElement("li");
-    newLi.innerHTML = i;
-    newUL.append(newLi);
-};
-
-
-var nodes = document.getElementsByTagName("li");
-for (i = 0; i < nodes.length; i += 1) {
-    nodes[i].onclick = (function(i) {
-        return function() {
-            console.log(i);
-        } //不用闭包的话，值每次都是4
-    })(i);
-}

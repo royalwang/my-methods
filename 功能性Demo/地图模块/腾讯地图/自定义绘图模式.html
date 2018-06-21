@@ -30,6 +30,15 @@
     var controlStyleMid = "padding:16px;border-style: solid; border-width: 2px;border-right-width:1px;border-left-width:1px;border-color:#86acf2;background:#ffffff";
     var controlStyleRight = "padding:16px;border-style: solid; border-width: 2px;border-left-width:1px;border-color:#86acf2;background:#ffffff";
 
+    //小手
+    var pointerControl = document.createElement("div");
+    pointerControl.style.cssText = controlStyleRight;
+    pointerControl.innerHTML = "拖动";
+    pointerControl.index = 0;
+    pointerControl.title = "拖动";
+    pointerControl.style.cursor = "pointer";
+
+    //点
     var circleOneControl = document.createElement("div");
     circleOneControl.style.cssText = controlStyleLeft;
     circleOneControl.innerHTML = "MARKER";
@@ -37,7 +46,7 @@
     circleOneControl.title = "MARKER";
     circleOneControl.style.cursor = "pointer";
 
-
+    //线
     var circleTwoControl = document.createElement("div");
     circleTwoControl.style.cssText = controlStyleMid;
     circleTwoControl.innerHTML = "POLYLINE";
@@ -45,7 +54,7 @@
     circleTwoControl.title = "POLYLINE";
     circleTwoControl.style.cursor = "pointer";
 
-
+    //圆
     var circleThressControl = document.createElement("div");
     circleThressControl.style.cssText = controlStyleMid;
     circleThressControl.innerHTML = "CIRCLE";
@@ -53,7 +62,7 @@
     circleThressControl.title = "CIRCLE";
     circleThressControl.style.cursor = "pointer";
 
-
+    //多边形
     var circleAnyControl = document.createElement("div");
     circleAnyControl.style.cssText = controlStyleMid;;
     circleAnyControl.innerHTML = "POLYGON";
@@ -61,7 +70,7 @@
     circleAnyControl.title = "POLYGON";
     circleAnyControl.style.cursor = "pointer";
 
-
+    //矩形
     var rectangleControl = document.createElement("div");
     rectangleControl.style.cssText = controlStyleMid;;
     rectangleControl.innerHTML = "RECTANGLE";
@@ -69,47 +78,39 @@
     rectangleControl.title = "RECTANGLE";
     rectangleControl.style.cursor = "pointer";
 
-
-    var polygonControl = document.createElement("div");
-    polygonControl.style.cssText = controlStyleRight;
-    polygonControl.innerHTML = "多边形";
-    polygonControl.index = 6;
-    polygonControl.title = "画任意形状的多边形";
-    polygonControl.style.cursor = "pointer";
-
     //只要设置了index，插入顺序就可以是乱序的了
+    map.controls[qq.maps.ControlPosition.TOP_CENTER].push(pointerControl);
     map.controls[qq.maps.ControlPosition.TOP_CENTER].push(circleOneControl);
     map.controls[qq.maps.ControlPosition.TOP_CENTER].push(circleTwoControl);
     map.controls[qq.maps.ControlPosition.TOP_CENTER].push(circleThressControl);
     map.controls[qq.maps.ControlPosition.TOP_CENTER].push(circleAnyControl);
     map.controls[qq.maps.ControlPosition.TOP_CENTER].push(rectangleControl);
-    map.controls[qq.maps.ControlPosition.TOP_CENTER].push(polygonControl);
 
-    qq.maps.event.addListener(circleOneControl, 'click', function() {
-        cleanControlcolor();
-        setControlcolor(circleOneControl);
-    });
-    qq.maps.event.addListener(circleTwoControl, 'click', function() {
-        cleanControlcolor();
-        setControlcolor(circleTwoControl);
-    });
-    qq.maps.event.addListener(circleThressControl, 'click', function() {
-        cleanControlcolor();
-        setControlcolor(circleThressControl);
-    });
-    qq.maps.event.addListener(circleAnyControl, 'click', function() {
-        cleanControlcolor();
-        setControlcolor(circleAnyControl);
-    });
-    qq.maps.event.addListener(rectangleControl, 'click', function() {
-        cleanControlcolor();
-        setControlcolor(rectangleControl);
-    });
-    qq.maps.event.addListener(polygonControl, 'click', function() {
-        cleanControlcolor();
-        setControlcolor(polygonControl);
-    });
-
+    // qq.maps.event.addListener(circleOneControl, 'click', function() {
+    //     cleanControlcolor();
+    //     setControlcolor(circleOneControl);
+    // });
+    // qq.maps.event.addListener(circleTwoControl, 'click', function() {
+    //     cleanControlcolor();
+    //     setControlcolor(circleTwoControl);
+    // });
+    // qq.maps.event.addListener(circleThressControl, 'click', function() {
+    //     cleanControlcolor();
+    //     setControlcolor(circleThressControl);
+    // });
+    // qq.maps.event.addListener(circleAnyControl, 'click', function() {
+    //     cleanControlcolor();
+    //     setControlcolor(circleAnyControl);
+    // });
+    // qq.maps.event.addListener(rectangleControl, 'click', function() {
+    //     cleanControlcolor();
+    //     setControlcolor(rectangleControl);
+    // });
+    // qq.maps.event.addListener(polygonControl, 'click', function() {
+    //     cleanControlcolor();
+    //     setControlcolor(polygonControl);
+    // });
+    // 清除所有的绘图工具颜色
     function cleanControlcolor() {
         var oldColor = "#ffffff";
         circleOneControl.style.background = oldColor;
@@ -117,10 +118,10 @@
         circleThressControl.style.background = oldColor;
         circleAnyControl.style.background = oldColor;
         rectangleControl.style.background = oldColor;
-        polygonControl.style.background = oldColor;
+        pointerControl.style.background = oldColor;
 
     }
-
+    // 设置当前选中工具的背景颜色
     function setControlcolor(control) {
         var newColor = "#86acf2";
         control.style.background = newColor;
@@ -140,37 +141,51 @@
     });
     drawingManager.setMap(map);
 
+
+
+    //拖动
+    qq.maps.event.addListener(pointerControl, 'click', function() {
+        cleanControlcolor();
+        setControlcolor(pointerControl);
+        console.log(0);
+        drawingManager.setDrawingMode(null);
+    });
+    //点
     qq.maps.event.addListener(circleOneControl, 'click', function() {
+        // 
         cleanControlcolor();
         setControlcolor(circleOneControl);
         console.log(1);
         drawingManager.setDrawingMode(qq.maps.drawing.OverlayType.MARKER);
     });
+    //线
     qq.maps.event.addListener(circleTwoControl, 'click', function() {
         cleanControlcolor();
         setControlcolor(circleTwoControl);
         console.log(2);
         drawingManager.setDrawingMode(qq.maps.drawing.OverlayType.POLYLINE);
     });
+    //圆
     qq.maps.event.addListener(circleThressControl, 'click', function() {
         cleanControlcolor();
         setControlcolor(circleThressControl);
         console.log(3);
         drawingManager.setDrawingMode(qq.maps.drawing.OverlayType.CIRCLE);
     });
+    //多边形
     qq.maps.event.addListener(circleAnyControl, 'click', function() {
         cleanControlcolor();
         setControlcolor(circleAnyControl);
         console.log(4);
         drawingManager.setDrawingMode(qq.maps.drawing.OverlayType.POLYGON);
     });
+    //矩形
     qq.maps.event.addListener(rectangleControl, 'click', function() {
         cleanControlcolor();
         setControlcolor(rectangleControl);
         console.log(5);
         drawingManager.setDrawingMode(qq.maps.drawing.OverlayType.RECTANGLE);
     });
-
     </script>
 </body>
 

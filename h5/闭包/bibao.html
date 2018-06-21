@@ -7,7 +7,129 @@
 </head>
 
 <body>
+    <!-- 获取HTML元素集合，循环给元素添加事件。在事件响应函数中(event handler)获取对应的索引 -->
+    <p>产品 0</p>
+    <p>产品 1</p>
+    <p>产品 2</p>
+    <p>产品 3</p>
+    <p>产品 4</p>
+    <!-- 以上场景是初学者经常碰到的。即获取HTML元素集合，循环给元素添加事件。在事件响应函数中(event handler)获取对应的索引。但每次获取的都是最后一次循环的索引。
+
+    原因是初学者并未理解JavaScript的闭包特性。通过element.onclick=function(){alert(i);}方式给元 素添加点击事件。响应函数function(){alert(i);}中的 i 并非每次循环时对应的 i(如0，1，2，3，4)而是循环后最后 i 的值5。 或者说循环时响应函数内并未能保存对应的值 i，而是最后一次i++的值5。 -->
     <script type="text/javascript">
+    window.onload = function() {
+
+        // 了解了原因，下面就由几种方式可与解决:
+        /**
+         *  1、将变量 i 保存给在每个段落对象(p)上
+         */
+        // init1();
+        function init1() {
+            var pAry = document.getElementsByTagName("p");
+            for (var i = 0; i < pAry.length; i++) {
+                pAry[i].i = i;
+                pAry[i].onclick = function() {
+                    console.log(this.i);
+                }
+            }
+        }
+
+        /**
+         * 2、将变量 i 保存在匿名函数自身
+         */
+        // init2();
+        function init2() {
+            var pAry = document.getElementsByTagName("p");
+            for (var i = 0; i < pAry.length; i++) {
+                (pAry[i].onclick = function() {
+                    console.log(arguments.callee.i);
+                }).i = i;
+            }
+        }
+
+        /**
+         * 3、加一层闭包，i 以函数参数形式传递给内层函数
+         */
+        // init3();
+        function init3() {
+            var pAry = document.getElementsByTagName("p");
+            for (var i = 0; i < pAry.length; i++) {
+                (function(arg) {
+                    pAry[i].onclick = function() {
+                        console.log(arg);
+                    };
+                })(i); //调用时参数
+            }
+        }
+
+        /**
+         * 4、加一层闭包，返回一个函数作为响应事件(注意与3的细微区别)
+         */
+        // init4();
+        function init4() {
+            var pAry = document.getElementsByTagName("p");
+            for (var i = 0; i < pAry.length; i++) {
+                pAry[i].onclick = function(arg) {
+                    return function() { //返回一个函数
+                        alert(arg);
+                    }
+                }(i);
+            }
+        }
+
+
+        /**
+         * 5、加一层闭包，i 以局部变量形式传递给内层函数
+         */
+        // init5();
+        function init5() {
+            var pAry = document.getElementsByTagName("p");
+            for (var i = 0; i < pAry.length; i++) {
+                (function() {
+                    var temp = i; //调用时局部变量
+                    pAry[i].onclick = function() {
+                        console.log(temp);
+                    }
+                })();
+            }
+        }
+
+        /**
+         * 6、用构造函数Function实现，实际上每产生一个函数实例就会产生一个闭包
+         */
+        // init6();
+        function init6() {
+            var pAry = document.getElementsByTagName("p");
+            for (var i = 0; i < pAry.length; i++) {
+                pAry[i].onclick = new Function("console.log(" + i + ");"); //new一次就产生一个函数实例
+            }
+        }
+
+        /**
+         * 7、用Function实现，注意与6的区别
+         */
+        init7();
+        function init7() {
+            var pAry = document.getElementsByTagName("p");
+            for (var i = 0; i < pAry.length; i++) {
+                pAry[i].onclick = Function('console.log(' + i + ')');
+            }
+        }
+    }
+    </script>
+    <script type="text/javascript">
+    // var name = "The Window";
+    // var object = {
+    //     name: "My Object",
+    //     getNameFunc: function() {
+    //         return function() {
+    //             return this.name;
+    //         };
+    //     }
+    // };
+    // console.log(object.getNameFunc()());
+    </script>
+    <!-- <script type="text/javascript">
     var newUL = document.createElement("ul");
     //循环数组，创建节点
     for (var i = 0; i < 4; i++) {
@@ -22,12 +144,14 @@
     var nodes = document.getElementsByTagName("li");
     for (i = 0; i < nodes.length; i += 1) {
         nodes[i].onclick = (function(i) {
-        	//使用闭包将i存入
+            //使用闭包将i存入
             return function() {
                 console.log(i);
             } //不用闭包的话，值每次都是4
         })(i);
     }
+    </script> -->
+    <script type="text/javascript">
     </script>
 </body>
 

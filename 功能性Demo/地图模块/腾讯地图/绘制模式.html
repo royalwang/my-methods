@@ -6,17 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>绘图工具</title>
     <style type="text/css">
-    * {
-        margin: 0px;
-        padding: 0px;
-    }
-
+    html,
     body,
     button,
     input,
     select,
     textarea {
         font: 12px/16px Verdana, Helvetica, Arial, sans-serif;
+    }
+
+    html,
+    body {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+    }
+
+    #container {
+        width: 100%;
+        height: 100%
     }
     </style>
     <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&libraries=drawing"></script>
@@ -33,7 +41,7 @@
         });
 
         var drawingManager = new qq.maps.drawing.DrawingManager({
-            drawingMode: qq.maps.drawing.OverlayType.POLYLINE,
+            drawingMode: qq.maps.drawing.OverlayType.MARKER,
             drawingControl: true,
             drawingControlOptions: {
                 position: qq.maps.ControlPosition.TOP_CENTER,
@@ -95,7 +103,6 @@
                 geocoder.setComplete(function(result) {
                     doMarker(center, result.detail.address + latLng);
                     getPeopleDataByCircle(newRadius, lat + "," + lng);
-
                 });
                 //若服务请求失败，则运行以下函数
                 geocoder.setError(function() {
@@ -115,11 +122,6 @@
                 getPeopleDataByPolygon(points);
             }
         });
-
-
-
-
-
     }
 
 
@@ -154,8 +156,6 @@
         marker.setAnimation(qq.maps.MarkerAnimation.DOWN);
         overlaysArray.push(marker);
         marker.setMap(map);
-
-
     }
 
 
@@ -180,7 +180,7 @@
         //showPeopleData(data);
         //});
 
-        alert("圆形中心为:" + center + "半径为:" + radius);
+        console.log("圆形中心为:" + center + "半径为:" + radius);
     }
 
 
@@ -200,8 +200,7 @@
 </head>
 
 <body onload="init()">
-    <div>
-        <div style="width:800px;height:600px" id="container"></div>
+    <div id="container"></div>
 </body>
 
 </html>
