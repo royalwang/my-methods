@@ -38,7 +38,7 @@ window.location.href = /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.us
 // 
 var ajaxUrl = "http://elec.toxchina.com/ToxElec_2";
 
-//时间戳(毫秒值)格式化
+//时间戳(毫秒值)格式化(最复杂)
 //方法一
 Date.prototype.format = function(fmt) {
     var o = {
@@ -76,8 +76,9 @@ function dateFormat(str, type) {
     }
 }
 
-//时间戳转化
+//时间戳转化(一般)
 //方法二
+////new Date(date)
 function formatTime(date, type) {
     var year = date.getFullYear()
     var month = date.getMonth() + 1
@@ -106,10 +107,12 @@ function formatNumber(n) {
     return n[1] ? n : '0' + n
 }
 
-//时间戳转化
+//时间戳转化(最简单)
 //方法三
 //formatDate(date,'yyyy-MM-dd hh:mm');
-function formatDate(date, fmt) {
+function formatDate(millisecondValue, fmt) {
+    if (!millisecondValue) { return '' }
+    let date = new Date(millisecondValue);
     if (/(y+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
     }
@@ -752,6 +755,3 @@ function fixedFloat(a, b, sign) {
         return operate(+c[0], +d[0], sign, k)
     }
 }
-
-
-

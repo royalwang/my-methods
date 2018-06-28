@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <!-- <script type="text/javascript" src="jquery-3.2.1.min.js" charset="UTF-8"></script> -->
+    <script type="text/javascript">
+    var name = "张三";
+    var people = function(_name, _age) {
+        this.name = _name || "王五";
+        this.age = 26;
+    };
+    people.prototype = {
+        getName: function(newName) {
+            if (this.name == "王五") {
+                return newName;
+            } else {
+                return this.name;
+            }
+        },
+        getAge: function(age) {
+            return29;
+        }
+    }
+        //				alert(name);    
+        var p = new people();
+        var name = "李四";
+        school = "河西中学";
+        //				alert(p.name);	
+        //				alert(name);	
+        //				alert(getSchool());	
+        //				alert(p.getName());	
+        alert(getName(new people("赵六")));
+        // alert(getName());
+
+    function getName(me) {
+        if (me) {
+            return me.getName();
+        } else {
+            return me.getSex();
+        }
+        return "贾七";
+    }
+
+    function getSchool() {
+        return school;
+    }
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

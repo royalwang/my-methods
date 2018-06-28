@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>文档标题</title>
+    <!-- 360 使用Google Chrome Frame -->
+    <meta name="renderer" content="webkit">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!-- 开启响应式 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <!--苹果设备上手机号码、邮箱不被显示为拨号链接-->
+    <meta content="telephone=no,email=no" name="format-detection">
+    <!--删除默认的苹果工具栏和菜单栏-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!--控制状态栏显示样式-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- SEO页面关键词 -->
+    <meta name="keywords" content="your keywords">
+    <!-- SEO页面描述 -->
+    <meta name="description" content="your description">
+    <!-- favicon，可更改图片类型 -->
+    <link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
+    <style type="text/css">
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .main {
+        width: 100%;
+        height: 100%;
+    }
+
+    .login {
+        width: 100%;
+        height: 100%;
+        background-image: url('https://file.iviewui.com/iview-admin/login_bg.jpg');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    .login-con {
+        position: absolute;
+        right: 160px;
+        top: 50%;
+        transform: translateY(-60%);
+        width: 300px;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 4px;
+        font-size: 14px;
+        position: relative;
+        transition: all .2s ease-in-out;
+    }
+
+    .card-header {
+        border-bottom: 1px solid #e9eaec;
+        padding: 14px 16px;
+        line-height: 1;
+    }
+
+    .card-header .card-header-title {
+        display: inline-block;
+        width: 100%;
+        height: 20px;
+        line-height: 20px;
+        font-size: 14px;
+        color: #1c2438;
+        font-weight: 700;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .card-body {
+        padding: 16px;
+    }
+
+    .login-con .login-header {
+        font-size: 16px;
+        font-weight: 300;
+        text-align: center;
+        padding: 30px 0;
+    }
+
+    .login-con .form-con {
+        padding: 10px 0 0;
+    }
+
+    .login-con .login-tip {
+        font-size: 10px;
+        text-align: center;
+        color: #c3c3c3;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="login">
+            <div class="login-con">
+                <div class="card">
+                    <div class="card-header">
+                        <p class="card-header-title">
+                            欢迎登录
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-con">
+                            <form autocomplete="off" class="ivu-form ivu-form-label-right">
+                                <div prop="userName">
+                                    <input type="text" placeholder="请输入用户名">
+                                </div>
+                                <div prop="password">
+                                    <input type="password" placeholder="请输入密码">
+                                </div>
+                                <div>
+                                    <button type="primary">登录</button>
+                                </div>
+                            </form>
+                            <p class="login-tip">输入任意用户名和密码即可</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
