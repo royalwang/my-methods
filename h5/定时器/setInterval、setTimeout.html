@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>setInterval、setTimeout</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+    /**
+     *
+     * 1、setInterval指定某个任务每隔一段时间就执行一次，也就是无限次的定时执行
+     * 
+     * 		setInterval(fn,delay);
+     *
+     *
+     * 2、setTimeout()方法用来指定某个函数或字符串在指定的毫秒数之后执行
+     * 		setTimeout(fn,delay);
+     */
+
+
+
+    /**
+     * 定时器的写法
+     *
+     * 	1、函数名，不传参
+     * 	
+     * 		setInterval(test,1000);           //1秒后执行
+     *
+     *
+     *  2、字符串，可以执行的代码，可以带参数，但是性能上比函数名差
+     *
+     * 		setInterval('test()',1000);       //1秒后执行
+     *
+     *
+     *  3、匿名函数
+     *
+     * 		setInterval(function(){},1000);   //1秒后执行
+     *
+     *
+     *  4、调用函数
+     *
+     * 		setInterval(test(str),1000)；      //立即执行
+     *
+     * 		所以如果想要穿参数，但是又不想通过字符串的形式调用，可以自己来写一个方法：
+     * 		
+     * 			function test (str){
+   	 *				console.log(str);
+	 *			}
+     */
+    
+
+    /**
+     * 清除定时器
+     *
+     * 	clearTimeout();
+     *
+     *		setTimeout函数返回一个表示计数器编号的整数值，将该整数传入clearTimeout函数，取消对应的定时器
+     * 		
+     * 	clearInterval();
+     */
+    
+
+
+    /**
+     * 注意：
+     *
+     * 		HTML5标准规定，setTimeout的最短时间间隔是4毫秒；setInterval的最短间隔时间是10毫秒，也就是说，小于10毫秒的时
+     * 		间间隔会被调整到10毫秒
+     *
+     * 		大多数电脑显示器的刷新频率是60HZ，大概相当于每秒钟重绘60次。因此，最平滑的动画效的最佳循环间隔是1000ms/60，约
+     * 		等于16.6ms
+     */
+    </script>
+</body>
+
+</html>

@@ -2,7 +2,7 @@
  * 一些通用方法
  */
 (function(exports) {
-    
+
     /**
      * 将string字符串转为html对象,默认创一个div填充
      * 因为很常用，所以单独提取出来了
@@ -55,11 +55,11 @@
         if (typeof dom === 'string') {
             dom = document.querySelector(dom);
         }
-        
+
         var prevTitle = typeof index !== 'undefined' ? ('Tab' + index) : '';
-        
+
         var counterIndex = index || 0;
-        
+
         counterArr[counterIndex] = counterArr[counterIndex] || 0;
 
         if (isReset) {
@@ -77,7 +77,7 @@
                 title: prevTitle + '测试第【' + counterArr[counterIndex] + '】条新闻标题',
                 date: dateStr
             });
-            
+
             counterArr[counterIndex]++;
         }
 
@@ -94,12 +94,12 @@
      */
     exports.bindEvent = function(dom, callback, eventName) {
         eventName = eventName || 'click';
+        if (!dom) {
+            return;
+        }
         if (typeof dom === 'string') {
             // 选择
             dom = document.querySelectorAll(dom);
-        }
-        if (!dom) {
-            return;
         }
         if (dom.length > 0) {
             for (var i = 0, len = dom.length; i < len; i++) {

@@ -71,7 +71,7 @@
             for (var i = 0; i < pAry.length; i++) {
                 pAry[i].onclick = function(arg) {
                     return function() { //返回一个函数
-                        alert(arg);
+                        console.log(arg);
                     }
                 }(i);
             }

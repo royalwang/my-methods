@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>requestAnimationFrame</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+    /**
+     * 与setTimeout和setInterval不同，requestAnimationFrame不需要设置时间间隔
+     */
+
+    /**
+     * 大多数电脑显示器的刷新频率是60Hz，大概相当于每秒钟重绘60次。大多数浏览器都会对重绘操作加以限制，不超过显示器的重
+     * 绘频率，因为即使超过那个频率用户体验也不会有提升。因此，最平滑动画的最佳循环间隔是1000ms/60，约等于16.6ms
+     */
+
+    /**
+     * 特点：
+     *
+     * 		1、requestAnimationFrame采用系统时间间隔，保持最佳绘制效率，不会因为间隔时间过短，造成过度绘制，增加开销
+     * 		；也不会因为间隔时间太长，使用动画卡顿不流畅，让各种网页动画效果能够有一个统一的刷新机制，从而节省系统资源
+     * 		，提高系统性能，改善视觉效果
+     *
+     *
+     * 		2、requestAnimationFrame会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间
+     * 		间隔紧紧跟随浏览器的刷新频率
+     *
+     * 		3、在隐藏或不可见的元素中，requestAnimationFrame将不会进行重绘或回流，
+     * 		这当然就意味着更少的CPU、GPU和内存使用量
+     *
+     * 		4、requestAnimationFrame是由浏览器专门为动画提供的API，在运行时浏览器会自动优化方法的调用，并且如果页面不
+     * 		是激活状态下的话，动画会自动暂停，有效节省了CPU开销
+     *
+     */
+
+
+
+    /**
+     * 使用方法：
+     *
+     *		requestAnimationFrame使用一个回调函数作为参数，这个回调函数会在浏览器重绘之前调用。它返回一个整数，表示定
+     *		时器的编号，这个值可以传递给cancelAnimationFrame用于取消这个函数的执行
+     * 		
+     * 		requestID = requestAnimationFrame(callback); 
+     *
+     *		cancelAnimationFrame(requestID);
+     * 		
+     */
+
+    /**
+     * 注意：
+     * 		
+     * 	    requestAnimationFrame 不管理回调函数，在滚动、触摸这类高触发频率的事件回调里，如果调用 
+     * 		requestAnimationFrame然后绘制动画，可能会造成多余的计算和绘制，
+     * 		对于这种高频发事件，一般的解决方法是使用节流函数，因为节流函数是通过时间管理队列的，
+     *
+     * 		完美的解决方案是通过 requestAnimationFrame 来管理队列，其思路就是保证 requestAnimationFrame 
+     * 		的队列里，同样的回调函数只有一个。示意代码如下：
+     */
+
+
+    //通过 requestAnimationFrame 来管理队列，保证requestAnimationFrame队列里，同样的回调函数只有一个
+    const onScroll = e => {
+        if (scheduledAnimationFrame) { return }
+
+        scheduledAnimationFrame = true
+        window.requestAnimationFrame(timestamp => {
+            scheduledAnimationFrame = false
+            animation(timestamp)
+        })
+    }
+    window.addEventListener('scroll', onScroll);
+
+
+
+
+    /**
+     * 兼容性：
+     *
+     * 		IE9-浏览器不支持该方法，可以使用setTimeout来兼容
+     * 		
+     */
+
+    /**
+     * 简单兼容性
+     */
+    if (!window.requestAnimationFrame) {
+        requestAnimationFrame = function(fn) {
+            setTimeout(fn, 17);
+        };
+    }
+
+
+    /**
+     * 严格兼容
+     */
+
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+    }
+    if (!window.requestAnimationFrame) window.requestAnimationFrame = function(callback, element) {
+        var currTime = new Date().getTime();
+        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+        var id = window.setTimeout(function() {
+            callback(currTime + timeToCall);
+        }, timeToCall);
+        lastTime = currTime + timeToCall;
+        return id;
+    };
+
+
+    /**
+     * 取消定时器
+     */
+
+    if (!window.cancelAnimationFrame) window.cancelAnimationFrame = function(id) {
+        clearTimeout(id);
+    };
+    </script>
+</body>
+
+</html>
