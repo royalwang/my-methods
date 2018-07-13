@@ -20,6 +20,8 @@
 		}
 		layui.form('select').render();
 		if(initprovince) $(province).next().find('[lay-value="'+initprovince+'"]').click();
+
+		
 		if(!city || !$(city).length) return;
 		pca.formRender(city);
 		layui.form().on('select(province)', function(data){
@@ -63,6 +65,7 @@
 			pca.formHidden('area', data.value);		
 			$('.pca-label-area').html(data.value);	//此处可以自己修改 显示的位置, 不想显示可以直接去掉
 		}); 
+
 		if(initprovince) $(province).next().find('[lay-value="'+initprovince+'"]').click();
 		if(initcity) $(city).next().find('[lay-value="'+initcity+'"]').click();
 		if(initarea) $(area).next().find('[lay-value="'+initarea+'"]').click();

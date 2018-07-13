@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GET和POST的区别</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+    /**
+     * GET和POST的区别 
+     */
+
+    /*
+	提交方式：
+
+    	1. GET提交，请求的数据会附在URL之后（就是把数据放置在HTTP协议头中），以?分割URL和传输数据，多个参数用&连接；
+
+    	2. POST提交：把提交的数据放置在是HTTP包的body中。
+
+    	因此，GET提交的数据会在地址栏中显示出来，而POST提交，地址栏不会改变 
+
+
+
+    传送数据量大小：
+
+    	1. GET传送的数据量较小，不能大于2KB
+
+    	2. POST传送的数据量较大，一般默认不受限
+
+
+
+    安全性：
+
+		1. GET安全性非常低
+
+    	2. POST安全性较高
+
+    	通过GET提交数据，用户名和密码将明文出现在URL上，因为(1)登录页面有可能被浏览器缓存；(2)其他人查看浏览器的历史纪录，那么别人就可以拿到你的账号和密码了，除此之外，使用GET提交数据还可能会造成Cross-Site Request Forgery攻击。 
+
+     */
+
+
+    /**
+     * GET和POST相同的地方 
+     */
+    
+    /*
+    HTTP GET、POST协议都是在HTTP上运行的 
+     */
+    </script>
+</body>
+
+</html>

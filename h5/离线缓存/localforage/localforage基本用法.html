@@ -7,12 +7,13 @@
 </head>
 
 <body>
+    <!-- 需要引入文件！！！！ -->
     <!-- localForage在默认情况下会优先采用使用IDB、WebSQL、localStorage进行后台存储，但是可以通过setDriver()进行后台设置，如果设置的机制在当前浏览器并不支持，则还是按照默认选择 -->
     <!-- setDriver(driverName)/setDriver([driverName, nextDriverName]):设置后台支持机制，参数是localforage.INDEXEDDB、localforage.WEBSQL、localforage.LOCALSTORAGE -->
     <script type="text/javascript">
-    	//localforage.INDEXEDDB
-    	//localforage.WEBSQL
-    	//localforage.LOCALSTORAGE
+    //localforage.INDEXEDDB
+    //localforage.WEBSQL
+    //localforage.LOCALSTORAGE
     localforage.setDriver(localforage.LOCALSTORAGE).then(function() {
         var key = 'STORE_KEY';
         // var value = 'What we save offline';

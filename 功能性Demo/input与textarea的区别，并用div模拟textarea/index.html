@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>input与textarea的区别，并用div模拟textarea</title>
+    <style>
+    .textarea {
+        height: 200px;
+        width: 300px;
+        padding: 4px;
+        border: 1px solid #888;
+        resize: vertical;
+        overflow: auto;
+        outline: none;
+    }
+
+    .textarea:empty:before {
+        content: attr(placeholder);
+        color: #bbb;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 
+		一、input 和 textarea 的区别 
+		
+			<input> 元素用于为基于Web的表单创建交互式控件，以便接受来自用户的数据。
+				
+				<input type="range" name="range" value="2" min="0" max="100" step="10">
+				<input type="file" name="file" accept="image/*">
+				<input type="month" name="month" value="2017-11">
+
+
+			<textarea> 元素代表一个多行的纯文本编辑控件
+
+				<textarea name="textarea" rows="10" cols="50">
+   					 Write something here
+				</textarea>
+			
+
+			区别：
+
+
+			1、<textarea>标签是成对的，有结束标签进行闭合，标签的内容写在标签对中间；<input>是单个标签，标签的内容通过 value 属性设置；
+
+			2、<textarea>的值是纯文本；<input>的值根据类型不同而不同；
+
+			3、<textarea>没有type属性；<input>有多种type来满足表单与用户的数据交互；
+
+			4、<textarea>的值可以是多行的，并且有rows和cols来控制多行结构；<input>的值是单行的；
+
+
+
+
+
+
+		二、用 div 模拟 textarea 标签
+
+			步骤：
+
+				1、给 div 添加一个HTML全局属性：contenteditable="true"，使 div 元素变成用户可编辑的;
+
+				2、给 div 添加样式 resize: vertical;，使 div 可以被用户调整尺寸，注意：别忘了设置 overflow: auto; 样式，因为resize样式不适用于overflow: visible;的块，不然 resize 不起效哦；
+
+				3、增加一个属性：placeholder="I am placeholder"；
+
+				4、通过 CSS 选择器获取并显示 placeholder 的值；
+	-->
+    <div class="textarea" contenteditable="true" placeholder="This is placeholder"></div>
+</body>
+
+</html>
