@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    .checkbox-slider {
+        position: relative;
+    }
+
+    .checkbox-slider input {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        margin: 0 0;
+        cursor: pointer;
+        zoom: 1;
+        -webkit-opacity: 0;
+        -moz-opacity: 0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+
+    .checkbox-slider input+span {
+        padding-left: 15px;
+    }
+
+    .checkbox-slider input+span:before {
+        position: absolute;
+        left: 0;
+        display: inline-block;
+        content: "";
+        height: 20px;
+        width: 40px;
+        border-radius: 20px;
+        background: rgba(100, 100, 100, .2);
+        transition: background .2s ease-out;
+    }
+
+    .checkbox-slider input:not(:checked)+span:after {
+        animation: popOut ease-in .3s normal;
+    }
+
+    .checkbox-slider input+span:after {
+        width: 17px;
+        height: 17px;
+        position: absolute;
+        left: 2px;
+        top: 1px;
+        display: block;
+        background: #fff;
+        transition: margin-left .1s ease-in-out;
+        text-align: center;
+        font-weight: 700;
+        content: "";
+
+        background-clip: padding-box;
+        -webkit-border-radius: 20px;
+        border-radius: 20px;
+        -moz-border-radius: 20px;
+    }
+
+    .checkbox-slider input:checked+span:before {
+        background: #26B9EF;
+        transition: background .2s ease-in;
+    }
+
+    .checkbox-slider input:checked+span:after {
+        content: "";
+        margin-left: 20px;
+        background-clip: padding-box;
+        animation: popIn ease-in .3s normal;
+    }
+
+    @keyframes popIn {
+        0% {
+            transform: scale(1, 1)
+        }
+        25% {
+            transform: scale(1.2, 1)
+        }
+        50% {
+            transform: scale(1.4, 1)
+        }
+        100% {
+            transform: scale(1, 1)
+        }
+    }
+
+    @keyframes popOut {
+        0% {
+            transform: scale(1, 1)
+        }
+        25% {
+            transform: scale(1.2, 1)
+        }
+        50% {
+            transform: scale(1.4, 1)
+        }
+        100% {
+            transform: scale(1, 1)
+        }
+    }
+    </style>
+</head>
+
+<body>
+    <div class="checkbox-slider">
+        <label>
+            <input type="checkbox" checked="" />
+            <span></span>
+        </label>
+    </div>
+</body>
+
+</html>
