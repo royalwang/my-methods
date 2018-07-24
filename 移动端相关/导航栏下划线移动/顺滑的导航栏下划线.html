@@ -1,0 +1,183 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>下划线跟随鼠标左右滑动的菜单导航特效</title>
+    <style>
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    ul,
+    ol,
+    li,
+    form,
+    img,
+    dl,
+    dt,
+    dd,
+    table,
+    th,
+    td,
+    blockquote,
+    fieldset,
+    div,
+    strong,
+    label,
+    em,
+    img {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    ul,
+    ol,
+    li {
+        list-style: none;
+    }
+
+    input,
+    button {
+        margin: 0;
+        font-size: 12px;
+        vertical-align: middle;
+    }
+
+    body {
+        font-size: 12px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #333;
+        margin: 0 auto;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .box-lanrenzhijia {
+        position: relative;
+        height: 29px;
+        width: 461px;
+        padding: 15px;
+        margin: 10px auto;
+        overflow: hidden;
+    }
+
+    .box-lanrenzhijia li {
+        float: left;
+        margin-right: 20px;
+    }
+
+    .box-lanrenzhijia li.back {
+        border-bottom: 3px solid #f27b04;
+        width: 9px;
+        height: 30px;
+        z-index: 8;
+        position: absolute;
+    }
+
+    .box-lanrenzhijia li a {
+        color: #000;
+        outline: none;
+        text-align: center;
+        top: 7px;
+        text-transform: uppercase;
+        letter-spacing: 0;
+        z-index: 10;
+        display: block;
+        float: left;
+        height: 30px;
+        position: relative;
+        overflow: hidden;
+        margin: auto 10px;
+    }
+
+    .box-lanrenzhijia li a:hover,
+    .box-lanrenzhijia li a:active,
+    .box-lanrenzhijia li a:visited {
+        border: none;
+    }
+    </style>
+    <style type="text/css">
+    .schmenu {
+        height: 33px;
+        line-height: 33px;
+        background: #636871;
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .schmenu ul {
+        width: 1180px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .schmenu ul li {
+        float: left;
+        list-style: none;
+    }
+
+    .schmenu ul li a {
+        height: 33px;
+        line-height: 33px;
+        display: block;
+        color: #fff;
+        font-size: 13px;
+        padding: 0 10px;
+        text-decoration: none;
+    }
+
+    .schmenu ul li a:hover {
+        color: #fff;
+        background: #000;
+        text-decoration: none;
+        -moz-transition: all 0.2s ease;
+        -webkit-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        -moz-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+    }
+    </style>
+    <script type="text/javascript" src="../../jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.lavalamp.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $("#box-lanrenzhijia").lavaLamp({
+            fx: "backout",
+            speed: 700,
+            click: function(event, menuItem) {
+                return false;
+            }
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <ul class="box-lanrenzhijia" id="box-lanrenzhijia">
+        <li class="current"><a href="http://www.lanrenzhijia.com/">我的联盟</a></li>
+        <li><a href="http://www.lanrenzhijia.com/">我的推广</a></li>
+        <li><a href="http://www.lanrenzhijia.com/">效果报表</a></li>
+        <li><a href="http://www.lanrenzhijia.com/">结算中心</a></li>
+        <li><a href="http://www.lanrenzhijia.com/">个人信息</a></li>
+        <li class="back" style="left: 15px; width: 68px; overflow: hidden;">
+            <div class="left"></div>
+        </li>
+    </ul>
+</body>
+
+</html>

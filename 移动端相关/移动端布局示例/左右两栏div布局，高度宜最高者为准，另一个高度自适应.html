@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>左右两栏div布局，高度宜最高者为准，另一个高度自适应</title>
+    <style>
+    .container {
+    	/*利用的table本身的自适应特性，兼容性好，容易使用*/
+        display: table;
+        width: 80%;
+    }
+
+    .container .left,
+    .container .right {
+        display: table-cell;
+    }
+
+    .container .left {
+        width: 20%;
+        background: pink;
+    }
+
+    .container .right {
+        width: 80%;
+        background: deeppink;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            left
+        </div>
+        <div class="right">
+            <p>right</p>
+            <p>right</p>
+            <p>right</p>
+            <p>right</p>
+            <p>right</p>
+        </div>
+    </div>
+</body>
+
+</html>

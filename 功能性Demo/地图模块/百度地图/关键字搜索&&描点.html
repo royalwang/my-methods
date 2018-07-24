@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>关键字搜索及描点</title>
+    <style>
+    html,
+    body {
+        /*很重要！！！*/
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    #map {
+        width: 100%;
+        height: 100%;
+        -webkit-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+    }
+
+    #suggestInput {
+        position: absolute;
+        top: 5px;
+        left: 70px;
+        line-height: 40px;
+        background: #fff;
+        box-shadow: 0 0 10px #aaa;
+        padding: 0 10px;
+        border-radius: 5px;
+    }
+
+    #suggestId {
+        border: none;
+        outline: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Q3azqy4r9nwxsxvlZ7aOeeE3ewHKv1cu"></script>
+    <!--加载鼠标绘制工具-->
+    <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+    <!--加载检索信息窗口-->
+    <script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css" />
+</head>
+
+<body>
+    <div id="map"></div>
+    <div id="suggestInput">
+        请输入:
+        <input type="text" id="suggestId" size="20" value="" style="max-width:180px;" />
+    </div>
+    <script>
+    var map = new BMap.Map('map', {
+        enableHighResolution: true, //是否开启高清
+    });
+
+    var point = new BMap.Point(116.331398, 39.897445);
+    var navigationControl = new BMap.NavigationControl({
+        // 靠左上角位置
+        anchor: BMAP_ANCHOR_TOP_LEFT,
+        // LARGE类型
+        type: BMAP_NAVIGATION_CONTROL_LARGE,
+        // 启用显示定位
+        enableGeolocation: true
+    });
+    map.enableScrollWheelZoom(); //启用鼠标滚动对地图放大缩小
+    map.centerAndZoom(point, 12); //设置经纬度H
+    map.addControl(navigationControl); // 添加带有定位的导航控件
+
+    /*
+    	当前城市定位
+     */
+    var myCity = new BMap.LocalCity();
+    myCity.get(function(result) {
+        var cityName = result.name;
+        // console.log(cityName);
+        map.setCenter(cityName);
+    });
+
+
+    var lng = "";
+    var lat = "";
+
+    var overlays = []; //地图覆盖物
+    var sValue = null; //下拉搜索值
+
+
+    /*
+    	实例化鼠标绘制工具
+     */
+    var drawingManager = new BMapLib.DrawingManager(map, {
+        isOpen: false, //是否开启绘制模式
+        enableDrawingTool: true, //是否显示工具栏
+        enableCalculate: false,
+        drawingToolOptions: {
+            anchor: BMAP_ANCHOR_TOP_RIGHT, //位置
+            offset: new BMap.Size(5, 5), //偏离值
+            scale: 0.8,
+            drawingModes: [BMAP_DRAWING_MARKER],
+            drawingTypes: [
+                BMAP_DRAWING_MARKER,
+            ]
+        },
+    });
+    /*
+    	描点
+     */
+    drawingManager.addEventListener('overlaycomplete', function(event) {
+        //清除之前的marker
+        clearMapOverlays();
+        //添加至覆盖物栈
+        overlays.push(event.overlay);
+        if (event.drawingMode == BMAP_DRAWING_MARKER) {
+            lng = event.overlay.getPosition().lng;
+            lat = event.overlay.getPosition().lat;
+            console.log(event.overlay.getTitle());
+            console.log(event.overlay.getPosition());
+        }
+    });
+
+    /*
+    	下拉搜索
+     */
+    var autocomplete = new BMap.Autocomplete( //建立一个自动完成的对象
+        {
+            "input": "suggestId",
+            "location": map
+            // "location": '天津'
+        });
+
+    autocomplete.addEventListener("onconfirm", function(e) { //鼠标点击下拉列表后的事件
+        var _value = e.item.value;
+        sValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+        setPlace(sValue);
+    });
+
+    /*
+    	根据搜索结果显示marker
+     */
+    function setPlace(val) {
+        clearMapOverlays();
+        var local = new BMap.LocalSearch(map, { //智能搜索
+            onSearchComplete: function(event) {
+                drawingManager.close(); //关闭地图的绘制状态
+
+                var pp = event.getPoi(0).point; //获取第一个智能搜索的结果
+                var title = event.getPoi(0).title;
+                //描点
+                doMarker(pp, title);
+                lng = pp.lng;
+                lat = pp.lat;
+            }
+        });
+        local.search(val); //根据检索词发起检索
+    }
+
+    /*
+        创建一个Marker
+     */
+    function doMarker(mPoint, title) {
+        //这里的mPoint为百度的实例对象
+        var marker = new BMap.Marker(mPoint, {
+            title: title,
+            // offset: new BMap.Size(20, -10),//标注的位置偏移值
+            // icon: new BMap.Icon("../icon5.png", new BMap.Size(40, 49)), //标注所用的图标对象
+        });
+        map.centerAndZoom(mPoint, 14); //设置中心点坐标和地图级别
+        map.addOverlay(marker);
+        //须在addOverlay之后调用该动画，不然只会执行一次！！
+        marker.setAnimation(BMAP_ANIMATION_DROP);
+        getMapOverlays();
+    }
+
+    /*
+    	获取地图覆盖物
+     */
+    function getMapOverlays() {
+        var arr = map.getOverlays(); //获取地图覆盖物
+        for (var i = 0; i < arr.length; i++) {
+            overlays.push(arr[i]);
+        }
+    }
+
+    /*
+    	清除地图覆盖物
+     */
+    function clearMapOverlays() {
+        if (overlays) {
+            for (i in overlays) {
+                map.removeOverlay(overlays[i]);
+            }
+        }
+    }
+    </script>
+</body>
+
+</html>

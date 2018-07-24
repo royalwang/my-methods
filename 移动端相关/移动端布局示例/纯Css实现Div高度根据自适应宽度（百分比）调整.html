@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>设定父级元素father高度以实现子元素的自适应宽度（百分比）调整</title>
+    <style>
+    .father {
+        width: 500px;
+        height: 500px;
+        background: #222
+    }
+
+    .child {
+        /*width为父级元素的50%*/
+        width: 50%;
+        /*设置height为0，padding-bottom:50%*/
+        height: 0;
+        padding-bottom: 50%;
+        background: #eee;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="father">
+        <div class="child">111</div>
+    </div>
+</body>
+
+</html>

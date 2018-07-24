@@ -21,6 +21,8 @@ jqueryPromise().then(function(data) {
  * 		由于jquery的def对象本身就有resolve方法，
  * 		所以我们在创建def对象的时候并未像ES6这样传入了一个函数参数，是空的。在后面可以直接def.resolve()这样调用
  */
+
+
 //以下是ES6的Promise
 function es6Promise() {
     var p = new Promise(function(resolve, reject) {
@@ -32,8 +34,7 @@ function es6Promise() {
     });
     return p;
 }
-es6Promise()
-
+es6Promise();
 
 /**
  * 思考？
