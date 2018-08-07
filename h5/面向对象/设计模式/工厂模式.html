@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>工厂模式</title>
+</head>
+
+<body>
+    <script>
+    function a(name) {
+        var b = new Object();
+        b.name = name;
+        b.say = function() {
+            alert(this.name);
+        }
+        return b
+    }
+    // a('11').say();
+    </script>
+</body>
+
+</html>

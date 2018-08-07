@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function people(p){
+				this.name=p.name;
+				this.sex=p.sex;
+				this.age=p.age;
+			}
+			people.prototype={
+				peoTake:function(biName){
+					console.log("我拿起"+biName);
+				},
+				peoRead:function(shuName){
+					console.log("我开始读"+shuName);
+				},
+				peoWalk:function(sName){
+					console.log("我开始走到"+sName);
+				}
+			}
+			function pen(pe){
+				this.name=pe.name;
+				this.type=pe.type;
+				this.chang=pe.chang;
+			}
+			pen.prototype={
+				pWrite:function(){
+					console.log("我开始写");
+				}
+			}
+			function book(b){
+				this.name=b.name;
+				this.author=b.author;
+				this.page=b.page;
+			}
+			book.prototype={
+				bRead:function(peoName){
+					console.log(peoName+"阅读了我");
+				}
+			}
+			function school(s){
+				this.name=s.name;
+			}
+			school.prototype={
+				goSchool:function(peoName){
+					console.log(peoName+"上学");
+				}
+			}
+			
+			var peo=new people({name:"张三",sex:"男",age:"21"});
+			console.log(peo.name+" 性别："+peo.sex+",年龄："+peo.age);
+			
+			var bi=new pen({name:"铅笔",chang:"10cm"});
+			console.log(bi.name+" 长度："+bi.chang);
+			
+			var shu=new book({name:"厚黑学",author:"李宗吾",page:"220"});
+			console.log(shu.name+" 作者："+shu.author+",页数："+shu.page);
+			
+			var xue=new school({name:"十九中学"});
+			console.log(xue.name);
+			
+			console.log(peo.name+"正在"+xue.name+"读"+shu.name);
+			peo.peoTake(bi.name);
+			peo.peoRead(shu.name);
+			peo.peoWalk(xue.name);
+			
+		</script>
+	</body>
+</html>

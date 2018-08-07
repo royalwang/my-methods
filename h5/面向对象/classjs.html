@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function myCar(c){
+				this.name=c.name;
+				this.color=c.color;
+				this.jSpeed=c.jSpeed;	//均速
+				this.xSpeed=c.xSpeed;	//行驶速度
+				this.weight=c.weight;
+				
+			}
+			myCar.prototype={
+				carSpeed:function(people){
+					console.log(this.name+"正在载"+people.name+"行驶");
+				},
+				carInsure:function(people){
+					console.log(this.name+"被"+people.name+"投保了");
+				},
+				carkai:function(people){
+					console.log("我被"+people.name+"("+people.age+")岁");
+				}
+			}
+			function people(p){
+				this.name=p.name;
+				this.age=p.age;
+				this.sex=p.sex;
+			}
+			people.prototype={
+				peoWalk:function(){
+					console.log("我开始走路");
+				},
+				peoDrive:function(myCar){
+					console.log(this.name+"要开"+myCar.name+"车了");
+					myCar.carkai(this);
+				},
+				peoInsure:function(myCar){
+					console.log(this.name+"给"+myCar.name+"投保了");
+					myCar.carInsure(this);
+				}
+			}
+			function bxCompany(y){
+				this.name=y.name;
+			}
+			function bxType(t){
+				this.name=t.name;
+				this.money=t.money;
+			}
+			bxType.prototype={
+				typeTerm:function(people,myCar){
+					if (people.age>30&&myCar.name=="宝马"&&myCar.xSpeed>120) {
+						this.typeCx();
+					} else{
+						console.log("您不符合条件");
+					}
+//					console.log("验证条件");
+				},
+				typeCx:function(){
+					console.log("出险");
+				}
+			}
+			
+			var peo1=new people({name:"张三",sex:"男",age:"33"});
+			console.log(peo1.name+"性别："+peo1.sex+",年龄："+peo1.age);
+			
+			
+			var peo2=new people({name:"李四",sex:"女",age:"20"});
+			console.log(peo2.name+"性别："+peo2.sex+",年龄："+peo2.age);
+			
+			
+			var car1=new myCar({name:"宝马",color:"红色",jSpeed:"100",xSpeed:"120",weight:"1500"});
+			console.log(car1.name+"颜色："+car1.color+",均速:"+car1.jSpeed+",行驶速度:"+car1.xSpeed+",重量:"+car1.weight);
+			var car2=new myCar({name:"奔驰",color:"黑色",jSpeed:"80",xSpeed:"50",weight:"1600"});
+			console.log(car2.name+"颜色："+car2.color+",均速:"+car2.jSpeed+",行驶速度:"+car2.xSpeed+",重量:"+car2.weight);
+		
+			var bxCom=new bxCompany({name:"太平保险"});
+			console.log("公司名称："+bxCom.name);
+			
+			
+			var bxType1=new bxType({name:"车损险",money:"1000"});
+			var bxType2=new bxType({name:"自然灾害险",money:"2000"});
+			var bxType3=new bxType({name:"三者保险",money:"50000"});
+			console.log("险种名称:"+bxType1.name+",金额:"+bxType1.money);
+			console.log("险种名称:"+bxType2.name+",金额:"+bxType2.money);
+			console.log("险种名称:"+bxType3.name+",金额:"+bxType3.money);
+			
+			peo1.peoDrive(car1);
+//			car1.carkai(peo1);
+			//当年龄大于30岁并且汽车是宝马的时候，时速大于120，满足：允许出车损险
+			bxType1.typeTerm(peo1,car1);
+//			console.log("条件满足");
+			peo1.peoInsure(car1);
+		</script>
+	</body>
+</html>

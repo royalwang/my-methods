@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 /**
  * 
  * @authors Yutang NIE (13920365339@163.com)
@@ -206,4 +205,13 @@ textarea {
 
 .clear {
     clear: both
+}
+
+.xxx:after {
+    clear: both;
+    content: ".";
+    height: 0;
+    visibility: hidden;
+    font-size: 0;
+    display: block
 }

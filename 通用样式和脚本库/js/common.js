@@ -1,34 +1,3 @@
-!(function(doc, win) {
-    var docEle = doc.documentElement,
-        evt = "onorientationchange" in window ? "orientationchange" : "resize",
-        fn = function() {
-            var width = docEle.clientWidth;
-            // width && (docEle.style.fontSize = 20 * (width / 375) + "px");
-            width && (docEle.style.fontSize = 10 * width / 75 + "px");
-        };
-
-    win.addEventListener(evt, fn, false);
-    doc.addEventListener("DOMContentLoaded", fn, false);
-
-}(document, window));
-
-// 直接使用css3属性，而不用js控制
-// html {
-//     font-size: 100vw/750;
-//     font-size: 100vw/375;
-//     /*100vw是设备的宽度，除以3.75可以让1rem的大小在iPhone6下等于100px*/
-//     /*100vw是设备的宽度，除以375可以让1rem的大小在iPhone6下等于1px*/
-// }
-
-// 手机端
-// document.documentElement.style.fontSize = innerWidth / 16 + 'px';
-// window.onresize = function() {
-//     document.documentElement.style.fontSize = innerWidth / 16 + 'px';
-// }
-// 
-// 判断页面是在移动端还是PC端打开的
-window.location.href = /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) ? "https://www.baidu.com/" : "http://news.baidu.com/";
-
 // 
 // $.ajaxSetup({cache:false})//基于jquery的解决浏览器缓存问题
 // 
@@ -62,18 +31,17 @@ Date.prototype.format = function(fmt) {
 }
 
 function dateFormat(str, type) {
+    var date = null;
     if (str == null || str == "") {
         return '';
     } else if (type == 1) {
-        var date = new Date(str).format('yyyy年MM月dd日');
-        return date;
+        date = new Date(str).format('yyyy年MM月dd日');
     } else if (type == 2) {
-        var date = new Date(str).format('yyyy-MM-dd');
-        return date;
+        date = new Date(str).format('yyyy-MM-dd');
     } else if (type == 3) {
-        var date = new Date(str).format('yyyy-MM-dd hh:mm:ss');
-        return date;
+        date = new Date(str).format('yyyy-MM-dd hh:mm:ss');
     }
+    return date;
 }
 
 //时间戳转化(一般)
@@ -99,13 +67,15 @@ function formatTime(date, type) {
         //年月日、时分秒
         formatTime = [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
     }
+    //补零
+    function formatNumber(n) {
+        n = n.toString()
+        return n[1] ? n : '0' + n
+    }
+    
     return formatTime;
 }
-//补零
-function formatNumber(n) {
-    n = n.toString()
-    return n[1] ? n : '0' + n
-}
+
 
 //时间戳转化(最简单)
 //方法三

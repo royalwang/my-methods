@@ -9,11 +9,30 @@ $(function() {
     // dropload
     var dropload = $('.khfxWarp').dropload({
         scrollArea: window,
+        domUp: { //下拉
+            domClass: 'dropload-up',
+            domRefresh: '<div class="dropload-refresh">↓下拉刷新</div>',
+            domUpdate: '<div class="dropload-load">释放更新...</div>',
+            domLoad: '<div class="dropload-load">正在加载中...</div>'
+        },
         domDown: {
             domClass: 'dropload-down',
             domRefresh: '<div class="dropload-refresh">上拉加载更多</div>',
             domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
             domNoData: '<div class="dropload-noData">已无数据</div>'
+        },
+        loadUpFn: function(me) { //刷新
+            // 为了测试，延迟1秒加载
+            setTimeout(function() {
+                // $('.khfxPane').eq(itemIndex).html(result);
+                // 每次数据加载完，必须重置
+                me.resetload();
+                // 重置页数，重新获取loadDownFn的数据
+                // 解锁loadDownFn里锁定的情况
+                me.unlock();
+                // 有数据
+                me.noData(false);
+            }, 1000);
         },
         loadDownFn: function(me) {
             setTimeout(function() {
