@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>vue动画-transition</title>
+    <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <style>
+    p {
+        width: 300px;
+        height: 300px;
+        background-color: red;
+    }
+    /*
+        class定义
+
+            .fade-enter   动画进入----初始状态
+            .fade-enter-active   当元素显示
+            .fade-leave   动画离开
+            .fade-leave-active   当元素消失
+     */
+
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: 1s all ease;
+    }
+
+    .fade-enter-active {
+        width: 300px;
+        height: 300px;
+        opacity: 1;
+    }
+
+    .fade-leave-active {
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+    }
+
+    .fade-enter,
+    .fade-leave {
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <input type="button" value="点击显示隐藏" @click="show=!show">
+        <transition name="fade" @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter" @before-leave="beforeLeave" @leave="leave" @after-leave="afterLeave">
+            <p v-show="show"></p>
+        </transition>
+    </div>
+    <script src="../vue.min.js"></script>
+    <script>
+    window.onload = function() {
+        new Vue({
+            el: '#box',
+            data: {
+                show: false
+            },
+            methods: {
+                // 对动画的事件监听
+                beforeEnter(el) {
+                    console.log('动画enter之前');
+                },
+                enter(el) {
+                    console.log('动画进入');
+                },
+                afterEnter(el) {
+                    console.log('动画进入之后');
+                    el.style.backgroundColor = "blue"
+                },
+                beforeLeave(el) {
+                    console.log('动画离开之前');
+                },
+                leave(el) {
+                    console.log('动画离开');
+                },
+                afterLeave(el) {
+                    console.log('动画离开之后');
+                    el.style.backgroundColor = "red"
+                }
+            }
+        })
+    }
+    </script>
+</body>
+
+</html>

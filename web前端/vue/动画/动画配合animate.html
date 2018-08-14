@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>vue动画-transition</title>
+    <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <style>
+    p {
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        background-color: red;
+        margin: 20px auto;
+        text-align: center;
+    }
+    </style>
+    <script src="../vue.min.js"></script>
+    <script>
+    window.onload = function() {
+        new Vue({
+            el: '#box',
+            data: {
+                show: '',
+                list: ['apple', 'banana', 'orange', 'pear']
+            },
+            methods: {
+
+            },
+            computed: {
+                listssss() {
+                    var arr = [];
+                    this.list.forEach(function(valItem) {
+                        if (valItem.indexOf(this.show) != -1) {
+                            //包含
+                            arr.push(valItem);
+                        }
+                    }.bind(this))
+                    return arr
+                }
+            }
+        })
+    }
+    </script>
+</head>
+
+<body>
+    <div id="box">
+        <input type="text" v-model="show">
+        <!-- <transition name="fade" enter-active-class="zoomInLeft" leave-active-class="zoomOutRight">
+            <p v-show="show" class="animated"></p>
+        </transition> -->
+        <transition-group name="fade" enter-active-class="zoomInLeft" leave-active-class="zoomOutRight">
+            <p v-show="show" v-for="(item,index) in listssss" :key="index" v-text="item" class="animated"></p>
+        </transition-group>
+    </div>
+</body>
+
+</html>

@@ -1,4 +1,6 @@
-// 1、用class取代需要prototype
+/*
+    1、用class取代需要prototype
+ */
 function Fn(arr = []) {
     // 构造函数，首字母大写
     this._data = [...arr];
@@ -35,11 +37,20 @@ class Fnchild extends Fn() {
 
 // var a = new FnChild(arr);
 // console.log(a.peek());
+
+
+
+
+
+
+
+
+
+
 // 
-// 
-// 
-// 
-// 2.解构赋值
+/*
+    2.解构赋值
+ */
 // 原来的方式
 const arr = [1, 2, 3, 4]
 const f = arr[0]
@@ -47,13 +58,50 @@ const s = arr[1]
 
 //解构赋值的方式(一一对应)
 const [f, s] = [1, 2, 3, 4]
+//
+//
+//
+// 删除不需要的属性
+// 
+// 下面的代码里，我们希望删除 _internal和 tooBig参数。我们可以把它们赋值给 internal和 tooBig变量，
+// 然后在 cleanObject中存储剩下的属性以备后用
+let { _internal, tooBig, ...cleanObject } = { el1: '1', _internal: "secret", tooBig: {}, el2: '2', el3: '3' };
+console.log(cleanObject); // {el1: '1', el2: '2', el3: '3'}
+//
+//
+//
+//
+// 在函数参数中解构嵌套对象
+var car = { model: 'bmw 2018', engine: { v6: true, turbo: true, vin: 12345 } }
+const modelAndVIN = ({ model, engine: { vin } }) => {
+    console.log(`model: ${model} vin: ${vin}`);
+}
+modelAndVIN(car); // => model: bmw 2018  vin: 12345
+//
+//
+//合并对象
+//
+let object1 = { a: 1, b: 2, c: 3 }
+let object2 = { b: 30, c: 40, d: 50 }
+let merged = { ...object1, ...object2 } // {a:1, b:30, c:40, d:50}
 
 
-//3.数组拷贝
+
+
+
+
+/*
+    3.数组拷贝
+ */
 const arrCopy = [...arr]
 
 
-// 4.Set 实例的方法
+
+
+
+/*
+    4.Set 实例的方法
+ */
 // 
 // size：返回Set实例的成员总数。
 // 
@@ -129,8 +177,17 @@ let set = new Set([1, 2, 3]);
 set = new Set(Array.from(set, val => val * 2));
 // set的值是2, 4, 6
 // 
-// 
-// 5.Map 实例的方法
+
+
+
+
+
+
+
+
+/*
+    5.Map 实例的方法
+ */
 // 类似“键值对”的数据结构
 // 
 const m = new Map();
@@ -185,3 +242,25 @@ for (let [key, value] of map) {
 }
 // "F" "no"
 // "T" "yes"
+// 
+// 
+// 
+
+
+
+
+/*
+    6.使用reduce取代map和filter
+ */
+const numbers = [10, 20, 30, 40];
+const doubledOver50 = numbers.reduce((finalList, num) => {
+    num = num * 2;
+    if (num > 50) {
+        finalList.push(num);
+    }
+    return finalList;
+}, []);
+doubledOver50(); // [60, 80]
+//
+//
+//使用reduce匹配圆括号

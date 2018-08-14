@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>vue-router</title>
+    <script src="../vue.min.js"></script>
+    <script src="./vue-router.js"></script>
+    <style>
+    .router-link-active {
+        font-size: 20px;
+        color: red;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div>
+            <router-link to="/home">主页</router-link>
+            <router-link to="/user">用户</router-link>
+        </div>
+        <div>
+            <router-view></router-view>
+        </div>
+    </div>
+    <script>
+    //组件
+
+    var Home = {
+        template: '<h3>我是主页</h3>'
+    }
+    var User = {
+        template: `
+		<div>
+            <h3>我是用户信息</h3>
+            <ul>
+                <li>
+                    <router-link to="/user/zhangsan/age/10">张三</router-link>
+                </li>
+				<li>
+                    <router-link to="/user/lisi/age/20">李四</router-link>
+                </li>
+				<li>
+                    <router-link to="/user/wangwu/age/30">王五</router-link>
+                </li>
+				
+            </ul>
+            <div>
+            	<router-view></router-view>
+            </div>
+        </div>
+        `
+    }
+    var UserDetail = {
+        template: '<h3>{{$route.params}}</h3>'
+    }
+    //配置路由
+    var routes = [
+        { path: '', redirect: '/home' },
+        { path: '/home', component: Home },
+        {
+            path: '/user',
+            component: User,
+            children: [{
+                path: ':username/age/:age',
+                component: UserDetail
+            }]
+        },
+    ]
+
+    const router = new VueRouter({
+        routes
+    });
+
+    new Vue({
+        el: '#box',
+        router,
+
+    })
+    </script>
+</body>
+
+</html>
