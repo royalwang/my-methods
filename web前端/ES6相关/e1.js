@@ -42,12 +42,6 @@ class Fnchild extends Fn() {
 
 
 
-
-
-
-
-
-// 
 /*
     2.解构赋值
  */
