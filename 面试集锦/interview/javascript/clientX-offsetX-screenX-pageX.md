@@ -25,7 +25,7 @@ event.offsetY
 
 offset意为偏移量，是被点击的元素距左上角为参考原点的长度，而IE、FF和Chrome的参考点有所差异。
 
-Chrome下，offsetX offsetY是包含边框的，如图所示。
+Chrome下，offsetX offsetY是包含边框的，如图所示。	
 
 
 
@@ -78,3 +78,8 @@ page为页面的意思，页面的高度一般情况**client游览器**显示区
 - offsetWidth/offsetHeight返回值包含**content + padding + border**，效果与e.getBoundingClientRect()相同
 - clientWidth/clientHeight返回值只包含**content + padding**，如果有滚动条，也**不包含滚动条**
 - scrollWidth/scrollHeight返回值包含**content + padding + 溢出内容的尺寸 **
+
+
+
+960129768027   顺丰   
+

@@ -25,7 +25,7 @@ ajax请求中，只有get请求会有缓存
 
 解决方案
 
-```js
+```js 
 1.ajax请求前加上:ajaxObj.setRequestHeader('If-Modified-Since', '0');
 2.ajax请求前加上:ajaxObj.setRequestHeader('Cache-Control', 'no-cache');
 3.在URL后面加上一个随机数: "random=" + Math.random();

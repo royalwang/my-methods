@@ -1,0 +1,247 @@
+ /*1、图片宽度自适应 */
+
+ img {
+     max-width: 100%
+ }
+ /*******************************/
+ /*******************************/
+ /*******************************/
+ /*******************************/
+ /******************************/
+ /*2、3D按钮*/
+
+ div#button {
+     background: #888;
+     border: 1px solid;
+     border-color: #999 #777 #777 #999;
+ }
+ /********************************/
+ /********************************/
+ /********************************/
+ /********************************/
+ /********************************/
+ /*3、font属性快捷写法*/
+
+ body {
+     font: (font-style) (font-variant) (font-weight) (font-size) (line-height) (font-family);
+ }
+
+ body {
+     font-family: Arial, Helvetica, sans-serif;
+     font-size: 13px;
+     font-weight: normal;
+     font-variant: small-caps;
+     font-style: italic;
+     line-height: 150%;
+
+     /*font: italic small-caps normal 13px/150% Arial, Helvetica, sans-serif; */
+ }
+ /***********************************/
+ /***********************************/
+ /***********************************/
+ /***********************************/
+ /***********************************/
+ /***********************************/
+ /*4、font-size基准*/
+ /*浏览器的缺省字体大小是16px，你可以先将基准字体大小设为10px：*/
+ /*body {font-size:62.5%;}*/
+ /*后面统一采用em作为字体单位，2.4em就表示24px*/
+ /***********************************/
+ /***********************************/
+ /***********************************/
+ /***********************************/
+ /***********************************/
+ /***********************************/
+ /*5、Text-transform和Font Variant*/
+ /*Text-transform用于将所有字母变成小写字母、大写字母或首字母大写：*/
+
+ p {
+     text-transform: uppercase
+ }
+
+ p {
+     text-transform: lowercase
+ }
+
+ p {
+     text-transform: capitalize
+ }
+ /*Font Variant用于将字体变成小型的大写字母（即与小写字母等高的大写字母）*/
+ /*p {font-variant: small-caps}*/
+ /*************************************/
+ /*************************************/
+ /*************************************/
+ /*************************************/
+ /*6、透明*/
+
+ .element {
+     filter: alpha(opacity=50);
+     /*IE专用*/
+     -moz-opacity: 0.5;
+     /*Firefox*/
+     -khtml-opacity: 0.5;
+     /*webkit核*/
+     opacity: 0.5;
+     /*Opera*/
+ }
+ /********************************/
+ /********************************/
+ /********************************/
+ /********************************/
+ /*7、CSS三角形*/
+
+ .triangle {
+     border-color: transparent transparent green transparent;
+     border-style: solid;
+     border-width: 0px 300px 300px 300px;
+     height: 0px;
+     width: 0px;
+ }
+ /*********************************/
+ /*********************************/
+ /*********************************/
+ /*********************************/
+ /*8、禁止自动换行*/
+
+ h1 {
+     white-space: nowrap;
+ }
+ /*********************************/
+ /*********************************/
+ /*********************************/
+ /*********************************/
+ /*9、获得焦点的表单元素*/
+
+ input:focus {
+     border: 2px solid green;
+ }
+ /*********************************/
+ /*********************************/
+ /*********************************/
+ /*********************************/
+ /*********************************/
+ /*10、黑白图像*/
+
+ img.desaturate {
+     filter: grayscale(100%);
+     -webkit-filter: grayscale(100%);
+     -moz-filter: grayscale(100%);
+     -ms-filter: grayscale(100%);
+     -o-filter: grayscale(100%);
+ }
+ /******************************/
+ /******************************/
+ /******************************/
+ /******************************/
+ /******************************/
+ /*11、优化显示文本*/
+
+ html {
+     -moz-osx-font-smoothing: grayscale;
+     -webkit-font-smoothing: antialiased;
+     text-rendering: optimizeLegibility;
+ }
+ /******************************/
+ /******************************/
+ /******************************/
+ /******************************/
+ /*12、继承 box-sizing*/
+
+ html {
+     box-sizing: border-box;
+ }
+
+ *,
+ *:before,
+ *:after {
+     box-sizing: inherit;
+ }
+ /*********************************/
+ /*********************************/
+ /*********************************/
+ /*********************************/
+ /*13、使用属性选择器用于空链接*/
+
+ a[href^="http"]:empty::before {
+     content: attr(href);
+ }
+ /*********************************/
+ /*********************************/
+ /*********************************/
+ /*********************************/
+ /*********************************/
+ /*14、CSS 写出三角形*/
+ /* create an arrow that points up */
+ /*上三角*/
+
+ div.arrow-up {
+     width: 0px;
+     height: 0px;
+     border-left: 5px solid transparent;
+     /* left arrow slant */
+     border-right: 5px solid transparent;
+     /* right arrow slant */
+     border-bottom: 5px solid #2f2f2f;
+     /* bottom, add background color here */
+     font-size: 0px;
+     line-height: 0px;
+ }
+ /* create an arrow that points down */
+ /*下三角*/
+
+ div.arrow-down {
+     width: 0px;
+     height: 0px;
+     border-left: 5px solid transparent;
+     border-right: 5px solid transparent;
+     border-top: 5px solid #2f2f2f;
+     font-size: 0px;
+     line-height: 0px;
+ }
+ /* create an arrow that points left */
+ /*左三角*/
+
+ div.arrow-left {
+     width: 0px;
+     height: 0px;
+     border-bottom: 5px solid transparent;
+     /* left arrow slant */
+     border-top: 5px solid transparent;
+     /* right arrow slant */
+     border-right: 5px solid #2f2f2f;
+     /* bottom, add background color here */
+     font-size: 0px;
+     line-height: 0px;
+ }
+ /* create an arrow that points right */
+ /*右三角*/
+
+ div.arrow-right {
+     width: 0px;
+     height: 0px;
+     border-bottom: 5px solid transparent;
+     /* left arrow slant */
+     border-top: 5px solid transparent;
+     /* right arrow slant */
+     border-left: 5px solid #2f2f2f;
+     /* bottom, add background color here */
+     font-size: 0px;
+     line-height: 0px;
+ }
+ /*****************************/
+ /*****************************/
+ /*****************************/
+ /*****************************/
+ /*15、CSS3 calc() 的使用*/
+ /* basic calc */
+
+ .simpleBlock {
+     width: calc(100% - 100px);
+ }
+ /* calc in calc */
+
+ .complexBlock {
+     width: calc(100% - 50% / 3);
+     padding: 5px calc(3% - 2px);
+     margin-left: calc(10% + 10px);
+ }
