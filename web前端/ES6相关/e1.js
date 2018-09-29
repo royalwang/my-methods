@@ -18,6 +18,7 @@ Fn.prototype.pop = function() {
 // 
 // 
 // 以下是es6的写法
+<<<<<<< HEAD
 class Fn {
     constructor(arr = []) {
         this._data = [...arr];
@@ -34,6 +35,24 @@ class Fnchild extends Fn() {
         return this._data[0];
     }
 }
+=======
+// class Fn {
+//     constructor(arr = []) {
+//         this._data = [...arr];
+//     }
+//     pop() {
+//         const value = this._data[0];
+//         this._data.splice(0, 1);
+//         return value;
+//     }
+// }
+// // 继承机制
+// class Fnchild extends Fn() {
+//     peek() {
+//         return this._data[0];
+//     }
+// }
+>>>>>>> 2018\9\29
 
 // var a = new FnChild(arr);
 // console.log(a.peek());
@@ -46,9 +65,15 @@ class Fnchild extends Fn() {
     2.解构赋值
  */
 // 原来的方式
+<<<<<<< HEAD
 const arr = [1, 2, 3, 4]
 const f = arr[0]
 const s = arr[1]
+=======
+// const arr = [1, 2, 3, 4]
+// const f = arr[0]
+// const s = arr[1]
+>>>>>>> 2018\9\29
 
 //解构赋值的方式(一一对应)
 const [f, s] = [1, 2, 3, 4]
@@ -87,7 +112,12 @@ let merged = { ...object1, ...object2 } // {a:1, b:30, c:40, d:50}
 /*
     3.数组拷贝
  */
+<<<<<<< HEAD
 const arrCopy = [...arr]
+=======
+const arr = [1, 2, 3, 4];
+const arrCopy = [...arr];
+>>>>>>> 2018\9\29
 
 
 
@@ -162,6 +192,7 @@ let difference = new Set([...a].filter(x => !b.has(x)));
 // 遍历数组，改变原来的 Set 结构
 // 
 // // 方法一
+<<<<<<< HEAD
 let set = new Set([1, 2, 3]);
 set = new Set([...set].map(val => val * 2));
 // set的值是2, 4, 6
@@ -169,6 +200,15 @@ set = new Set([...set].map(val => val * 2));
 // 方法二
 let set = new Set([1, 2, 3]);
 set = new Set(Array.from(set, val => val * 2));
+=======
+let set1 = new Set([1, 2, 3]);
+set1 = new Set([...set].map(val => val * 2));
+// set的值是2, 4, 6
+
+// 方法二
+let set2 = new Set([1, 2, 3]);
+set2 = new Set(Array.from(set, val => val * 2));
+>>>>>>> 2018\9\29
 // set的值是2, 4, 6
 // 
 
@@ -193,7 +233,11 @@ m.get(o) // "content"
 m.has(o) // true
 m.delete(o) // true
 m.has(o) // false
+<<<<<<< HEAD
 map.clear() //没有返回值
+=======
+m.clear() //没有返回值
+>>>>>>> 2018\9\29
 //
 //
 //遍历方法
@@ -201,7 +245,11 @@ const map = new Map([
     ['F', 'no'],
     ['T', 'yes'],
 ]);
+<<<<<<< HEAD
 [...map]
+=======
+console.log([...map])
+>>>>>>> 2018\9\29
 
 //[['F', 'no'], ['T', 'yes']]
 //
@@ -240,12 +288,20 @@ for (let [key, value] of map) {
 // 
 // 
 
+<<<<<<< HEAD
 
 
 
 /*
     6.使用reduce取代map和filter
  */
+=======
+/*
+    6.使用reduce取代map和filter
+ */
+// 数组中的每个值(从左到右)开始合并,最终为一个值.
+
+>>>>>>> 2018\9\29
 const numbers = [10, 20, 30, 40];
 const doubledOver50 = numbers.reduce((finalList, num) => {
     num = num * 2;
@@ -254,7 +310,44 @@ const doubledOver50 = numbers.reduce((finalList, num) => {
     }
     return finalList;
 }, []);
+<<<<<<< HEAD
 doubledOver50(); // [60, 80]
 //
 //
 //使用reduce匹配圆括号
+=======
+console.log(doubledOver50); // [60, 80]
+//
+//之前值、当前值、索引值以及数组本身
+//
+//1、数组求和
+var sum = [1, 2, 3, 4].reduce(function(previous, current, index, array) {
+    console.log(previous, current, index, array)
+    return previous + current;
+});
+// [1, 2, 3, 4]======> 1  2  1  [1,2,3,4]
+// [3, 3, 4]   ======> 3  3  2  [1,2,3,4]
+// [6, 4]      ======> 6  4  3  [1,2,3,4]
+console.log(sum); // 10
+//
+//
+//
+//2、二维数组转为一维数组
+var array = [
+    [1, 2],
+    [3, 4],
+    [5, 6]
+].reduce((acc, cur) => {
+    return acc.concat(cur)
+}, []);
+
+console.log(array) // [ 0, 1, 3, 4, 5, 6 ]
+
+// 3、计算数组中每个元素出现的次数
+const arraySum = (arr, val) => arr.reduce((pre, cur) => {
+    return cur == val ? ++pre : pre + 0
+}, 0);
+
+let arr3 = [0, 1, 3, 0, 2, 0, 2, 3]
+console.log(arraySum(arr3, 0)) // 数组arr中 0 元素出现的次数为3
+>>>>>>> 2018\9\29
