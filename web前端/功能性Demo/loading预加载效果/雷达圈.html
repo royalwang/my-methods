@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>预载动画五：雷达圈</title>
+    <style type="text/css">
+    #preloader-5 {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #preloader-5 span {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border: 5px solid #fff;
+        border-radius: 999px;
+        opacity: 0;
+        animation: radar 2s infinite linear;
+    }
+
+    #preloader-5 span:nth-child(1) {
+        animation-delay: 0s;
+    }
+
+    #preloader-5 span:nth-child(2) {
+
+        animation-delay: 0.66s;
+    }
+
+    #preloader-5 span:nth-child(3) {
+        animation-delay: 1.33s;
+    }
+
+    @keyframes radar {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        25% {
+            transform: scale(0);
+            opacity: 0.5;
+        }
+
+        50% {
+            transform: scale(1);
+            opacity: 1.0;
+        }
+
+        75% {
+            transform: scale(1.5);
+            opacity: 0.5;
+        }
+
+        100% {
+            transform: scale(2);
+            opacity: 0;
+        }
+    }
+    </style>
+</head>
+
+<body style="background: #f9553f;">
+    <div id="preloader-5">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</body>
+
+</html>

@@ -73,7 +73,7 @@ var PostByIframe = (function(window, document, $) {
             var formHtml = '',
                 inputHtml = '',
                 data = this.data;
-
+    
             formHtml += '<form' +
                 ' target=' + self.iframeId +
                 ' method=' + self.type +
