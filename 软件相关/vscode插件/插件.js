@@ -1,3 +1,5 @@
+
+
 /* 
     Auto Close Tag
         自动添加HTML / XML关闭标签（ 必备）
@@ -10,7 +12,7 @@
 
 /* 
     Beautify
-        格式化javascript， JSON， CSS， Sass， 和HTML
+        格式化javascript， JSON， CSS， Sass， 和HTML (必备)
         Alt + shift + F
 */
 
@@ -20,14 +22,14 @@
  */
 
 /* 
-   Code Runner
-       非常强大的一款插件， 能够运行多种语言的代码片段或代码文件： C， C++，Java， JavaScript， PHP， Python， Perl， Ruby， Go等等， 安装完成后， 右上角出现：
-*/
-
-/* 
-   Document This
-       添加注释块
+    Document This
+       添加注释块（ 必备）
        快捷键： 按两次Ctrl + alt + d
+*/
+/* 
+    vscode-fileheader
+        文件头部注释
+        快捷键：Ctrl + alt + i
 */
 
 /* 
@@ -41,11 +43,6 @@
 */
 
 /* 
-    CSS Peek
-        在HTML里面鼠标移到类名上按住ctrl + 单击， 会直接跳转到这个类名设置的样式文件及样式位置
-*/
-
-/* 
     JavaScript(ES6) code snippets
         es6代码片段（ 必备）
 */
@@ -56,11 +53,29 @@
 */
 
 /* 
+    px2rem
+        px值转rem，默认根字体16px
+
+*/
+/* 
+    CSS Peek
+        在HTML里面鼠标移到类名上按住ctrl + 单击， 会直接跳转到这个类名设置的样式文件及样式位置
+*/
+
+/* 
     open in browser
         当前的 html 文件用浏览器打开
         快捷键alt + b
 */
 
+/* 
+    Code Runner
+       非常强大的一款插件， 能够运行多种语言的代码片段或代码文件： C， C++，Java， JavaScript， PHP， Python， Perl， Ruby， Go等等， 安装完成后， 右上角出现：
+*/
+/* 
+    Live Server
+        http服务器（ 相当于使用nodejs的http - server， 首选项 - 设置 - 用户设置可配置更改端口：” liveServer.settings.port”: 8999）
+*/
 /* 
     Path Intellisense
         路径自动补全（ 必备）
@@ -70,7 +85,6 @@
     vscode-icons
         目录树图标
 */
-
 
 /* 
     vetur
@@ -90,6 +104,7 @@
 /* 
     Minify
         用于压缩合并 JavaScript 和 CSS 文件
+        Fn + F1
 */
 
 /* 
