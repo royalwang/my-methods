@@ -31,7 +31,6 @@ arr.forEach((item, index) => {
     3.map(item,index,arr)   (有返回值，返回一个新数组)
 
          every()，some()，filter()，reduce()，reduceRight()
-
  */
 
 let arrData = arr.map((item, index) => {

@@ -1,0 +1,275 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" href="../../../js框架/mui框架/css/mui.min.css">
+    <link rel="stylesheet" href="../../../js框架/mui框架/fonts/mui.ttf">
+    <style type="text/css">
+        /*登录*/
+        .logon {
+            padding: 10px 0 20px 0;
+            margin-top: 2px;
+            padding-bottom: 0;
+        }
+
+        .logon label {
+            width: 28%;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .logon .mui-input-row .mui-input-clear,
+        .logon .mui-input-row .mui-input-password {
+            width: 72%;
+            padding-right: 40px;
+        }
+
+        .logon:before {
+            height: 0;
+        }
+
+        .logon:after {
+            height: 0 !important;
+        }
+
+        .btn-box input[type="submit"] {
+            background-color: #007aff;
+        }
+
+        .login-row {
+            display: block;
+            width: 90%;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .login-row:after {
+            height: 0 !important;
+        }
+
+        .login-row:first-child {
+            margin-top: 20px;
+            margin-bottom: 14px;
+        }
+
+        .login-row input {
+            width: 100% !important;
+            border: solid 1px #E5E5E5;
+            padding-left: 40px;
+        }
+
+        .login-row .iconfont {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+            color: #888;
+        }
+
+        .login-row a {
+            font-size: 14px;
+            color: #999999;
+        }
+
+        .login-row .mui-btn {
+            width: 100%;
+            line-height: 30px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">登录</h1>
+    </header>
+    <div id="pullrefresh" class="mui-content mui-scroll-wrapper art-bg">
+        <div class="mui-scroll art-bg">
+            <form class="mui-input-group logon" id="frmLogin">
+                <!--<ul class="mui-table-view ">-->
+
+                <div class="login-row mui-input-row">
+                    <!--<label for="memberName">账 号</label>-->
+                    <span class="iconfont icon-dengluzhanghao"></span>
+                    <input id="memberName" name="memberName" type="text" class="mui-input-clear" placeholder="请输入手机号/邮箱">
+                </div>
+                <div class="login-row mui-input-row">
+                    <!--<label for="password">密 码</label>-->
+                    <span class="iconfont icon-mima"></span>
+                    <input id="password" name="password" type="password" class="mui-input-password"
+                        placeholder="请输入密码">
+                </div>
+
+                <!--</ul>-->
+                <div class="btn-box login-row">
+                    <button type="button" class="mui-btn mui-btn-blue entry" id="btnLogin">登录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../../../js框架/mui框架/js/mui.min.js"></script>
+    <script type="text/javascript" src="../../../三方库/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../../三方库/validate/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        var mshop = mshop || {
+            version: "1.0",
+            author: "xizm"
+        };
+        /**
+         * mshop validate(表单验证)
+         * 使用jquery.validate
+         * @param {Object} $
+         * @param {Object} window
+         * @param {Object} undefined
+         */
+        (function ($, window, undefined) {
+            /**
+            * 表单验证类
+            * @describe 验证表单输入项
+            * @author 奚志敏 2015-12-25
+            * @params options 选项，格式为{参数1: 值1, 参数2: 值2}
+            * 此处必要参数为:
+            * form: 表单名称，如#frmEdit
+            * rules: 验证规则，具体参见jquery.validate
+            * messages: 错误提示信息，具体参见jquery.validate
+            * @return 返回jquery.validate对象
+            * @examples
+                        var formValidator = mshop.validator({
+                            form: "#frmLogin",
+                            rules: {
+                                userName: {
+                                    required: true,
+                                    maxlength: 20
+                                },
+                                password: {
+                                    required: true,
+                                    minlength: 6,
+                                    maxlength: 16
+                                }
+                            },
+                            messages: {
+                                    userName: {
+                                        required: '请输入用户名',
+                                        maxlength: '用户名最多可输入20个字符'
+                                    },
+                                    password: {
+                                        required: '请输入密码',
+                                        minlength: '密码请输入6-16个字符',
+                                        maxlength: '密码请输入6-16个字符'
+                                    }
+                            }
+                        });
+                        //验证不通过
+                        if(!formValidator.form()){
+                        return false;
+                        };
+            */
+            $.validator = function (options) {
+                options = options || {};
+
+                var _form = options.form;
+                var _rules = options.rules;
+                var _messages = options.messages;
+
+                /**
+                 * 使用jquery.validate进行表单验证
+                 * @author 奚志敏 2015-12-25
+                 */
+                var vtor = jQuery(_form).validate({
+                    //表单验证规则
+                    rules: _rules,
+                    //表单错误时的响应信息
+                    messages: _messages,
+                    /**
+                     * 验证不通过时执行方法
+                     */
+                    invalidHandler: function (form, vr) {
+                        // console.log(form)
+                        // console.log(vr)
+                        jQuery.each(vr.invalid, function (key, value) {
+                            tmpkey = key;
+                            tmpval = value;
+                            vr.invalid = {};
+                            vr.invalid[tmpkey] = value;
+                            // $.toast(value);
+                            alert(value)
+                            return false;
+                        });
+                    },
+                    /**
+                     * 覆写错误提示位置方法
+                     * 此处不做任何处理，由invalidHandler中弹出信息提示
+                     * @param {Object} error
+                     * @param {Object} element
+                     */
+                    errorPlacement: function (error, element) {}
+                });
+
+                return vtor;
+            };
+        })(mshop, window);
+    </script>
+    <script type="text/javascript">
+        /**
+         * @description 登录界面业务js
+         * @author xizm 2016-12-23
+         */
+        /**
+         * 登录按钮点击事件
+         */
+        document.getElementById("btnLogin").addEventListener('tap', function () {
+            //创建表单验证对象
+            var formValidator = mshop.validator({
+                form: "#frmLogin",
+                rules: {
+                    memberName: {
+                        required: true,
+                        maxlength: 20
+                    },
+                    password: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 16
+                    }
+                },
+                messages: {
+                    memberName: {
+                        required: '请输入手机号/邮箱',
+                        maxlength: '账号最多可输入20个字符'
+                    },
+                    password: {
+                        required: '请输入密码',
+                        minlength: '密码请输入1-16个字符',
+                        maxlength: '密码请输入1-16个字符'
+                    }
+                }
+            });
+
+            //验证不通过
+            if (!formValidator.form()) {
+                return false;
+            };
+
+            //取得用户名和密码
+            var memberName = document.getElementById("memberName").value;
+            var password = document.getElementById("password").value;
+
+            alert('登录成功！！！');
+        });
+        //监听a标签，解决href无法跳转
+        mui('body').on('tap', 'a', function () {
+            var url = this.getAttribute('href');
+            if (url != null && url != "" && url != undefined && url != "javascript:;") {
+                location.href = this.getAttribute('href');
+            }
+        });
+    </script>
+</body>
+
+</html>
