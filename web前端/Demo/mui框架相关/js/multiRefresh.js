@@ -108,25 +108,25 @@ WebPage.prototype = {
         if (mui.os.plus) {
             mui.plusReady(function() {
                 setTimeout(function() {
-                    mui('#pullrefresh').pullRefresh().pullupLoading();
+                    mui('#pullrefresh0').pullRefresh().pullupLoading();
                 }, 10);
             });
         } else {
             //初始化下拉加载
             // mui.ready(function() {
-            //     mui('#pullrefresh0').pullRefresh().pullupLoading();
+            //     mui('#pullrefresh0').pullRefresh().pullupLoading();//初始化正在加载
             // });
         }
     },
     // 刷新数据
     refresh: function() {
         // 每次刷新页码回归第一页
-        console.log("刷新了");
         page.pageSize = 1; //分页重置
         page.renderList(page.policiesType, 1, 2, 0);
         setTimeout(function() {
             //二次加载重新开启刷新，恢复滚动
             mui(page.$reContent).pullRefresh().refresh(true);
+            console.log("刷新了");
             console.log(`当前${page.pageSize}页`);
         }, 600);
         //结束下拉刷新true，继续加载false
@@ -148,7 +148,7 @@ WebPage.prototype = {
     renderList: function(type, pageIndex, pageSize, acntionMode) {
         var _self = this;
         //模拟后台接口
-        var jsonData = [{ name: "张三", describe: "今天是2018/09/05，哈哈哈哈哈哈哈哈哈哈哈哈哈", county: "河北区", time: "2018/6/1", type: "1" }, { name: "李四", describe: "今天天气非常好", county: "红桥区", time: "2018/8/23", type: "2" }, { name: "王五", describe: "秋高气爽，艳阳高照", county: "南开区", time: "2018/10/7", type: "0" }];
+        var jsonData = [{ name: "张三", describe: "今天是2018/09/05，哈哈", county: "河北区", time: "2018/6/1", type: "1" }, { name: "李四", describe: "今天天气非常好", county: "红桥区", time: "2018/8/23", type: "2" }, { name: "王五", describe: "秋高气爽，艳阳高照", county: "南开区", time: "2018/10/7", type: "0" }];
         // 需要填充的容器(找到ul，填充li)
         var $renderBox = _self.$reContent.find("ul.mui-table-view");
         //如果数据大于0就解析数据，否则告诉程序没有数据不允许加载了
