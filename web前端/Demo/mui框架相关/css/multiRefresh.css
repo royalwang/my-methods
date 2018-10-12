@@ -1,0 +1,119 @@
+﻿@charset "UTF-8";
+
+	html,body{
+		font-size: 0.857em;
+		background-color: #FFFFFF;
+		touch-action: none;   /*这样任何触摸事件都不会产生默认行为，但是 touch 事件照样触发。*/
+	}
+    .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+   		text-decoration: none !important;
+   		color: red !important;
+   }
+    .mui-bar-nav {
+    	box-shadow:none;
+    	border-bottom: 1px solid #DDDDDD;	
+    }
+	/*下面导航*/
+	.mui-segmented-control .mui-control-item {
+		border-right: 1px solid #DDDDDD !important;
+		line-height: 45px;
+	}
+	.mui-segmented-control .mui-control-item:last-child {
+		border-right: none !important;
+	}
+	.magLeft {
+		margin-left: 5px;
+	}
+	.mui-bar-nav~.mui-content .mui-pull-top-pocket {
+		top: -7px !important;
+	}
+	.mui-pull {
+		bottom: 0 !important;
+	}
+	.mui-pull-bottom-pocket {
+		line-height: 40px;
+	}
+	.mui-table-view-cell:after {
+		right: 15px;
+	}
+	.mui-pull-bottom-pocket {
+		position: absolute;
+		bottom: -40px;
+	}
+	.mui-segmented-control.mui-scroll-wrapper .mui-scroll {
+		height:  37px;
+	}
+	.mui-slider-indicator.mui-segmented-control {
+		background-color: #fff;
+	}
+	/*下面刷新的盒子距离上面边距*/
+	.mui-fullscreen .mui-segmented-control~.mui-slider-group{
+		top: 45px;
+	}
+	/*菜单栏行高*/
+	
+	.mui-table-view-chevron .mui-table-view-cell>a:not(.mui-btn) {
+		margin-right: 0;
+	}
+	.mui-table-view-chevron .mui-table-view-cell {
+		padding-right: 15px;
+	}
+	.mui-slider-item{
+		border-top: 0;
+	}
+	.fontBase {
+		font-weight: normal;
+		line-height: 21px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+	.fh4 {
+	    font-size: 16px;
+	    color: #000;
+	}
+	.fh5 {
+		font-size: 14px;
+		color: #8f8f94;
+	}
+	.leftCheckbox {
+		display: none;
+	}
+	.newCheckbox {
+		left: -1px !important;
+		top: -0.5px !important;
+	}
+	.paddLeft {
+		padding-left: 15px;
+	}
+	.padBox8 {
+		padding-left: 10px;
+	}
+	.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before {
+		color: #007aff;
+	}
+	.mui-checkbox input[type=checkbox]:checked:before {
+		content: '\e442';
+	}
+	.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {
+		    border-top: 1px solid #DDDDDD;
+	}
+	.mui-bar-tab .mui-tab-item {
+		font-size: 15px;
+	}
+	.font15 {
+		font-size: 15px !important;
+	}
+	.navBox {
+		display: none;
+	}
+	.fonti {
+		font-size: 15px !important;
+		padding-top: 11.5px !important;
+		padding-bottom: 11.5px !important;
+	}
+	.fonti>i {
+		margin-left: 5px;
+		font-size: 16px !important;
+	}
+
