@@ -125,7 +125,7 @@ WebPage.prototype = {
         page.pageSize = 1; //分页重置
         page.renderList(page.policiesType, 1, 2, 0);
         setTimeout(function() {
-            //二次加载重新开启刷新
+            //二次加载重新开启刷新，恢复滚动
             mui(page.$reContent).pullRefresh().refresh(true);
             console.log(`当前${page.pageSize}页`);
         }, 600);
@@ -139,17 +139,16 @@ WebPage.prototype = {
             firstLoading = false;
         }
         // 判断是否还有数据
-        page.renderList(page.policiesType, ++page.pageSize, 2, 1);
+        // 
+        setTimeout(function() {
+            page.renderList(page.policiesType, ++page.pageSize, 2, 1);
+        }, 800);
         console.log(`当前${page.pageSize}页`);
     },
     renderList: function(type, pageIndex, pageSize, acntionMode) {
         var _self = this;
         //模拟后台接口
         var jsonData = [{ name: "张三", describe: "今天是2018/09/05，哈哈哈哈哈哈哈哈哈哈哈哈哈", county: "河北区", time: "2018/6/1", type: "1" }, { name: "李四", describe: "今天天气非常好", county: "红桥区", time: "2018/8/23", type: "2" }, { name: "王五", describe: "秋高气爽，艳阳高照", county: "南开区", time: "2018/10/7", type: "0" }];
-        _self.renderList1(jsonData, acntionMode);
-    },
-    renderList1: function(jsonData, acntionMode) {
-        var _self = this;
         // 需要填充的容器(找到ul，填充li)
         var $renderBox = _self.$reContent.find("ul.mui-table-view");
         //如果数据大于0就解析数据，否则告诉程序没有数据不允许加载了
@@ -179,22 +178,22 @@ WebPage.prototype = {
             if (acntionMode == 0) {
                 // 刷新时应替换数据
                 $renderBox.html(li);
-                setTimeout(function() {
-                    //结束上拉刷新
-                    mui(page.$reContent).pullRefresh().endPulldownToRefresh();
-                }, 800);
+                //结束上拉刷新
+                mui(page.$reContent).pullRefresh().endPulldownToRefresh();
             } else {
                 // 加载时应追加数据
                 $renderBox.append(li);
-                setTimeout(function() {
-                    //结束下拉加载true
-                    //继续加载false
-                    console.log(page.pageSize);
-                    mui(page.$reContent).pullRefresh().endPullupToRefresh(page.pageSize >= 2 ? true : false);
-                }, 800);
+                //结束下拉加载true
+                //继续加载false
+                console.log(page.pageSize);
+                mui(page.$reContent).pullRefresh().endPullupToRefresh(page.pageSize >= 2 ? true : false);
             }
 
         } else {
+            /**
+             * @param    {[type]}   acntionMode [没数据时加载模式]
+             * @return   {[type]}               [description]
+             */
             if (acntionMode == 0) {
                 // 刷新时应替换数据
                 $renderBox.html("");
