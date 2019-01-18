@@ -46,7 +46,7 @@
                 el: ".content",
                 data: {
                     minirefresh: null,
-                    maxDataSize: 30,
+                    maxDataSize: 5,
                     requestDelayTime: 600,
                     counter: 0,
                     listData: []
@@ -70,7 +70,7 @@
                         var self = this;
 
                         setTimeout(function() {
-                            self.listData = self.createTestData(10, true);
+                            self.listData = self.createTestData(2, true);
                             self.miniRefresh.endDownLoading(true);
                         }, self.requestDelayTime);
                     },
@@ -78,7 +78,7 @@
                         var self = this;
 
                         setTimeout(function() {
-                            self.listData = self.listData.concat(self.createTestData(10));
+                            self.listData = self.listData.concat(self.createTestData(2));
                             self.miniRefresh.endUpLoading(self.listData.length >= self.maxDataSize ? true : false);
                         }, self.requestDelayTime);
                     },

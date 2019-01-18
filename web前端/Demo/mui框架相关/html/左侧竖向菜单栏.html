@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>产品分类</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../../../js框架/mui框架/css/mui.min.css">
+    <style type="text/css">
+    /*分类页面*/
+
+    .class-bg {
+        background: #FFFFFF !important;
+    }
+
+    .mui-row.mui-fullscreen>[class*="mui-col-"] {
+        height: 100%;
+    }
+
+    .mui-col-xs-3,
+    .mui-control-content {
+        overflow-y: auto;
+        height: 100%;
+    }
+
+    .mui-segmented-control .mui-control-item {
+        width: 100%;
+    }
+
+    .fir-class .mui-control-item {
+        border-bottom: 0 !important;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .fir-class .mui-control-item.mui-active {
+        background-color: #fff;
+        border-left: solid 4px #007AFF;
+    }
+
+    #segmentedControlContents img {
+        width: 22vw;
+        height: 22vw;
+        margin: 5%;
+    }
+
+    .mui-control-content .pc-p-name {
+        font-size: 12px;
+        text-align: center;
+        color: #333333;
+    }
+
+    #segmentedControlContents .mui-row {
+        margin: 0 2% 10px;
+    }
+
+    .class-tit {
+        font-size: 12px;
+        line-height: 30px;
+        color: #333333 !important;
+        position: relative;
+        text-align: center;
+    }
+
+    .class-tit:before {
+        content: "";
+        width: 80px;
+        height: 1px;
+        background: #e5e5e5;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -120px;
+    }
+
+    .class-tit:after {
+        content: "";
+        width: 80px;
+        height: 1px;
+        background: #e5e5e5;
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        margin-right: -120px;
+    }
+
+    .class-fir-img {
+        width: 67vw !important;
+        height: 20vw !important;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="menu" class="mui-content mui-row mui-fullscreen class-bg">
+        <div class="mui-col-xs-3 mui-scroll-wrapper" style="position: relative !important;width: 25% !important;margin: 0 !important;">
+            <div id="segmentedControls" class="mui-segmented-control mui-scroll mui-segmented-control-inverted mui-segmented-control-vertical fir-class" style="height: auto !important;">
+                <!-- <a class="mui-control-item active" href="#">当季水果</a>
+                <a class="mui-control-item" href="#">特价促销</a>
+                <a class="mui-control-item" href="#">人气水果</a> -->
+            </div>
+        </div>
+        <div id="segmentedControlContents" class="mui-col-xs-9 mui-scroll-wrapper" style="position: relative !important;width: 75% !important;margin: 0 !important;border-left: 1px solid #c8c7cc;">
+            <div id="content1" class="mui-control-content mui-scroll mui-active" style="height: auto !important;">
+                <!--<img class="class-fir-img" src="../../img/default.jpg"/>
+					<div id="categoryA" class="class-tit"></div>
+					<ul class="mui-table-view" id="categoryB" >
+						<li class="mui-col-xs-4">
+							<a href="productList.html">
+								<img src="../../img/007.png"/>
+								<div class="pc-p-name">蛋糕</div>
+							</a>
+						</li>	
+						<div class="mui-clearfix"></div>
+					</ul>-->
+                <ul class="pro-list-box">
+                    <!-- 二级菜单 -->
+                    <!--<li class="mui-card">
+							<a href="#" class="mui-card-content">
+								<img class="fl" src="../images/free-box-bg.png"/>
+								<div class="fl pc-right">
+									<div class="pc-name">商品名称</div>
+									<div class="pc-rm">
+										<span>热卖</span>
+									</div>
+									<div class="pc-money">
+										<span>￥99.99</span>
+										<del>￥99.99</del>
+									</div>
+									<a class="iconfont icon-tubiao4 pc-add" href="javascript:;"></a>
+								</div>
+								<div class="clear"></div>
+							</a>
+						</li>
+						<li class="mui-card">
+							<a href="#" class="mui-card-content">
+								<img class="fl" src="../images/free-box-bg.png"/>
+								<div class="fl pc-right">
+									<div class="pc-name">商品名称</div>
+									<div class="pc-rm">
+										<span>热卖</span>
+									</div>
+									<div class="pc-money">
+										<span>￥99.99</span>
+										<del>￥99.99</del>
+									</div>
+									<a class="iconfont icon-tubiao4 pc-add" href="javascript:;"></a>
+								</div>
+								<div class="clear"></div>
+							</a>
+						</li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="navIndex" value="product" />
+    <script type="text/javascript" src="../../../js框架/mui框架/js/mui.min.js"></script>
+    <!-- <script type="text/javascript" src="../../js/footer.js?j=1&bj=imageUtil.js,product/productClass.js,../lib/jquery.min.js,../lib/jquery.fly.js,back-top.js" id="js_footer"></script> -->
+    <script type="text/javascript">
+    var mshop = mshop || {
+        version: "1.0",
+        author: "yt.nie"
+    };
+    /**
+     * mshop util(工具类)
+     */
+    (function($, window, undefined) {
+        /**
+         * 重新整理对象，将对象属性为数组的值转换为字符串
+         * 可应于ajax，将传递的data参数中数组转换为字符串
+         * @param {Object} obj 格式为{key: value}
+         * @return	整理完的对象
+         */
+        $.convertObjAry2Str = function(obj) {
+            if (!obj) {
+                return {};
+            };
+
+            var newObj = {};
+            for (var p in obj) {
+                if (null != obj[p] && undefined != obj[p] &&
+                    obj[p] != "function" && obj[p].constructor != Function) { //非函数
+                    if (Array.isArray(obj[p])) { //数组
+                        newObj[p] = obj[p].join();
+                    } else {
+                        newObj[p] = obj[p];
+                    };
+                };
+            };
+
+            return newObj;
+        };
+
+    })(mshop, window);
+
+    /**
+     * mshop ajax(AJAX)
+     */
+    (function($, window, undefined) {
+        $.SERVICEURL = "http://wx.tjncp.com/mshopservice/";
+
+        /**
+         * 判断是否登录
+         * @param {Object} options	参数
+         * @return true: 已登录; false: 未登录
+         */
+        // var checkLogin = function(options) {
+        //     //登录超时
+        //     if (null != options && undefined != options &&
+        //         null != options.sessionExpired && undefined != options.sessionExpired &&
+        //         true == options.sessionExpired) {
+        //         return false;
+        //     };
+
+        //     return true;
+        // };
+
+        /**
+         * 失败/错误处理方法
+         * @param {Object} arg1		失败时值为data; 错误时值为xhr
+         * @param {Object} arg2		失败时值为textStatus; 错误时值为type
+         * @param {Object} arg3		失败时值为xhr; 错误时值为errorThrown
+         * @param {Object} data		错误信息
+         * @param {Object} onEvent	失败/错误事件
+         */
+        var onError = function(arg1, arg2, arg3, data, onErrorEvent) {
+            //检测是否登录
+            // if (!checkLogin(data)) {
+            //     //取得当前页url
+            //     var originUrl = $.currentUrl();
+            //     //取得url的前半段
+            //     var url = $.domainUrl();
+            //     location.href = url + $.LOGINPAGE + "?" + $.ORIGINURLVAR + "=" + originUrl;
+            //     return;
+            // };
+
+            //执行出错后事件
+            if (null != onErrorEvent && undefined != onErrorEvent) {
+                onErrorEvent(arg1, arg2, arg3);
+            };
+        };
+
+        /**
+	 * ajax请求
+	 * @describe 对$.ajax进行封装
+	 * @param {Object} url		请求的url地址，不带域名
+	 * @params {Object} settings	选项，格式为{参数1: 值1, 参数2: 值2}
+	 * 				   参数(都为非必要参数):
+	 * 						async: 是否异步，可为空，默认为true异步
+	 * 						data: 发送到服务器的业务数据, 可为空，格式为: {key: value}
+	 * 						dataType: 预期服务器返回的数据类型，可为空，默认为"json"，取值：xml/html/script/json/text
+	 * 						timeout: 超时时间，可为空，默认为5000ms 
+	 * 						type: 提交类型，可为空，取值：get/post，默认为"post"
+	 * 						headers: 指定HTTP请求的Header
+	 * 						processData: 是否沿袭旧的处理方式，默认为true
+	 *						showMsg: 是否自动显示返回的错误信息，默认为false
+	 * 						loadingSelector: 加载中的显示容器，默认为空
+	 * 						success: 成功后执行事件，可为空
+	 * 						fail: 失败后执行事件，可为空
+	 * 						error: 出错后执行事件，可为空
+	 * @examples 
+	 *		mshop.ajax(url: "", {
+		    	data: {},
+				success: function(data, textStatus, xhr) {
+				},
+				fail: function(data, textStatus, xhr){},
+				error: function(xhr,type,errorThrown){}
+		    }); 
+	 */
+        $.ajax = function(url, settings) {
+            /**
+             * 加上远程服务器的地址
+             */
+            url = $.SERVICEURL + url;
+            /**
+             * 是否异步请求
+             * 取值：true: 异步; false: 同步
+             */
+            var _async = ((null == settings.async || undefined == settings.async) ? true : settings.async);
+            /**
+             * 发送到服务器的业务数据
+             * 格式为: {key: value}
+             */
+            var _data = ((null == settings.data || undefined == settings.data) ? {} : settings.data);
+            //将data中数组属性转换为字符串
+            _data = $.convertObjAry2Str(_data);
+            /**
+             * 预期服务器返回的数据类型
+             * 取值：xml/html/script/json/text
+             */
+            var _dataType = ((null == settings.dataType || undefined == settings.dataType) ? "json" : settings.dataType);
+            //提交的超时时间(默认5s)
+            var _timeout = ((null == settings.timeout || undefined == settings.timeout) ? 5000 : settings.timeout);
+            /**
+             * 取值：get/post
+             */
+            var _type = ((null == settings.type || undefined == settings.type) ? "post" : settings.type);
+            /**
+             * 指定HTTP请求的Header
+             */
+            var _headers = ((null == settings.headers || undefined == settings.headers) ? {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            } : settings.headers);
+            var _processData = ((null == settings.processData || undefined == settings.processData) ? true : settings.processData);
+            /**
+             * 是否自动显示后台返回的错误信息
+             */
+            var _showMsg = ((null == settings.showMsg || undefined == settings.showMsg) ? false : settings.showMsg);
+            /**
+             * 加载中的显示容器
+             */
+            var _loadingSelector = ((null == settings.loadingSelector || undefined == settings.loadingSelector) ? null : settings.loadingSelector);
+            //成功后执行事件
+            var _success = settings.success;
+            //失败后执行事件
+            var _fail = settings.fail;
+            //出错后执行事件
+            var _error = settings.error;
+
+
+            /**
+             * 发送ajax请求
+             */
+            mui.ajax(url, {
+                async: _async,
+                data: _data,
+                dataType: _dataType,
+                timeout: _timeout,
+                type: _type,
+                headers: _headers,
+                processData: _processData,
+                success: function(data, textStatus, xhr) {
+
+                    if (data.success) { //成功
+                        //执行成功后事件
+                        if (null != _success && undefined != _success) {
+                            _success(data, textStatus, xhr);
+                        };
+
+                        if (_showMsg && null != data.msg && "" != data.msg) {
+                            alert(data.msg);
+                        };
+                    } else { //失败
+                        console.log('获取数据失败')
+                        if (_showMsg) {
+                            var msg = "处理数据失败，请重试！！！";
+                            if (null != data.msg && undefined != data.msg && "" != data.msg) {
+                                msg = data.msg;
+                            }
+                            alert(msg);
+                            onError(data, textStatus, xhr, data.map, _fail);
+                        } else {
+                            onError(data, textStatus, xhr, data.map, _fail);
+                        };
+                    };
+                },
+                error: function(xhr, type, errorThrown) {
+
+                    if (_showMsg) {
+                        var msg = xhr.msg || "提交服务器失败，请重试！！！";
+                        alert(msg);
+                        onError(xhr, type, errorThrown, xhr.map, _error);
+                    } else {
+                        onError(xhr, type, errorThrown, xhr.map, _error);
+                    };
+                }
+            });
+        };
+    })(mshop, window);
+    </script>
+    <script type="text/javascript">
+    var controls = document.getElementById("segmentedControls"); //左侧菜单
+    var title = document.getElementById("categoryA");
+    var contents = document.getElementById("categoryB");
+    // 初次加载
+    mshop.ajax('product/menuCategory.mss', {
+        async: false,
+        success: function(data) {
+            var html = [];
+            mui.each(data.map.cateList, function(index, item) { //一级菜单
+                html.push('<a categoryId="' + item.categoryId + '" class="mui-control-item" href="#' + item.categoryId + '">' + item.categoryName + '</a>');
+                if (index == 0 && title != null) {
+                    title.innerText = item.categoryName;
+                };
+            });
+            controls.innerHTML = html.join('');
+            // html = [];
+            // var logo;
+            // html.push('<div class="mui-control-content mui-scroll"><ul class="mui-table-view">');
+            // mui.each(data.map.cateListB,function(index,item){//二级菜单
+            // 	if(undefined == item.logo || '' == item.logo){
+            // 		logo = "../../img/default.jpg";
+            // 	}else{
+            // 		logo = picfilepath+item.logo;
+            // 	};
+            // 	html.push('<li class="mui-col-xs-4 lt" categoryId="'+item.categoryId+'">'+
+            // 			'<a href="productClass.html">'+
+            // 				'<img src="'+logo+'"/>'+
+            // 				'<div class="pc-p-name">'+item.categoryName+'</div>'+
+            // 			'</a>'+
+            // 		'</li>'
+            // 	);
+            // 	if(index == data.map.cateListB.length-1){
+            // 		html.push('<div class="mui-clearfix"></div>');
+            // 	};
+            // });
+            // html.push('</ul></div>');
+            // if(null != contents){
+            // 	contents.innerHTML = html.join('');
+            // }
+            //默认选中第一个
+            controls.querySelector('.mui-control-item').classList.add('mui-active');
+            if (null != contents) {
+                contents.querySelector('.mui-control-content').classList.add('mui-active');
+            }
+        }
+    });
+    //右侧商品列表拼接
+    var join = function(productList, onSalePrices, mobilePic, discount, productTags) {
+        var innerHtml = '';
+        mui.each(productList, function(index, item) {
+            innerHtml += '<li class="mui-card">';
+            innerHtml += '<a style="float:left;width:100%" href="productDetail.html?productId=' + item.productId + '" class="mui-card-content">';
+            innerHtml += '<img class="fl" src="' + convert2MediumPic(picfilepath + productList[index].viewPic) + '"/>';
+            innerHtml += '<div class="fl pc-right">';
+            innerHtml += '<div class="pc-name">' + item.productName + '</div><div class="pc-rm">';
+            if (productList[index].introduce != null & productList[index].introduce != "") {
+                innerHtml += '<span class="pl-text">' + productList[index].introduce + '</span>';
+            }
+            innerHtml += '</div><div class="pc-rm">';
+            if (productTags[index] != null & productTags[index] != "") {
+                innerHtml += '<span>' + productTags[index] + '</span>';
+            }
+            innerHtml += '</div><div class="pc-money">';
+            innerHtml += '<span>￥' + parseFloat(item.price * (discount[index] == null ? 10 : discount[index]) * 0.1).toFixed(2) + '</span>';
+            if (undefined != item.marketPrice && null != item.marketPrice && item.marketPrice > 0) {
+                innerHtml += '<del>';
+                innerHtml += parseFloat(item.marketPrice).toFixed(2);
+                innerHtml += '</del>';
+            }
+            innerHtml += '<span class="pl-text">&nbsp&nbsp销量' + (item.salesVolume + item.virtualSales) + '</span>';
+            innerHtml += '</div></div>';
+            innerHtml += '</a>';
+            // 购物车图标
+            innerHtml += '<a class="iconfont icon-tubiao4 pc-add" productId="' + item.productId + '" isOpenSpec="' + item.isOpenSpec + '" href="javascript:;"></a>';
+            //		innerHtml += '</div>';
+            // innerHtml += '<div class="clear"></div>';
+            //		innerHtml += '</a>';
+            innerHtml += '</li>';
+        });
+
+        return innerHtml;
+    }
+    /**
+     * 加载商品列表
+     * @param {Object} isFirst	是否第一次 true:是; false:否
+     * @param {Object} index	当前最大商品个数，用于分页，第一页为0
+     * @param {Object} keyword	关键词
+     * @param {Object} categoryId	类别id
+     */
+    var loadProductList = function(isFirst, index, keyword, categoryId) {
+        mshop.ajax('product/loadMoreCate.mss', {
+            data: {
+                num: 6,
+                index: index,
+                categoryId: categoryId,
+                keyword: keyword
+            },
+            success: function(data) {
+                //恢复滚动
+                mui('#segmentedControlContents').pullRefresh().refresh(true);
+                //			if(isFirst) {//第一次加载时，滚动到顶部
+                //				mui('#segmentedControlContents').pullRefresh().scrollTo(0,0,100); 
+                //			};
+                var onSalePrices = data.map.onSalePrices;
+                var mobilePic = data.map.mobilePic;
+                var productList = data.map.products;
+                var discount = data.map.productsdiscount;
+                var productTags = data.map.productTags;
+                var innerHtml = "";
+                if (productList == null || productList == "") {
+                    if (isFirst) {
+                        innerHtml += '<div class="mui-content go-shopping">';
+                        innerHtml += '<p>暂时没有商品<span class="mui-icon  iconfont icon-gouwuche"></span></p>';
+                        innerHtml += '</div>';
+                        document.getElementsByClassName('pro-list-box')[0].innerHTML = innerHtml;
+                        mui('#segmentedControlContents').pullRefresh().endPullupToRefresh(true);
+                    };
+
+                    return false;
+                };
+                innerHtml += join(productList, onSalePrices, mobilePic, discount, productTags);
+                if (!isFirst) {
+                    innerHtml = document.getElementsByClassName("pro-list-box")[0].innerHTML + innerHtml;
+                };
+                document.getElementsByClassName('pro-list-box')[0].innerHTML = innerHtml;
+
+                var noMore = 'true' == data.msg ? true : false;
+                //设置是否允许下拉加载
+                mui('#segmentedControlContents').pullRefresh().endPullupToRefresh(noMore);
+
+                //监听a标签，解决href无法跳转
+                mshop.reBindALink();
+
+                //滚动初始化
+                mui('#segmentedControlContents').scroll({
+                    deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+                });
+            }
+        });
+    }
+
+    //一级菜单绑定点击事件
+mui('#segmentedControls').on('tap', 'a', function(e) {
+    //清空商品二级类
+    if (null != contents) {
+        contents.innerHTML = "";
+    }
+    document.getElementsByClassName('pro-list-box')[0].innerHTML = "";
+    if (title) {
+        title.innerText = e.target.text;
+    }
+    categoryId = this.getAttribute('categoryId');
+    loadProductList(true, 0, "", categoryId);
+});
+    </script>
+</body>
+
+</html>
